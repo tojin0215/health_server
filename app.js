@@ -20,7 +20,7 @@ app.use(bodyParser.json())
 app.get('/', (req, res) => res.send('Hello World!'))
 
 //api routes
-app.use(routers.user);
+app.use(routers.customer);
 app.use(routers.exercise);
 app.use(routers.exerciselink);
 app.use(routers.exercisepack);

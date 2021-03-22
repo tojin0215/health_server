@@ -10,7 +10,7 @@ const sequelize = new Sequelize(config.database, config.username, config.passwor
 
 db.sequelize = sequelize;
 
-db.User = require('./user')(sequelize, Sequelize); //회원
+db.Customer = require('./customer')(sequelize, Sequelize); //회원
 db.Exercise = require('./exercise')(sequelize, Sequelize); //운동
 db.AssignExercise = require('./assignExercise')(sequelize, Sequelize); //운동 배정
 db.ExerciseLink = require('./exerciseLink')(sequelize, Sequelize); //운동 링크

@@ -1,4 +1,4 @@
-const user = require('./user');
+const customer = require('./customer');
 const sales = require('./sales');
 const exercise = require('./exercise');
 const exerciselink = require('./exerciselink');
@@ -7,7 +7,7 @@ const manager = require('./manager');
 
 //api 파일 생성할 때 마다 index에도 함께 추가
 let routers = {
-    user:user,
+    customer:customer,
     sales:sales,
     exercise:exercise,
     exerciselink:exerciselink,
