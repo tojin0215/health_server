@@ -1,17 +1,17 @@
 let express = require('express');
 let router = express.Router();
-var Sales = require('../models').User;
+var Sales = require('../models').Sales;
 
 const sequelize = require("sequelize");
 const Op = sequelize.Op;
 
-router.route('/exercise')
+router.route('/sales')
     .get(function(req, res) {
         // 불러오기
         let type = req.query.type;
         Sales.findAll()
-            .then((users) => {
-                res.json(users);
+            .then((sales) => {
+                res.json(sales);
             })
             .catch((err) => {
                 console.error(err);
@@ -21,21 +21,18 @@ router.route('/exercise')
     .post(function(req, res) {
         // 쓰기
         Sales.create({
-            member_no : 0,
             fitness_no: req.body.fitness_no,
-            name: req.body.name,
-            sex:  req.body.sex, 
-            start_date: req.body.start_date,
-            period: req.body.period,
-            phone: req.body.phone,
-            solar_or_lunar: req.body.solar_or_lunar,
-            address: req.body.address,
-            join_route: req.body.join_route,
-            uncollected: req.body.uncollected,
-            in_charge: req.body.in_charge,
-            note: req.body.note,
+            member_no: req.body.member_no,
+            exerciseName:  req.body.exerciseName, 
+            exercisePrice: req.body.exercisePrice,
+            //locker:req.body.locker,
+            lockerPrice: req.body.lockerPrice,
+            //sportswear:req.body.sportswear,
+            sportswearPrice: req.body.sportswearPrice,
+            paymentTools: req.body.paymentTools,
+            paymentDate: req.body.paymentDate,
         }).then(() => {
-            res.send('Post the diary');
+            res.send({'success':'sales update!'});
         })
         .catch((err) => {
             console.error(err);
