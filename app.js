@@ -21,6 +21,11 @@ app.get('/', (req, res) => res.send('Hello World!'))
 
 //api routes
 app.use(routers.user);
+app.use(routers.exercise);
+app.use(routers.exerciselink);
+app.use(routers.exercisepack);
+app.use(routers.sales);
+app.use(routers.manager);
 //app.use(routers.bible);
 //app.use(routers.quotation);
 
