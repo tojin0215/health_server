@@ -17,5 +17,6 @@ db.ExerciseLink = require('./exerciseLink')(sequelize, Sequelize); //운동 링�
 db.ExercisePack = require('./exercisePack')(sequelize, Sequelize); //운동 묶음
 db.Sales = require('./sales')(sequelize, Sequelize); //매출
 db.Manager = require('./manager')(sequelize, Sequelize); //매니저(로그인정보)
+db.Inbody = require('./inbody')(sequelize, Sequelize); //인바디정보
 
 module.exports = db;

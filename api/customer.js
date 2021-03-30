@@ -109,7 +109,21 @@ router.route('/customer')
             note: req.body.note,
             resi_no:req.body.resi_no
         }).then(() => {
-            res.send({'success':'member update!'});
+            //res.send({'success':'member update!'});
+            Customer.findAll({
+                where:{
+                    fitness_no: req.body.fitness_no,
+                    start_date: req.body.start_date,
+                }
+            })
+            .then((customers) => {
+                res.json(customers);
+            })
+            .catch((err) => {
+                console.error(err);
+                next(err);
+            });
+            res.send(customers);
         })
         .catch((err) => {
             console.error(err);

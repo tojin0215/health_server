@@ -5,11 +5,61 @@ var Sales = require('../models').Sales;
 const sequelize = require("sequelize");
 const Op = sequelize.Op;
 
+require('moment-timezone');
+var moment = require('moment');
+moment.tz.setDefault("Asia/Seoul");
+
 router.route('/sales')
     .get(function(req, res) {
         // 불러오기
         let type = req.query.type;
-        Sales.findAll()
+        if(type === "all"){ // 전체 리스트
+            console.log(moment().format("YYYY-MM-DD"))
+            console.log(moment().add(1,'day').format("YYYY-MM-DD"))
+            Sales.findAll({
+                where: { 
+                    fitness_no: req.query.fn,
+                    //paymentDate : moment().format("YYYY-MM-DD")
+                    paymentDate : {
+                        [Op.between] : [moment().format("YYYY-MM-DD"),moment().add(1,'day').format("YYYY-MM-DD")]
+                    }
+                } 
+            })
+                .then((sales) => {
+                    res.json(sales);
+                })
+                .catch((err) => {
+                    console.error(err);
+                    next(err);
+                });
+        } else if(type === "select"){ // 전체 리스트
+            //console.log(moment(req.query.startDate).subtract(7, 'hours').format("YYYY-MM-DD"))
+            Sales.findAll({
+                where: { 
+                    fitness_no: req.query.fn,
+                    //paymentDate : moment().format("YYYY-MM-DD")
+                    paymentDate : {
+                        [Op.between] : [moment(req.query.startDate).subtract(9, 'hours'),moment(req.query.endDate).subtract(9, 'hours')]
+                    }
+                } 
+            })
+                .then((sales) => {
+                    res.json(sales);
+                })
+                .catch((err) => {
+                    console.error(err);
+                    next(err);
+                });
+        } else if(type === 'tools'){
+            Sales.findAll({
+                where: { 
+                    fitness_no: req.query.fn,
+                    paymentTools:req.query.paymentTools,
+                    paymentDate : {
+                        [Op.between] : [moment(req.query.startDate).subtract(9, 'hours'),moment(req.query.endDate).subtract(9, 'hours')]
+                    }
+                } 
+            })
             .then((sales) => {
                 res.json(sales);
             })
@@ -17,6 +67,24 @@ router.route('/sales')
                 console.error(err);
                 next(err);
             });
+        } else if(type === 'exercise'){
+            Sales.findAll({
+                where: { 
+                    fitness_no: req.query.fn,
+                    exerciseName:req.query.exerciseName,
+                    paymentDate : {
+                        [Op.between] : [moment(req.query.startDate).subtract(9, 'hours'),moment(req.query.endDate).subtract(9, 'hours')]
+                    }
+                } 
+            })
+            .then((sales) => {
+                res.json(sales);
+            })
+            .catch((err) => {
+                console.error(err);
+                next(err);
+            });
+        }
     })
     .post(function(req, res) {
         // 쓰기

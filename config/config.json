@@ -1,26 +1,29 @@
 {
   "development": {
     "username": "root", 
-    "password": "11131113", 
+    "password": "win124", 
     "database": "health", 
     "host": "127.0.0.1",
     "dialect": "mysql",
+    "timezone": "+09:00",
     "operatorsAliases": false
   },
   "test": {
     "username": "root",
-    "password": "11131113",
+    "password": "win124",
     "database": "health",
     "host": "127.0.0.1",
     "dialect": "mysql",
+    "timezone": "+09:00",
     "operatorsAliases": false
   },
   "production": {
     "username": "root",
-    "password": "11131113",
+    "password": "win124",
     "database": "health",
     "host": "127.0.0.1",
     "dialect": "mysql",
+    "timezone": "+09:00",
     "operatorsAliases": false
   }
 }
