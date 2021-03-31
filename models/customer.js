@@ -9,7 +9,7 @@ module.exports = (sequelize, DataTypes) => {
         phone : {type:DataTypes.STRING(32), allowNull:false},
         solar_or_lunar : {type:DataTypes.BOOLEAN },
         address :{type:DataTypes.STRING(100)},
-        join_route : {type:DataTypes.STRING(15) },
+        join_route : {type:DataTypes.STRING(30) },
         //uncollected :{ type:DataTypes.INTEGER },
         in_charge :{type:DataTypes.STRING(10)},
         note :{type:DataTypes.STRING(100)},

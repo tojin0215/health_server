@@ -71,7 +71,9 @@ router.route('/sales')
             Sales.findAll({
                 where: { 
                     fitness_no: req.query.fn,
-                    exerciseName:req.query.exerciseName,
+                    exerciseName: {
+                        [Op.like]: req.query.exerciseName + "%" 
+                    },
                     paymentDate : {
                         [Op.between] : [moment(req.query.startDate).subtract(9, 'hours'),moment(req.query.endDate).subtract(9, 'hours')]
                     }
