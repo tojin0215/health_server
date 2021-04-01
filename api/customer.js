@@ -89,6 +89,20 @@ router.route('/customer')
                 console.error(err);
                 next(err);
             });
+        }else if(type === "select"){ // 고객정보
+            Customer.findAll({
+                where: { 
+                    fitness_no: req.query.fn,
+                    member_no:req.query.member_no
+                } 
+            })
+                .then((customers) => {
+                    res.json(customers);
+                })
+                .catch((err) => {
+                    console.error(err);
+                    next(err);
+                });
         }
     })
     .post(function(req, res) {
