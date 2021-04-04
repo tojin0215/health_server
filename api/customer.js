@@ -145,14 +145,32 @@ router.route('/customer')
     })
     .put(function(req, res) {
         // 수정
-        /*User.update({ title: "바꿀거 ", contents: "바꿀 내용1", mood : "바꿀 내용2", verse: "바꿀 내용3", }, { where: { writer: '권소령', year:2021, month:1, date:28 } })
+        Customer.update({ 
+            name: req.body.name,
+            sex:  req.body.sex, 
+            start_date: req.body.start_date,
+            period: req.body.period,
+            phone: req.body.phone,
+            solar_or_lunar: req.body.solar_or_lunar,
+            address: req.body.address,
+            join_route: req.body.join_route,
+            //uncollected: req.body.uncollected,
+            in_charge: req.body.in_charge,
+            note: req.body.note,
+            resi_no:req.body.resi_no
+        }, {  
+            where: { 
+                fitness_no: req.query.fn,
+                member_no:req.body.member_no
+            } 
+        })
         .then((result) => {
-        res.send('Update the diary');
+            res.send({'success':'customer update!'});
         })
         .catch((err) => {
-        console.error(err);
-        next(err);
-        });*/ 
+            console.error(err);
+            next(err);
+        });
     })
     .delete(function (req, res) {
         //삭제
