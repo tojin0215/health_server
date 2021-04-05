@@ -51,7 +51,7 @@ module.exports = (sequelize, DataTypes) => {
         PhysicalDevelopmentScore:{type:DataTypes.FLOAT, allowNull:false},//신체발달점수
         restingMetabolicRate:{type:DataTypes.FLOAT, allowNull:false},//기초대사량
         //평가
-        edemaEvaluation:{type:DataTypes.INTEGER, allowNull:false},//부종평가
+        //edemaEvaluation:{type:DataTypes.INTEGER, allowNull:false},//부종평가
         BMIEvaluation:{type:DataTypes.INTEGER, allowNull:false},//BMI평가
         bodyFatPercentageEvaluation:{type:DataTypes.INTEGER, allowNull:false},//체지방률평가
         weightControl:{type:DataTypes.FLOAT, allowNull:false},//체중조절
