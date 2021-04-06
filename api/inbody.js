@@ -31,23 +31,28 @@ router.route('/inbody')
     })
     .post(function(req, res) {
         // 쓰기
-        // Inbody.create({
-        //     fitness_no: req.body.fitness_no,
-        //     member_no: req.body.member_no,
-        //     exerciseName:  req.body.exerciseName, 
-        //     exercisePrice: req.body.exercisePrice,
-        //     //locker:req.body.locker,
-        //     lockerPrice: req.body.lockerPrice,
-        //     //sportswear:req.body.sportswear,
-        //     sportswearPrice: req.body.sportswearPrice,
-        //     paymentTools: req.body.paymentTools,
-        //     paymentDate: req.body.paymentDate,
-        // }).then(() => {
-        //     res.send({'success':'inbody update!'});
-        // })
-        // .catch((err) => {
-        //     console.error(err);
-        // });
+        Inbody.create({
+            fitness_no: req.body.fitness_no,
+            member_no: req.body.member_no,
+            height:  req.body.height,  //키
+            measurementDate: req.body.measurementDate,  // 측정날짜
+            bodyMoisture:req.body.bodyMoisture, //체수분
+            protein: req.body.protein, //단백질
+            mineral: req.body.mineral,  // 무기질
+            bodyFat:req.body.bodyFat, //체지방
+            muscleMass: req.body.muscleMass, //근육량
+            bodyFatMass1: req.body.bodyFatMass1, //체지방량1
+            weight: req.body.weight, //체중
+            skeletalMuscleMass:req.body.skeletalMuscleMass,  //골격근량
+            bodyFatMass2: req.body.bodyFatMass2, //체지방량2
+            BMI: req.body.bmi,  //BMI
+            PercentBodyFat: req.body.PercentBodyFat,  //체지방률
+        }).then(() => {
+            res.send({'success':'inbody update!'});
+        })
+        .catch((err) => {
+            console.error(err);
+        });
     })
     .put(function(req, res) {
         // 수정

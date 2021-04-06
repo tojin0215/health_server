@@ -1,6 +1,6 @@
 {
   "development": {
-    "username": "root", 
+    "username": "dbmasteruser", 
     "password": "11131113", 
     "database": "health", 
     "host": "127.0.0.1",
@@ -9,8 +9,8 @@
     "operatorsAliases": false
   },
   "test": {
-    "username": "root",
-    "password": "11131113",
+    "username": "dbmasteruser",
+    "password": "1113113",
     "database": "health",
     "host": "127.0.0.1",
     "dialect": "mysql",
@@ -18,7 +18,7 @@
     "operatorsAliases": false
   },
   "production": {
-    "username": "root",
+    "username": "dbmasteruser",
     "password": "11131113",
     "database": "health",
     "host": "127.0.0.1",
