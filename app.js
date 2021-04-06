@@ -22,7 +22,7 @@ app.use(session({
     //store: sessionStore
 }));
 
-const port = 3000
+const port = 3001
 
 const routers = require('./api/api')
 var sequelize = require('./models').sequelize; // sequelize require

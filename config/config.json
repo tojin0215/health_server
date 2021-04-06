@@ -1,9 +1,9 @@
 {
   "development": {
-    "username": "root", 
+    "username": "dbmasteruser", 
     "password": "11131113", 
     "database": "health", 
-    "host": "127.0.0.1",
+    "host": "ls-d4b696cdbfb5ef8dcaf6c3a28527deffaab3e321.c4qne8no1xit.ap-northeast-2.rds.amazonaws.com",
     "dialect": "mysql",
     "timezone": "+09:00",
     "operatorsAliases": false
