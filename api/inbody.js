@@ -27,7 +27,21 @@ router.route('/inbody')
                     console.error(err);
                     next(err);
                 });
-        } 
+        } else if(type === "customer"){
+            Inbody.findAll({
+                where: { 
+                    fitness_no: req.query.fn,
+                    member_no: req.query.fn
+                } 
+            })
+                .then((inbody) => {
+                    res.json(inbody);
+                })
+                .catch((err) => {
+                    console.error(err);
+                    next(err);
+                });
+        }
     })
     .post(function(req, res) {
         // 쓰기

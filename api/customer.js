@@ -147,7 +147,7 @@ router.route('/customer')
         // 수정하기
         Customer.update({ 
             name: req.body.name,
-            sex:  req.body.sex, 
+            sex: req.body.sex, 
             start_date: req.body.start_date,
             period: req.body.period,
             phone: req.body.phone,
