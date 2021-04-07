@@ -144,7 +144,7 @@ router.route('/customer')
         });
     })
     .put(function(req, res) {
-        // 수정
+        // 수정하기
         Customer.update({ 
             name: req.body.name,
             sex:  req.body.sex, 

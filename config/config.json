@@ -1,16 +1,16 @@
 {
   "development": {
-    "username": "root", 
+    "username": "dbmasteruser", 
     "password": "11131113", 
     "database": "health", 
-    "host": "127.0.0.1",
+    "host": "ls-c96b3892230b0c6d9b910155d1a9070190b7004b.c4qne8no1xit.ap-northeast-2.rds.amazonaws.com",
     "dialect": "mysql",
     "timezone": "+09:00",
     "operatorsAliases": false
   },
   "test": {
     "username": "root",
-    "password": "11131113",
+    "password": "1113113",
     "database": "health",
     "host": "127.0.0.1",
     "dialect": "mysql",
