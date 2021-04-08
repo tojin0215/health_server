@@ -31,7 +31,7 @@ router.route('/inbody')
             Inbody.findAll({
                 where: { 
                     fitness_no: req.query.fn,
-                    member_no: req.query.fn
+                    member_no: req.query.member_no
                 } 
             })
                 .then((inbody) => {
