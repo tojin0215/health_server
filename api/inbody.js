@@ -41,6 +41,24 @@ router.route('/inbody')
                     console.error(err);
                     next(err);
                 });
+        }else if(type === "select"){
+            console.log(moment(req.query.startDate).subtract(7, 'hours').format("YYYY-MM-DD"))
+            Inbody.findAll({
+                where: { 
+                    fitness_no: req.query.fn,
+                    member_no: req.query.member_no,
+                    measurementDate : {
+                        [Op.between] : [moment(req.query.startDate).subtract(9, 'hours'),moment(req.query.endDate).subtract(9, 'hours')]
+                    }
+                } 
+            })
+                .then((inbody) => {
+                    res.json(inbody);
+                })
+                .catch((err) => {
+                    console.error(err);
+                    next(err);
+                });
         }
     })
     .post(function(req, res) {
