@@ -42,6 +42,7 @@ router.route('/assignexercise')
             exercise_no: b.exercise_no,
             fitness_no: b.fitness_no,
             member_no: b.member_no,
+            group_no: b.group_no,
             name: b.name,
             part: b.part,
             machine: b.machine,

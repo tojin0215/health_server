@@ -4,6 +4,7 @@ module.exports = (sequelize, DataTypes) => {
         exercise_no: {type: DataTypes.INTEGER, allowNull: false},
         fitness_no: {type: DataTypes.INTEGER, allowNull: false},
         member_no: {type: DataTypes.INTEGER, allowNull: false},
+        group_no: {type: DataTypes.INTEGER, allowNull: false},
         name: {type: DataTypes.STRING(64)},
         part: {type: DataTypes.INTEGER},
         machine: {type: DataTypes.STRING(128)},
