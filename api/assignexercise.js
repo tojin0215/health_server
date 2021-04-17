@@ -9,33 +9,50 @@ router.route('/assignexercise')
     .get(function(req, res) {
         // 불러오기
         let type = req.query.type;
-        AssignExercise.findAll()
-            .then((users) => {
-                res.json(users);
-            })
-            .catch((err) => {
-                console.error(err);
-                next(err);
-            });
+        let fitness_no = req.query.fitness_no;
+        let member_no = req.query.member_no;
+
+        let clue = {
+            where: {
+                fitness_no: fitness_no,
+                member_no: member_no,
+            }
+        }
+        if (type === "all") {}
+        else if (type === "member") {
+            clue = {
+                fitness_no: fitness_no,
+                member_no: member_no,
+            }
+        }
+        else {}
+
+        AssignExercise.findAll(clue)
+        .then((exercise) => {
+            res.json(exercise)
+        })
+        .catch((err) => {
+            console.error(err);
+            next(err);
+        })
     })
     .post(function(req, res) {
         // 쓰기
         AssignExercise.create({
-            /*member_no : 0,
-            fitness_no: req.body.fitness_no,
-            name: req.body.name,
-            sex:  req.body.sex, 
-            start_date: req.body.start_date,
-            period: req.body.period,
-            phone: req.body.phone,
-            solar_or_lunar: req.body.solar_or_lunar,
-            address: req.body.address,
-            join_route: req.body.join_route,
-            uncollected: req.body.uncollected,
-            in_charge: req.body.in_charge,
-            note: req.body.note,*/
-        }).then(() => {
-            res.send('Post the diary');
+            exercise_no: b.exercise_no,
+            fitness_no: b.fitness_no,
+            member_no: b.member_no,
+            name: b.name,
+            part: b.part,
+            machine: b.machine,
+            url: b.url,
+            data_type: b.data_type,
+            data: b.data,
+            rest_second: b.rest_second,
+            set_count: b.set_count,
+        })
+        .then(() => {
+            res.send('ok');
         })
         .catch((err) => {
             console.error(err);
