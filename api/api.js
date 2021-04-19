@@ -1,6 +1,7 @@
 const customer = require('./customer');
 const sales = require('./sales');
 const exercise = require('./exercise');
+const assignexercise = require('./assignexercise');
 const exerciselink = require('./exerciselink');
 const exercisepack = require('./exercisepack');
 const manager = require('./manager');
@@ -11,6 +12,7 @@ let routers = {
     customer:customer,
     sales:sales,
     exercise:exercise,
+    assignexercise:assignexercise,
     exerciselink:exerciselink,
     exercisepack:exercisepack,
     manager:manager,

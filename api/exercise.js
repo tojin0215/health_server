@@ -172,6 +172,7 @@ router.route('/exercise')
                     {is_default: d[1]},
                     {where: {exercise_no: d[0]}}
                 )
+                .then(() => {console.error("okay");})
                 .catch((err) => {
                     console.error(err);
                     next(err);
@@ -195,6 +196,7 @@ router.route('/exercise')
                 res.send('ok');
             })
             .catch((err) => {
+                console.error('error');
                 console.error(err);
                 next(err);
             });
