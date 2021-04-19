@@ -24,7 +24,6 @@ router.route('/exercise')
         else if (type==="search2") {clue['where']['part'] = keyword;}
         else {}
 
-        
         Exercise.findAll(clue)
         .then((exercise) => {
             res.json(exercise)
@@ -81,14 +80,12 @@ router.route('/exercise')
                     {is_default: d[1]},
                     {where: {exercise_no: d[0]}}
                 )
+                .catch((err) => {
+                    console.error(err);
+                    next(err);
+                });
             })
-            .then(() => {
-                res.send({message: "okay"})
-            })
-            .catch((err) => {
-                console.error(err);
-                next(err);
-            });
+            res.send({message: "okay"});
         } else {
             let target_name = b.target_name
             let target_data = b.target_data
