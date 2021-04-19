@@ -21,7 +21,99 @@ router.route('/exercise')
         if (type==="search") {}
         else if (type==="search0") {clue['where']['name'] = {[Op.like]: "%" + keyword + "%"};}
         else if (type==="search1") {clue['where']['machine'] = {[Op.like]: "%" + keyword + "%"};}
-        else if (type==="search2") {clue['where']['part'] = keyword;}
+        else if (type==="search2") {
+            let arr = []
+            part_num = Number(keyword)
+            if (part_num!==16 && part_num!==8 && part_num!==4 && part_num!==2 && part_num!==1) {
+                clue['where']['part'] = part_num
+            } else {
+                if (part_num===1) {
+                    arr = [
+                        {part: 1},
+                        {part: 1+2},
+                        {part: 1+2+4},
+                        {part: 1+2+4+8},
+                        {part: 1+2+4+8+16},
+                        {part: 1+4},
+                        {part: 1+4+8},
+                        {part: 1+4+8+16},
+                        {part: 1+8},
+                        {part: 1+8+16},
+                        {part: 1+16}
+                    ]
+                }
+                if (part_num===2) {
+                    arr = [
+                        {part: 2},
+                        {part: 2+1},
+                        {part: 2+1+4},
+                        {part: 2+1+4+8},
+                        {part: 2+1+4+8+16},
+                        {part: 2+4},
+                        {part: 2+4+8},
+                        {part: 2+4+8+16},
+                        {part: 2+8},
+                        {part: 2+8+16},
+                        {part: 2+16}
+                    ]
+                }
+                if (part_num===4) {
+                    arr = [
+                        {part: 4},
+                        {part: 4+1},
+                        {part: 4+1+2},
+                        {part: 4+1+2+8},
+                        {part: 4+1+2+8+16},
+                        {part: 4+2},
+                        {part: 4+2+8},
+                        {part: 4+2+8+16},
+                        {part: 4+8},
+                        {part: 4+8+16},
+                        {part: 4+16}
+                    ]
+                }
+                
+                if (part_num===8) {
+                    arr = [
+                        {part: 8},
+                        {part: 8+1},
+                        {part: 8+1+2},
+                        {part: 8+1+2+4},
+                        {part: 8+1+2+4+16},
+                        {part: 8+2},
+                        {part: 8+2+4},
+                        {part: 8+2+4+16},
+                        {part: 8+4},
+                        {part: 8+4+16},
+                        {part: 8+16}
+                    ]
+                }
+                
+                if (part_num===16) {
+                    arr = [
+                        {part: 16},
+                        {part: 16+1},
+                        {part: 16+1+2},
+                        {part: 16+1+2+4},
+                        {part: 16+1+2+4+8},
+                        {part: 16+2},
+                        {part: 16+2+4},
+                        {part: 16+2+4+8},
+                        {part: 16+4},
+                        {part: 16+4+8},
+                        {part: 16+8}
+                    ]
+                }
+                let arr2 = []
+                arr.forEach(function(p){
+                    arr2.push(p['part'])
+                });
+                console.log(arr);
+                
+                // clue['where']['part'] = {[Op.like]: {[Op.in]: arr2}};
+                clue['where']['part'] = {[Op.in]: arr2};
+            }
+        }
         else {}
 
         Exercise.findAll(clue)
