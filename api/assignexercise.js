@@ -29,15 +29,19 @@ router.route('/assignexercise')
 
         AssignExercise.findAll(clue)
         .then((exercise) => {
-            res.json(exercise)
+            console.log(exercise);
+            res.json(exercise);
         })
         .catch((err) => {
             console.error(err);
             next(err);
+            res.json([{group_no: 0}]);
         })
     })
     .post(function(req, res) {
         // 쓰기
+        const b = req.body;
+
         AssignExercise.create({
             exercise_no: b.exercise_no,
             fitness_no: b.fitness_no,
@@ -53,7 +57,7 @@ router.route('/assignexercise')
             set_count: b.set_count,
         })
         .then(() => {
-            res.send('ok');
+            res.send({'message': 'ok'});
         })
         .catch((err) => {
             console.error(err);
