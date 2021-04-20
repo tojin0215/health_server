@@ -1,6 +1,6 @@
 let express = require('express');
 let router = express.Router();
-var AssignExercise = require('../models').User;
+var AssignExercise = require('../models').AssignExercise;
 
 const sequelize = require("sequelize");
 const Op = sequelize.Op;

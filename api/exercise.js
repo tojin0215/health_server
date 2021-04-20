@@ -1,6 +1,6 @@
 let express = require('express');
 let router = express.Router();
-var User = require('../models').User;
+var Exercise = require('../models').Exercise;
 
 const sequelize = require("sequelize");
 const Op = sequelize.Op;
@@ -48,7 +48,7 @@ router.route('/exercise')
             default_data_type: b.default_data_type,
             default_data: b.default_data,
             default_rest_second: b.default_rest_second,
-            defaut_set_count: b.defaut_set_count,
+            default_set_count: b.default_set_count,
             is_default: b.is_default,
         })
         .then(() => {
