@@ -66,6 +66,7 @@ router.route('/inbody')
         Inbody.create({
             fitness_no: req.body.fitness_no,
             member_no: req.body.member_no,
+            inbody_no: req.body.inbody_no,
             height:  req.body.height,  //키
             measurementDate: req.body.measurementDate,  // 측정날짜
             bodyMoisture:req.body.bodyMoisture, //체수분

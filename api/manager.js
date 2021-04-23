@@ -32,9 +32,9 @@ router.route('/manager')
           })
             .then((users) => {
                 //나중에 비밀번호 암호화할 때 참고
-                /*const validate = hasher({password:req.body.password, salt:account.salt}, function(err, pass, salt, hash){
-                if(hash === account.password){}*/
-                
+                // const validate = hasher({password:req.body.password, salt:account.salt}, function(err, pass, salt, hash){
+                // if(hash === account.password){}
+                // })
                 if(users==null){
                     console.log('err2');
                     return res.status(401).json({

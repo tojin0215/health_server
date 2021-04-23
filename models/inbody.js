@@ -3,7 +3,8 @@ module.exports = (sequelize, DataTypes) => {
     num :{
         type:DataTypes.INTEGER, primaryKey:true, autoIncrement:true},
         fitness_no : {type:DataTypes.INTEGER, allowNull:false},
-        member_no:{type:DataTypes.INTEGER, allowNull:false}, // 성별, 나이, 이름은 customerDB와 연결
+        member_no:{type:DataTypes.INTEGER, allowNull:false}, // 성별, 나이, 이름은 customerDB와 연결,
+        inbody_no:{type:DataTypes.INTEGER, allowNull:false},
         height:{type:DataTypes.FLOAT, allowNull:false}, //키
         measurementDate:{type:DataTypes.DATE, allowNull:false}, // 측정날짜
         //체성분 분석
