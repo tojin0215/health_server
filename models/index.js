@@ -11,6 +11,7 @@ const sequelize = new Sequelize(config.database, config.username, config.passwor
 db.sequelize = sequelize;
 
 db.Customer = require('./customer')(sequelize, Sequelize); //회원
+db.CustomerEnter = require('./customerEnter')(sequelize, Sequelize); //회원 입장
 db.Exercise = require('./exercise')(sequelize, Sequelize); //운동
 db.AssignExercise = require('./assignExercise')(sequelize, Sequelize); //운동 배정
 db.ExerciseLink = require('./exerciseLink')(sequelize, Sequelize); //운동 링크
