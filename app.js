@@ -49,6 +49,7 @@ app.get('/', (req, res) => res.send('Hello World!'))
 
 //api routes
 app.use(routers.customer);
+app.use(router.customerenter);
 app.use(routers.exercise);
 app.use(routers.assignexercise);
 app.use(routers.exerciselink);
