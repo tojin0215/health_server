@@ -59,7 +59,25 @@ router.route('/inbody')
                     console.error(err);
                     next(err);
                 });
-        }
+        }else if(type === "inbodySelect"){
+            console.log(req.query.startNum,' ',req.query.endNum)
+            Inbody.findAll({
+                where: { 
+                    fitness_no: req.query.fn,
+                    member_no: req.query.member_no,
+                    inbody_no : {
+                        [Op.between] : [req.query.startNum,req.query.endNum]
+                    }
+                } 
+            })
+                .then((inbody) => {
+                    res.json(inbody);
+                })
+                .catch((err) => {
+                    console.error(err);
+                    next(err);
+                });
+            }
     })
     .post(function(req, res) {
         // 쓰기
