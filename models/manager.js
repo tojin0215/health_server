@@ -5,6 +5,7 @@ module.exports = (sequelize, DataTypes) => {
         password : { type: DataTypes.STRING(200), allowNull: false},
         fitness_name:{ type: DataTypes.STRING(20), allowNull: false},
         manager_name:{ type: DataTypes.STRING(20), allowNull: false},
+        phone : {type:DataTypes.STRING(32), allowNull:false},
         salt:{type:DataTypes.STRING(40), allowNull:false}
     },{
         timestamps:false

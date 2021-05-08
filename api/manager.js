@@ -61,6 +61,7 @@ router.route('/manager')
             password:hashPassword,
             fitness_name:req.body.fitness_name,
             manager_name:req.body.manager_name,
+            phone:req.body.phone,
             salt:salt
         }).then(() => {
             res.send({'success':'Manager update!'});
