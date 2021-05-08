@@ -23,7 +23,8 @@ router.route('/manager')
                     code: 1
                 });
             }
-        } else if(type === "all"){ // 전체 리스트
+        } 
+        else if(type === "all"){ // 전체 리스트
             console.log('들어오니')
             Manager.findAll({
                 where: { 
@@ -39,6 +40,70 @@ router.route('/manager')
                     console.error(err);
                     next(err);
                 });
+        } 
+        else if(type === "search0"){ //헬스장이름검색
+            Manager.findAll({
+                where: { 
+                    fitness_name: {
+                        [Op.like]: "%" + req.query.search + "%" 
+                    }
+                } 
+            })
+            .then((managers) => {
+                res.json(managers);
+            })
+            .catch((err) => {
+                console.error(err);
+                next(err);
+            });
+        }
+        else if(type === "search1"){ //담당자이름
+            Manager.findAll({
+                where: { 
+                    manager_name: {
+                        [Op.like]: "%" + req.query.search + "%" 
+                    }
+                } 
+            })
+            .then((managers) => {
+                res.json(managers);
+            })
+            .catch((err) => {
+                console.error(err);
+                next(err);
+            });
+        }
+        else if(type === "search2"){ //아이디
+            Manager.findAll({
+                where: { 
+                    id: {
+                        [Op.like]: "%" + req.query.search + "%" 
+                    }
+                } 
+            })
+            .then((managers) => {
+                res.json(managers);
+            })
+            .catch((err) => {
+                console.error(err);
+                next(err);
+            });
+        }
+        else if(type === "search3"){ //전화번호
+            Manager.findAll({
+                where: { 
+                    phone: {
+                        [Op.like]: "%" + req.query.search + "%" 
+                    }
+                } 
+            })
+            .then((managers) => {
+                res.json(managers);
+            })
+            .catch((err) => {
+                console.error(err);
+                next(err);
+            });
         }
 
     })
@@ -87,13 +152,13 @@ router.route('/manager')
                     });
                 }
                 else{
-                    
                     let hashPassword = crypto.createHash("sha512").update(req.body.password + users.salt).digest("hex");
                     if(hashPassword === users.password){
                         //console.log('성공')
                         console.log("users :");
                         console.log(users.dataValues.id);
                         console.log(req.body.id);
+
                         req.session.loginInfo = {
                             id: req.body.id,
                             fitness_no:users.dataValues.fitness_no,
@@ -138,8 +203,24 @@ router.route('/manager')
         });*/ 
     })
     .delete(function (req, res) {
-        req.session.destroy(err => { if(err) throw err; });
-        return res.json({ sucess: true });
+        let type = req.query.type;
+
+        if(type === "session"){
+            req.session.destroy(err => { if(err) throw err; });
+            return res.json({ sucess: true });
+        }
+        else if(type ==="delete"){
+            Manager.destroy({ 
+                where: { fitness_no:req.query.fn} 
+            })
+            .then((result) => {
+                res.send('Delete the fitnessCenter');
+            })
+            .catch((err) => {
+                console.error(err);
+                next(err);
+            });
+        }
     });
 
 module.exports = router;
