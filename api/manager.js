@@ -3,38 +3,81 @@ let router = express.Router();
 var Manager = require('../models').Manager;
 const sequelize = require("sequelize");
 const Op = sequelize.Op;
+const crypto = require('crypto');
 
 router.route('/manager')
     .get(function(req, res) {
         // 불러오기
-        console.log("Session: ");
         
-        if(req.session.loginInfo) {
-            res.json({ info: req.session.loginInfo });
+        let type = req.query.type;
+
+        if(type === "session"){
+            console.log("Session: ");
+            
+            if(req.session.loginInfo) {
+                res.json({ info: req.session.loginInfo });
+            }
+            else{
+                return res.status(401).json({
+                    error: "THERE IS NO LOGIN DATA",
+                    code: 1
+                });
+            }
+        } else if(type === "all"){ // 전체 리스트
+            console.log('들어오니')
+            Manager.findAll({
+                where: { 
+                    fitness_no: {
+                        [Op.gt] : 1
+                    }
+                } 
+            })
+                .then((managers) => {
+                    res.json(managers);
+                })
+                .catch((err) => {
+                    console.error(err);
+                    next(err);
+                });
         }
-        else{
-            return res.status(401).json({
-                error: "THERE IS NO LOGIN DATA",
-                code: 1
-            });
-        }
-        
+
     })
     .post(function(req, res) {
         // 쓰기
         req.session.loginInfo = {}
         let type = req.query.type;
+
+        // let first = crypto.createHash('sha1').update('test').digest('binary');
+        // let second = crypto.createHash('sha1').update(first).digest('hex');
+        // let result = "*"+second.toUpperCase();
+        // console.log('!!!!!!!!',result)
+
+        let pwd = req.body.password;
+        let salt = Math.round((new Date().valueOf()*Math.random()))+"";
+        let hashPassword = crypto.createHash("sha512").update(pwd + salt).digest("hex");
+
+        Manager.create({
+            id:req.body.id,
+            password:hashPassword,
+            fitness_name:req.body.fitness_name,
+            manager_name:req.body.manager_name,
+            salt:salt
+        }).then(() => {
+            res.send({'success':'Manager update!'});
+        })
+        .catch((err) => {
+            console.error(err);
+        });
+
         Manager.findOne({
             where: {
               id: req.body.id,
-              password: req.body.password
+              //password: req.body.password
             }
           })
             .then((users) => {
                 //나중에 비밀번호 암호화할 때 참고
-                // const validate = hasher({password:req.body.password, salt:account.salt}, function(err, pass, salt, hash){
-                // if(hash === account.password){}
-                // })
+                
                 if(users==null){
                     console.log('err2');
                     return res.status(401).json({
@@ -43,25 +86,36 @@ router.route('/manager')
                     });
                 }
                 else{
-                    console.log("users :");
-                    console.log(users.dataValues.id);
-                    console.log(req.body.id);
-                    req.session.loginInfo = {
-                        id: req.body.id,
-                        fitness_no:users.dataValues.fitness_no,
-                        fitness_name:users.dataValues.fitness_name,
-                        manager_name:users.dataValues.manager_name
-                    };
-                    console.log(req.session)
-                    // RETURN SUCCESS
-                    return res.json({
-                        success: true,
-                        id: req.body.id,
-                        fitness_no:users.dataValues.fitness_no,
-                        fitness_name:users.dataValues.fitness_name,
-                        manager_name:users.dataValues.manager_name
-                    });
-                    //res.json(users);
+                    
+                    let hashPassword = crypto.createHash("sha512").update(req.body.password + users.salt).digest("hex");
+                    if(hashPassword === users.password){
+                        //console.log('성공')
+                        console.log("users :");
+                        console.log(users.dataValues.id);
+                        console.log(req.body.id);
+                        req.session.loginInfo = {
+                            id: req.body.id,
+                            fitness_no:users.dataValues.fitness_no,
+                            fitness_name:users.dataValues.fitness_name,
+                            manager_name:users.dataValues.manager_name
+                        };
+                        console.log(req.session)
+                        // RETURN SUCCESS
+                        return res.json({
+                            success: true,
+                            id: req.body.id,
+                            fitness_no:users.dataValues.fitness_no,
+                            fitness_name:users.dataValues.fitness_name,
+                            manager_name:users.dataValues.manager_name
+                        });
+                        //res.json(users);
+                    }else{
+                        //console.log('실패')
+                        return res.status(401).json({
+                            error: "비밀번호가 잘못되었습니다.",
+                            code: 4
+                        });
+                    }
                 }
             })
             .catch((err) => {
