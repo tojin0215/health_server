@@ -44,6 +44,9 @@ router.route('/manager')
         else if(type === "search0"){ //헬스장이름검색
             Manager.findAll({
                 where: { 
+                    fitness_no: {
+                        [Op.gt] : 1
+                    },
                     fitness_name: {
                         [Op.like]: "%" + req.query.search + "%" 
                     }
@@ -60,6 +63,9 @@ router.route('/manager')
         else if(type === "search1"){ //담당자이름
             Manager.findAll({
                 where: { 
+                    fitness_no: {
+                        [Op.gt] : 1
+                    },
                     manager_name: {
                         [Op.like]: "%" + req.query.search + "%" 
                     }
@@ -76,6 +82,9 @@ router.route('/manager')
         else if(type === "search2"){ //아이디
             Manager.findAll({
                 where: { 
+                    fitness_no: {
+                        [Op.gt] : 1
+                    },
                     id: {
                         [Op.like]: "%" + req.query.search + "%" 
                     }
@@ -92,6 +101,9 @@ router.route('/manager')
         else if(type === "search3"){ //전화번호
             Manager.findAll({
                 where: { 
+                    fitness_no: {
+                        [Op.gt] : 1
+                    },
                     phone: {
                         [Op.like]: "%" + req.query.search + "%" 
                     }

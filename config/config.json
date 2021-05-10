@@ -3,7 +3,7 @@
     "username": "dbmasteruser", 
     "password": "11131113", 
     "database": "health", 
-    "host": "ls-.c4qne8no1xit.ap-northeast-2.rds.amazonaws.com",
+    "host": "ls-c96b3892230b0c6d9b910155d1a9070190b7004b.c4qne8no1xit.ap-northeast-2.rds.amazonaws.com",
     "dialect": "mysql",
     "timezone": "+09:00",
     "operatorsAliases": false
