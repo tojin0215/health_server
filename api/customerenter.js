@@ -1,70 +1,133 @@
 let express = require('express');
 let router = express.Router();
-var CustomerEnter = require('../models').CustomerEnter;
+const CustomerEnter = require('../models').CustomerEnter;
+const Customer = require('../models').Customer;
+const Manager = require('../models').Manager;
 
 const sequelize = require("sequelize");
 const Op = sequelize.Op;
 
+const jwt = require('jsonwebtoken');
+
+const NOT_CHECKED = 0;
+const TYPE_CUSTOMER = 'customer';
+const TYPE_MANAGER = 'manager';
+const JWT_SECRET_KEY = 'test';
+
 router.route('/customerenter')
     .get(function (req, res) {
 
-        let fitness_no = req.query.fitness_no;
-        let customer_no = req.query.customer_no;
-        let ukey = req.query.ukey;
+        // let fitness_no = req.query.fitness_no;
+        // let customer_no = req.query.customer_no;
+        // let ukey = req.query.ukey;
 
-        CustomerEnter.findAll({where: {fitness_no: fitness_no, customer_no: customer_no}})
-        .then((customerEnter) => {
-            if (customerEnter) {
-                if (customerEnter.skey === ukey) {res.json({'message': true})}
-                else {res.json({'message': false})}
-            }
-            else {{res.json({'message': false})}}
+        const token = req.query.token;
 
-        })
-        .catch((err) => {
-            console.error(err);
-            next(err);
-        })
-        
+        if (!token) res.json({code: 404, message: '토큰이 없습니다.'})
+        try {
+            const decoded = jwt.verify(token, JWT_SECRET_KEY);
+            
+            CustomerEnter.create({
+                fitness_no: b.fitness_no,
+                customer_no: b.customer_no,
+                is_checked: NOT_CHECKED,
+                skey: '',
+            })
+            then(() => {
+                if (decoded._type === TYPE_CUSTOMER) {
+                    Customer
+                    .findAll({
+                        where: {fitness_no: decoded._fit_no, member_no: decoded._id}})
+                    .then(function (result) {
+                        if (result.length === 0) {
+                            res.json({code: 403, message: '인증 실패'})
+                        }
+                        else {
+                            CustomerEnter
+                            .create({
+                                fitness_no: b.fitness_no,
+                                customer_no: b.customer_no,
+                                is_checked: NOT_CHECKED,
+                                skey: '',
+                            })
+                            .then(function () {res.json({code: 200, message: '인증되었습니다.', user: result[0]})});
+                        }
+                    })
+                }
+                else if (decoded._type === TYPE_MANAGER) {
+                    CustomerEnter
+                    .create({
+                        fitness_no: b.fitness_no,
+                        customer_no: b.customer_no,
+                        is_checked: NOT_CHECKED,
+                        skey: TYPE_CUSTOMER,
+                    })
+                    .then(function () {res.json({code: 200, message: '인증되었습니다.', user: result[0]})});
+                }
+            })
+            Customer
+            .findAll({
+                where: {fitness_no: decoded._fit_no, member_no: decoded._id}})
+            .then(function (result) {
+                if (result.length === 0) {
+                    res.json({code: 403, message: '인증 실패'})
+                }
+                else {
+                    CustomerEnter.create({
+                        fitness_no: b.fitness_no,
+                        customer_no: b.customer_no,
+                        is_checked: NOT_CHECKED,
+                        skey: TYPE_MANAGER,
+                    })
+                    res.json({code: 200, message: '인증되었습니다.', user: result[0]})
+                }
+            })
+            
+        } catch (e) {
+            res.json({code: 403, message: '인증 실패'})
+        }
     })
     .post(function(req, res) {
-        const NOT_CHECKED = 0;
         let b = req.body
         let type = req.query.type;
         let type2 = req.query.type2;
 
         if (type === "check") {
             if (type2 === "customer") {
-                let k = ''
-                for (var i=0;i<32;i++) {
-                    k = k + Math.floor(Math.random());
-                }
-                CustomerEnter.create({
-                    fitness_no: b.fitness_no,
-                    customer_no: b.customer_no,
-                    is_checked: NOT_CHECKED,
-                    skey: k,
+                Customer
+                .findAll({
+                    where: {fitness_no: b.fitness_no, member_no: b.customer_no}})
+                .then(function (result) {
+                    if (result.length === 0) {
+                        res.json({code: 404, message: '회원을 찾을 수 없습니다.'})
+                    }
+                    else {
+                        const token = jwt.sign({
+                            _id: b.customer_no,
+                            _fit_no: b.fitness_no,
+                            _type: TYPE_CUSTOMER,
+                        }, JWT_SECRET_KEY)
+                        res.send({message: 'ok', token: token});
+                    }
                 })
-                .then(() => {
-                    res.send({message: 'ok', skey: k});
-                })
-                .catch((err) => {
-                    console.error(err);
-                });
             }
             else if (type2 === "manager") {
-                CustomerEnter.create({
-                    fitness_no: b.fitness_no,
-                    customer_no: b.customer_no,
-                    is_checked: NOT_CHECKED,
-                    skey: b.skey,
+                Manager
+                .findAll({
+                    where: {fitness_no: b.fitness_no, id: b.manager_no}})
+                .then(function (result) {
+                    if (result.length === 0) {
+                        res.json({code: 404, message: '회원을 찾을 수 없습니다.'})
+                    }
+                    else {
+                        const token = jwt.sign({
+                            _id: b.manager_no,
+                            _fit_no: b.fitness_no,
+                            _type: TYPE_MANAGER,
+                        }, JWT_SECRET_KEY)
+                        res.send({message: 'ok', token: token});
+                    }
                 })
-                .then(() => {
-                    res.send({message: 'ok'});
-                })
-                .catch((err) => {
-                    console.error(err);
-                });
             }
         }
 
