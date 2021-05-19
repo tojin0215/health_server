@@ -28,12 +28,12 @@ router.route('/customerenter')
             const decoded = jwt.verify(token, JWT_SECRET_KEY);
             
             CustomerEnter.create({
-                fitness_no: b.fitness_no,
-                customer_no: b.customer_no,
+                fitness_no: decoded._fit_no,
+                customer_no: decoded._id,
                 is_checked: NOT_CHECKED,
-                skey: '',
+                skey: decoded._type,
             })
-            then(() => {
+            .then(() => {
                 if (decoded._type === TYPE_CUSTOMER) {
                     Customer
                     .findAll({
@@ -43,47 +43,17 @@ router.route('/customerenter')
                             res.json({code: 403, message: '인증 실패'})
                         }
                         else {
-                            CustomerEnter
-                            .create({
-                                fitness_no: b.fitness_no,
-                                customer_no: b.customer_no,
-                                is_checked: NOT_CHECKED,
-                                skey: '',
-                            })
-                            .then(function () {res.json({code: 200, message: '인증되었습니다.', user: result[0]})});
+                            res.json({code: 200, message: '인증되었습니다.', user: result[0]})
                         }
                     })
                 }
                 else if (decoded._type === TYPE_MANAGER) {
-                    CustomerEnter
-                    .create({
-                        fitness_no: b.fitness_no,
-                        customer_no: b.customer_no,
-                        is_checked: NOT_CHECKED,
-                        skey: TYPE_CUSTOMER,
-                    })
-                    .then(function () {res.json({code: 200, message: '인증되었습니다.', user: result[0]})});
-                }
-            })
-            Customer
-            .findAll({
-                where: {fitness_no: decoded._fit_no, member_no: decoded._id}})
-            .then(function (result) {
-                if (result.length === 0) {
-                    res.json({code: 403, message: '인증 실패'})
-                }
-                else {
-                    CustomerEnter.create({
-                        fitness_no: b.fitness_no,
-                        customer_no: b.customer_no,
-                        is_checked: NOT_CHECKED,
-                        skey: TYPE_MANAGER,
-                    })
-                    res.json({code: 200, message: '인증되었습니다.', user: result[0]})
+                    res.json({code: 200, message: '인증되었습니다.', user: result[0]});
                 }
             })
             
         } catch (e) {
+            console.error(e);
             res.json({code: 403, message: '인증 실패'})
         }
     })
