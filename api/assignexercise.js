@@ -5,6 +5,10 @@ var AssignExercise = require('../models').AssignExercise;
 const sequelize = require("sequelize");
 const Op = sequelize.Op;
 
+require('moment-timezone');
+var moment = require('moment');
+moment.tz.setDefault("Asia/Seoul");
+
 router.route('/assignexercise')
     .get(function(req, res) {
         // 불러오기
@@ -23,6 +27,15 @@ router.route('/assignexercise')
             clue = {
                 fitness_no: fitness_no,
                 member_no: member_no,
+            }
+        }
+        else if (type === "customer"){ // 날짜포함
+            clue = {
+                fitness_no: fitness_no,
+                member_no: member_no,
+                createAt : {
+                    [Op.between] : [moment(req.query.startDate).subtract(9, 'hours'),moment(req.query.endDate).subtract(9, 'hours')]
+                }
             }
         }
         else {}

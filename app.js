@@ -22,7 +22,7 @@ app.use(session({
     //store: sessionStore
 }));
 
-const port = 3003
+const port = 3002
 //const port = 3000
 
 const routers = require('./api/api')
@@ -49,7 +49,7 @@ app.get('/', (req, res) => res.send('Hello World!'))
 
 //api routes
 app.use(routers.customer);
-app.use(router.customerenter);
+app.use(routers.customerenter);
 app.use(routers.exercise);
 app.use(routers.assignexercise);
 app.use(routers.exerciselink);
