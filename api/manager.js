@@ -159,7 +159,8 @@ router.route('/manager')
                             id: req.body.id,
                             fitness_no:users.dataValues.fitness_no,
                             fitness_name:users.dataValues.fitness_name,
-                            manager_name:users.dataValues.manager_name
+                            manager_name:users.dataValues.manager_name,
+                            permit:users.dataValues.permit
                         };
                         console.log(req.session)
                         // RETURN SUCCESS
@@ -168,7 +169,8 @@ router.route('/manager')
                             id: req.body.id,
                             fitness_no:users.dataValues.fitness_no,
                             fitness_name:users.dataValues.fitness_name,
-                            manager_name:users.dataValues.manager_name
+                            manager_name:users.dataValues.manager_name,
+                            permit:users.dataValues.permit
                         });
                         //res.json(users);
                     }else{
@@ -200,6 +202,7 @@ router.route('/manager')
                 phone:req.body.phone,
                 business_number:req.body.business_number,
                 business_phone:req.body.business_phone,
+                permit:req.body.permit,
                 salt:salt
             }).then(() => {
                 res.send({'success':'Manager update!'});
@@ -209,15 +212,20 @@ router.route('/manager')
             });
     })
     .put(function(req, res) {
-        // 수정
-        /*User.update({ title: "바꿀거 ", contents: "바꿀 내용1", mood : "바꿀 내용2", verse: "바꿀 내용3", }, { where: { writer: '권소령', year:2021, month:1, date:28 } })
+        Manager.update({
+            permit:req.body.permit, 
+        }, {  
+            where: { 
+                fitness_no: req.query.fn,
+            } 
+        })
         .then((result) => {
-        res.send('Update the diary');
+            res.send({'success':'manager update!'});
         })
         .catch((err) => {
-        console.error(err);
-        next(err);
-        });*/ 
+            console.error(err);
+            next(err);
+        });
     })
     .delete(function (req, res) {
         let type = req.query.type;
