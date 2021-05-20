@@ -129,24 +129,6 @@ router.route('/manager')
         // let result = "*"+second.toUpperCase();
         // console.log('!!!!!!!!',result)
 
-        let pwd = req.body.password;
-        let salt = Math.round((new Date().valueOf()*Math.random()))+"";
-        let hashPassword = crypto.createHash("sha512").update(pwd + salt).digest("hex");
-
-        Manager.create({
-            id:req.body.id,
-            password:hashPassword,
-            fitness_name:req.body.fitness_name,
-            manager_name:req.body.manager_name,
-            phone:req.body.phone,
-            salt:salt
-        }).then(() => {
-            res.send({'success':'Manager update!'});
-        })
-        .catch((err) => {
-            console.error(err);
-        });
-
         Manager.findOne({
             where: {
               id: req.body.id,
@@ -155,7 +137,6 @@ router.route('/manager')
           })
             .then((users) => {
                 //나중에 비밀번호 암호화할 때 참고
-                
                 if(users==null){
                     console.log('err2');
                     return res.status(401).json({
@@ -165,6 +146,9 @@ router.route('/manager')
                 }
                 else{
                     let hashPassword = crypto.createHash("sha512").update(req.body.password + users.salt).digest("hex");
+                    
+                    console.log('pwd',req.body.password )
+                    console.log('users.salt',users.salt)
                     if(hashPassword === users.password){
                         //console.log('성공')
                         console.log("users :");
@@ -201,6 +185,27 @@ router.route('/manager')
                     error: "로그인 정보가 잘못되었습니다.",
                     code: 3
                 });
+            });
+
+            let pwd = req.body.password;
+            let salt = Math.round((new Date().valueOf()*Math.random()))+"";
+            let hashPassword = crypto.createHash("sha512").update(pwd + salt).digest("hex");
+    
+            Manager.create({
+                id:req.body.id,
+                password:hashPassword,
+                fitness_name:req.body.fitness_name,
+                fitness_addr:req.body.fitness_addr,
+                manager_name:req.body.manager_name,
+                phone:req.body.phone,
+                business_number:req.body.business_number,
+                business_phone:req.body.business_phone,
+                salt:salt
+            }).then(() => {
+                res.send({'success':'Manager update!'});
+            })
+            .catch((err) => {
+                console.error(err);
             });
     })
     .put(function(req, res) {
