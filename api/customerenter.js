@@ -30,7 +30,7 @@ router.route('/customerenter')
             .findAll({
                 limit: 10,
                 where: {fitness_no: fitness_no},
-                order: [['id', 'DESC']]
+                order: [['customer_enter_no', 'DESC']]
             })
             .then(result => {
                 res.json(result);
