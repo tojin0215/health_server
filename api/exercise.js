@@ -104,6 +104,11 @@ router.route('/exercise')
                         {part: 16+8}
                     ]
                 }
+                if (part_num===32) {
+                    arr = [
+                        {part: 32}
+                    ]
+                }
                 let arr2 = []
                 arr.forEach(function(p){
                     arr2.push(p['part'])
