@@ -28,7 +28,6 @@ router.route('/customerenter')
             // res.json({code: 404, message: '토큰이 없습니다.'})
             CustomerEnter
             .findAll({
-                limit: 10,
                 where: {fitness_no: fitness_no},
                 order: [['customer_enter_no', 'DESC']]
             })
