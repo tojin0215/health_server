@@ -22,8 +22,21 @@ router.route('/customerenter')
         // let ukey = req.query.ukey;
 
         const token = req.query.token;
+        const fitness_no = req.query.fitness_no;
 
-        if (!token) res.json({code: 404, message: '토큰이 없습니다.'})
+        if (!token) {
+            // res.json({code: 404, message: '토큰이 없습니다.'})
+            CustomerEnter
+            .findAll({
+                limit: 10,
+                where: {fitness_no: fitness_no},
+                order: [['id', 'DESC']]
+            })
+            .then(result => {
+                res.json(result);
+            })
+        }
+        else {
         try {
             const decoded = jwt.verify(token, JWT_SECRET_KEY);
             
@@ -56,6 +69,7 @@ router.route('/customerenter')
             console.error(e);
             res.json({code: 403, message: '인증 실패'})
         }
+    }
     })
     .post(function(req, res) {
         let b = req.body
