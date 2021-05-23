@@ -117,6 +117,20 @@ router.route('/manager')
                 next(err);
             });
         }
+        else if(type === 'idCheck'){//아이디 중복체크
+            Manager.findAll({
+                where: { 
+                    id : req.query.id
+                } 
+            })
+                .then((Manager) => {
+                    res.json(Manager);
+                })
+                .catch((err) => {
+                    console.error(err);
+                    next(err);
+                });
+        }
 
     })
     .post(function(req, res) {
@@ -131,7 +145,7 @@ router.route('/manager')
 
         Manager.findOne({
             where: {
-              id: req.body.id,
+              id: req.body.id
               //password: req.body.password
             }
           })
@@ -143,8 +157,13 @@ router.route('/manager')
                         error: "로그인 정보가 잘못되었습니다.",
                         code: 2
                     });
-                }
-                else{
+                }else if(users.permit == 0){
+                    console.log('err5');
+                    return res.status(405).json({
+                        error: "승인 대기중입니다.",
+                        code: 5
+                    });
+                } else{
                     let hashPassword = crypto.createHash("sha512").update(req.body.password + users.salt).digest("hex");
                     
                     console.log('pwd',req.body.password )
