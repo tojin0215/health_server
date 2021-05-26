@@ -168,6 +168,7 @@ router.route('/manager')
                     
                     console.log('pwd',req.body.password )
                     console.log('users.salt',users.salt)
+                    
                     if(hashPassword === users.password){
                         //console.log('성공')
                         console.log("users :");
@@ -178,8 +179,7 @@ router.route('/manager')
                             id: req.body.id,
                             fitness_no:users.dataValues.fitness_no,
                             fitness_name:users.dataValues.fitness_name,
-                            manager_name:users.dataValues.manager_name,
-                            permit:users.dataValues.permit
+                            manager_name:users.dataValues.manager_name
                         };
                         console.log(req.session)
                         // RETURN SUCCESS
@@ -188,8 +188,7 @@ router.route('/manager')
                             id: req.body.id,
                             fitness_no:users.dataValues.fitness_no,
                             fitness_name:users.dataValues.fitness_name,
-                            manager_name:users.dataValues.manager_name,
-                            permit:users.dataValues.permit
+                            manager_name:users.dataValues.manager_name
                         });
                         //res.json(users);
                     }else{
@@ -199,6 +198,9 @@ router.route('/manager')
                             code: 4
                         });
                     }
+                    
+                   
+                    
                 }
             })
             .catch((err) => {
