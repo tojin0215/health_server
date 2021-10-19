@@ -19,5 +19,7 @@ db.ExercisePack = require('./exercisePack')(sequelize, Sequelize); //운동 묶�
 db.Sales = require('./sales')(sequelize, Sequelize); //매출
 db.Manager = require('./manager')(sequelize, Sequelize); //매니저(로그인정보)
 db.Inbody = require('./inbody')(sequelize, Sequelize); //인바디정보
+db.User = require('./user')(sequelize, Sequelize); // 모바일 접속 사용자
+
 
 module.exports = db;

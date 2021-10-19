@@ -1,3 +1,6 @@
+/**
+ * @author kkyubr
+ */
 let express = require('express');
 let router = express.Router();
 var AssignExercise = require('../models').AssignExercise;
@@ -12,25 +15,29 @@ moment.tz.setDefault("Asia/Seoul");
 router.route('/assignexercise')
     .get(function(req, res) {
         // 불러오기
-        let type = req.query.type;
-        let fitness_no = req.query.fitness_no;
-        let member_no = req.query.member_no;
+        const type = req.query.type;
+        const fitness_no = req.query.fitness_no;
+        const member_no = req.query.member_no;
 
-        let clue = {
+        if (!type) {res.status(400).json({message: 'no type'}); return;}
+        if (!fitness_no) {res.status(400).json({message: 'no fitness_no'}); return;}
+        if (!member_no) {res.status(400).json({message: 'no member_no'}); return;}
+
+        const clue = {
             where: {
-                fitness_no: fitness_no,
-                member_no: member_no,
+                fitness_no: fitness_no
             }
         }
+
         if (type === "all") {}
         else if (type === "member") {
-            clue = {
+            clue.where = {
                 fitness_no: fitness_no,
                 member_no: member_no,
             }
         }
         else if (type === "customer"){ // 날짜포함
-            clue = {
+            clue.where = {
                 fitness_no: fitness_no,
                 member_no: member_no,
                 createAt : {

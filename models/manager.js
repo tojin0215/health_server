@@ -4,12 +4,8 @@ module.exports = (sequelize, DataTypes) => {
         fitness_no: { type: DataTypes.INTEGER, allowNull: false, primaryKey:true, autoIncrement:true},
         password : { type: DataTypes.STRING(200), allowNull: false},
         fitness_name:{ type: DataTypes.STRING(20), allowNull: false},
-        fitness_addr : { type: DataTypes.STRING(100), allowNull: false},
         manager_name:{ type: DataTypes.STRING(20), allowNull: false},
         phone : {type:DataTypes.STRING(32), allowNull:false},
-        business_number :{ type: DataTypes.STRING(30), allowNull: false},
-        business_phone : {type:DataTypes.STRING(32), allowNull:false},
-        permit:{ type: DataTypes.INTEGER, allowNull: false },
         salt:{type:DataTypes.STRING(40), allowNull:false}
     },{
         timestamps:false

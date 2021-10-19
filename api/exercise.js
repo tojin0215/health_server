@@ -1,3 +1,6 @@
+/**
+ * @author kkyubr
+ */
 let express = require('express');
 let router = express.Router();
 var Exercise = require('../models').Exercise;
@@ -6,24 +9,28 @@ const sequelize = require("sequelize");
 const Op = sequelize.Op;
 
 
-
 router.route('/exercise')
     .get(function (req, res) {
-        let type = req.query.type;
-        let fitness_no = req.query.fn;
-        let keyword = req.query.search;
+        const type = req.query.type;
+        const fitness_no = req.query.fn;
+        const keyword = req.query.search;
 
-        let clue = {
+        if (!type) {res.status(400).json({message: 'no type'});return;}
+        if (!fitness_no) {res.status(400).json({message: 'no fitness_no'});return;}
+        if (!keyword) {res.status(400).json({message: 'no keyword'});return;}
+
+        const clue = {
             where: {
                 fitness_no: fitness_no,
             }
         }
+
         if (type==="search") {}
         else if (type==="search0") {clue['where']['name'] = {[Op.like]: "%" + keyword + "%"};}
         else if (type==="search1") {clue['where']['machine'] = {[Op.like]: "%" + keyword + "%"};}
         else if (type==="search2") {
             let arr = []
-            part_num = Number(keyword)
+            const part_num = Number(keyword)
             if (part_num!==16 && part_num!==8 && part_num!==4 && part_num!==2 && part_num!==1) {
                 clue['where']['part'] = part_num
             } else {
@@ -114,7 +121,7 @@ router.route('/exercise')
                     arr2.push(p['part'])
                 });
                 console.log(arr);
-                
+
                 // clue['where']['part'] = {[Op.like]: {[Op.in]: arr2}};
                 clue['where']['part'] = {[Op.in]: arr2};
             }
