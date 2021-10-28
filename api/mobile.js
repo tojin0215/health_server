@@ -18,6 +18,16 @@ router.route('/mobile/signup')
     const tel = req.body.tel;
     const gym_code = req.body.gym_code;
 
+    const regex_tel = /^(010)?[\s\-\.]?(\d{4})[\s\-\.]?(\d{4})$/
+
+    if (!tel || !String(tel).match(regex_tel)) {
+        res.status(400).json({
+            "message": "잘못된 번호",
+        })
+        return
+    }
+
+    const parsed_tel = "010" + String(tel).match(regex_tel)[2] + String(tel).match(regex_tel)[3]
     const hashedPw = crypto.createHash("sha512").update(pw + salt).digest("hex");
 
     User.findAll({
@@ -32,7 +42,7 @@ router.route('/mobile/signup')
             Customer.findAll({
                 where: {
                     name: name,
-                    phone: tel,
+                    phone: parsed_tel,
                 }
             })
             .then(customers => {
@@ -41,7 +51,7 @@ router.route('/mobile/signup')
                         id: id,
                         pw: hashedPw,
                         name: name,
-                        tel: tel,
+                        tel: parsed_tel,
                         gym_code: (gym_code? parseInt(gym_code, 16) : null),
                     })
                     .then(() => res.json({"message":  "ok"}))
@@ -59,7 +69,7 @@ router.route('/mobile/signup')
                         id: id,
                         pw: hashedPw,
                         name: name,
-                        tel: tel,
+                        tel: parsed_tel,
                         gym_code: (gym_code? parseInt(gym_code, 16) : null),
                         customer_id: customer.member_no,
                     })
@@ -167,10 +177,22 @@ router.route("/mobile/doubleCheck")
             res.status(400).json({"message": "오류발생"})
         })
     } else if (target === "tel") {
+        const tel = value;
+        const regex_tel = /^(010)?[\s\-\.]?(\d{4})[\s\-\.]?(\d{4})$/
+    
+        if (!tel || !String(tel).match(regex_tel)) {
+            res.status(400).json({
+                "message": "잘못된 번호",
+            })
+            return
+        }
+    
+        const parsed_tel = "010" + String(tel).match(regex_tel)[2] + String(tel).match(regex_tel)[3]
+
         Customer.findAll({
             where: {
                 phone: {
-                    [Op.like]: "%" + value + "%" 
+                    [Op.like]: "%" + parsed_tel + "%" 
                 }
             }
         })
@@ -233,7 +255,18 @@ router.route("/mobile/user")
                 user.name = name
             }
             if (tel) {
-                user.tel = tel
+                
+                const regex_tel = /^(010)?[\s\-\.]?(\d{4})[\s\-\.]?(\d{4})$/
+            
+                if (!tel || !String(tel).match(regex_tel)) {
+                    res.status(400).json({
+                        "message": "잘못된 번호",
+                    })
+                    return
+                }
+            
+                const parsed_tel = "010" + String(tel).match(regex_tel)[2] + String(tel).match(regex_tel)[3]
+                user.tel = parsed_tel
             }
             if (gym_code) {
                 user.gym_code = parseInt(gym_code, 16)
