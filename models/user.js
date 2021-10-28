@@ -5,7 +5,7 @@ module.exports = (sequelize, DataTypes) => {
         pw : {type:DataTypes.STRING(128), allowNull:false},
         name: {type:DataTypes.STRING(128), allowNull:false},
         tel: {type:DataTypes.STRING(128), allowNull:false},
-        gym_code: {type:DataTypes.STRING(128), allowNull:false},
+        gym_code: {type:DataTypes.STRING(128), allowNull:true},
         customer_id: { type: DataTypes.INTEGER, allowNull: true },
     },{
       timestamps:false
