@@ -32,7 +32,7 @@ router.route('/mobile/signup')
             Customer.findAll({
                 where: {
                     name: name,
-                    tel: tel,
+                    phone: tel,
                 }
             })
             .then(customers => {
