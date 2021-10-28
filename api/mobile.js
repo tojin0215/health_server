@@ -67,7 +67,10 @@ router.route('/mobile/signup')
     })
     .catch(e => {
         console.error(e);
-        res.status(400).json({"message": "오류발생"})
+        res.status(400).json({
+            "message": "오류발생",
+            "error": `${e}`,
+        })
     })
 })
 router.route("/mobile/login")
