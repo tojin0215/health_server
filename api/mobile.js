@@ -45,6 +45,13 @@ router.route('/mobile/signup')
                         gym_code: (gym_code? parseInt(gym_code, 16) : null),
                     })
                     .then(() => res.json({"message":  "ok"}))
+                    .catch(e => {
+                        console.error(e);
+                        res.status(400).json({
+                            "message": "유저등록1 오류발생",
+                            "error": `${e}`,
+                        })
+                    })
                 } else {
                     const customer = customers[0]
 
@@ -57,6 +64,13 @@ router.route('/mobile/signup')
                         customer_id: customer.member_no,
                     })
                     .then(() => res.json({"message":  "ok"}))
+                    .catch(e => {
+                        console.error(e);
+                        res.status(400).json({
+                            "message": "유저등록2 오류발생",
+                            "error": `${e}`,
+                        })
+                    })
                 }
             })
             .catch(e => {
