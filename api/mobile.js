@@ -23,6 +23,7 @@ router.route('/mobile/signup')
     if (!tel || !String(tel).match(regex_tel)) {
         res.status(400).json({
             "message": "잘못된 번호",
+            "tel": tel
         })
         return
     }
