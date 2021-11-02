@@ -297,7 +297,7 @@ router.route("/mobile/user")
                 "pw": pw,
                 "name": user.name,
                 "tel": user.tel,
-                "gym_code": user.gym_code.toString(16),
+                "gym_code": (user.gym_code? user.gym_code.toString(16): null),
             })
         }
     })
