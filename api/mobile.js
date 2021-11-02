@@ -151,7 +151,10 @@ router.route("/mobile/login")
     })
     .catch(e => {
         console.error(e);
-        res.status(400).json({"message": "오류발생"})
+        res.status(400).json({
+            "message": "로그인 오류발생",
+            "error": `${e}`,
+        })
     })
 })
 
@@ -175,7 +178,7 @@ router.route("/mobile/doubleCheck")
         })
         .catch(e => {
             console.error(e);
-            res.status(400).json({"message": "오류발생"})
+            res.status(400).json({"message": "오류발생", "error": String(e)});
         })
     } else if (target === "tel") {
         const tel = value;
@@ -218,13 +221,19 @@ router.route("/mobile/doubleCheck")
                 })
                 .catch(e => {
                     console.error(e);
-                    res.status(400).json({"message": "오류발생"})
+                    res.status(400).json({
+                        "message": "더블체크 사용자 찾기 오류발생",
+                        "error": `${e}`,
+                    })
                 });
             }
         })
         .catch(e => {
             console.error(e);
-            res.status(400).json({"message": "오류발생"})
+            res.status(400).json({
+                "message": "더블체크 사용자 검색오류발생",
+                "error": `${e}`,
+            })
         });
     } else res.status(400).json({"message": "target값이 올바르지 않습니다."})
 })
@@ -294,7 +303,10 @@ router.route("/mobile/user")
     })
     .catch(e => {
         console.error(e);
-        res.status(400).json({"message": "오류발생"})
+        res.status(400).json({
+            "message": "사용자 정보 수정 오류발생",
+            "error": `${e}`,
+        })
     })
 })
 
