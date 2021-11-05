@@ -299,6 +299,8 @@ router.route("/mobile/user")
                 "tel": user.tel,
                 "gym_code": (user.gym_code? user.gym_code.toString(16): null),
             })
+
+            user.save();
         }
     })
     .catch(e => {
