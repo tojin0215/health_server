@@ -161,7 +161,7 @@ router.route("/mobile/login")
     //manager get 가져옴
     .get(function (req, res) {
         let type = req.query.type;
-
+        //123
         if (type === "session") {
             console.log("Session: ");
 
