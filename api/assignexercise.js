@@ -49,7 +49,7 @@ router.route('/assignexercise')
             clue.where = {
                 fitness_no: fitness_no,
                 member_no: member_no,
-                createdAt: { [Op.like]: "%" + req.query.createdAt + "%" }
+                createdAt: { [Op.like]: "%" + createdAt + "%" }
             }
         }
         else { }
