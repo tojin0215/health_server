@@ -41,7 +41,7 @@ router.route('/assignexercise')
                 fitness_no: fitness_no,
                 member_no: member_no,
                 createAt: {
-                    [Op.between]: [moment(req.query.startDate).subtract(9, 'hours'), moment(req.query.endDate).subtract(9, 'hours')]
+                    [Op.between]: [moment(req.query.startDate).subtract(9, 'hours').toDate(), moment(req.query.endDate).subtract(9, 'hours').toDate()]
                 }
             }
         }
@@ -49,7 +49,7 @@ router.route('/assignexercise')
             clue.where = {
                 fitness_no: fitness_no,
                 member_no: member_no,
-                createdAt: { [Op.like]: "%" + req.query.createdAt + "%" }
+                createdAt: { [Op.like]: "%" + (req.query.createdAt) + "%" }
             }
         }
         else { }
