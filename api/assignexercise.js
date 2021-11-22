@@ -40,7 +40,7 @@ router.route('/assignexercise')
             clue.where = {
                 fitness_no: fitness_no,
                 member_no: member_no,
-                createAt: {
+                createdAt: {
                     [Op.between]: [moment(req.query.startDate).subtract(9, 'hours').toDate(), moment(req.query.endDate).subtract(9, 'hours').toDate()]
                 }
             }
