@@ -45,13 +45,6 @@ router.route('/assignexercise')
                 }
             }
         }
-        else if (type === "mCustomer") {
-            clue.where = {
-                fitness_no: fitness_no,
-                member_no: member_no,
-                createdAt: { [Op.like]: "%" + (req.query.createdAt) + "%" }
-            }
-        }
         else { }
 
         AssignExercise.findAll(clue)
@@ -100,6 +93,23 @@ router.route('/assignexercise')
         console.error(err);
         next(err);
         });*/
+        AssignExercise.update({ completed: req.body.completed },
+            {
+                where: {
+                    fitness_no: fitness_no,
+                    member_no: member_no,
+                    createdAt: {
+                        [Op.between]: [moment(req.query.startDate).subtract(9, 'hours').toDate(), moment(req.query.endDate).subtract(9, 'hours').toDate()]
+                    }
+                }
+            })
+            .then((result) => {
+                res.send('Update the diary');
+            })
+            .catch((err) => {
+                console.error(err);
+                next(err);
+            });
     })
     .delete(function (req, res) {
         //삭제
