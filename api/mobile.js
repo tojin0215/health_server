@@ -131,7 +131,8 @@ router.route("/mobile/login")
                                     "name": customer.name,
                                     "tel": customer.phone,
                                     "registried_gym_code": customer.fitness_no.toString(16),
-                                    "force_update": true
+                                    "force_update": true,
+                                    "customer_id": customer.member_no
                                 })
                             }
                         })
@@ -143,7 +144,8 @@ router.route("/mobile/login")
                             "name": user.name,
                             "tel": user.tel,
                             "registried_gym_code": (user.gym_code ? user.gym_code.toString(16) : null),
-                            "force_update": false
+                            "force_update": false,
+                            "customer_id": user.customer_id
                         })
                     } else {
                         res.status(403).json({ "message": "비밀번호가 다릅니다." })
@@ -372,6 +374,42 @@ router.route("/mobile/doubleCheck")
     })
 
 router.route("/mobile/user")
+.get(function(req, res) {
+    const id = req.query.id;
+    const pw = req.query.pw;
+    User.findAll({
+        where: {
+            id: id
+        }
+    })
+        .then(users => {
+            if (users.length === 0) {
+                res.status(404).json({ "message": "사용자 없음" })
+            } else {
+                const user = users[0]
+                const hashedPw = crypto.createHash("sha512").update(pw + salt).digest("hex");
+                    if (user.pw === hashedPw) {
+                        res.json({
+                            "name": user.name,
+                            "tel": user.tel,
+                            "registried_gym_code": (user.gym_code ? user.gym_code.toString(16) : null),
+                            "force_update": false,
+                            "customer_id": user.customer_id
+                        })
+                    } else {
+                        res.status(403).json({ "message": "비밀번호가 다릅니다." })
+                    }
+            }
+        })
+        .catch(e => {
+            console.error(e);
+            res.status(400).json({
+                "message": "로그인 오류발생",
+                "error": `${e}`,
+            })
+        })
+
+})
     .put(function (req, res) {
         const id = req.body.id;
         const pw = req.body.pw;
