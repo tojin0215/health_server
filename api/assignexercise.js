@@ -96,7 +96,7 @@ router.route('/assignexercise')
         AssignExercise.update({ completed: req.body.completed },
             {
                 where: {
-                    assign_exercise_no: req.body.assign_exercise_no
+                    assign_exercise_no: req.query.assign_exercise_no
                 }
             })
             .then((result) => {
