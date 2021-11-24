@@ -96,8 +96,8 @@ router.route('/assignexercise')
         AssignExercise.update({ completed: req.body.completed },
             {
                 where: {
-                    fitness_no: fitness_no,
-                    member_no: member_no,
+                    fitness_no: req.query.fitness_no,
+                    member_no: req.query.member_no,
                     createdAt: {
                         [Op.between]: [moment(req.query.startDate).subtract(9, 'hours').toDate(), moment(req.query.endDate).subtract(9, 'hours').toDate()]
                     }
