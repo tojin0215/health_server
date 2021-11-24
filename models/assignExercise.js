@@ -13,6 +13,7 @@ module.exports = (sequelize, DataTypes) => {
         data: {type: DataTypes.INTEGER, allowNull: false},
         rest_second:  {type: DataTypes.INTEGER},
         set_count:  {type: DataTypes.INTEGER, allowNull: false},
+        completed:  {type: DataTypes.INTEGER, allowNull: false, default: 0},
     }, {
         timestamps: true,
     });

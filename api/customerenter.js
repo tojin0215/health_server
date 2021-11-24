@@ -71,6 +71,10 @@ router.route('/customerenter')
                     })
                 }
             })
+            .catch(err => {
+                console.error(err);
+                res.json({})
+            })
         }
     })
     .post(function(req, res) {
@@ -84,6 +88,7 @@ router.route('/customerenter')
 
         if (type === "check") {
             if (type2 === "customer") {
+                console.log(b);
                 Customer
                 .findAll({
                     where: {fitness_no: b.fitness_no, member_no: b.customer_no}})

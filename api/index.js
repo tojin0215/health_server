@@ -8,6 +8,7 @@ const manager = require('./manager');
 const inbody = require('./inbody');
 const customerenter = require('./customerenter');
 const mobile = require('./mobile');
+const alerts = require('./alerts');
 
 //api 파일 생성할 때 마다 index에도 함께 추가
 let routers = {
@@ -21,6 +22,7 @@ let routers = {
     manager:manager,
     inbody:inbody,
     mobile:mobile,
+    alerts:alerts,
 }
 
 module.exports = routers;

@@ -55,7 +55,8 @@ app.use(routers.exercisepack);
 app.use(routers.sales);
 app.use(routers.manager);
 app.use(routers.inbody);
-app.use(routers.mobile);
+app.use(routers.mobile)
+app.use(routers.alerts);
 
 app.listen(port, () => console.log(`API Server listening on port ${port}`))
 
