@@ -20,6 +20,6 @@ db.Sales = require('./sales')(sequelize, Sequelize); //매출
 db.Manager = require('./manager')(sequelize, Sequelize); //매니저(로그인정보)
 db.Inbody = require('./inbody')(sequelize, Sequelize); //인바디정보
 db.User = require('./user')(sequelize, Sequelize); // 모바일 접속 사용자
-
+db.Alert = require('./alert')(sequelize, Sequelize); // 안내창
 
 module.exports = db;

@@ -413,16 +413,64 @@ router.route("/mobile/user")
                     }
                     if (gym_code) {
                         user.gym_code = parseInt(gym_code, 16)
-                        // if (user.customer_id) {
-                        //     Customer.findAll({
-                        //         where: {
-                        //             member_no: user.customer_id
-                        //         }
-                        //     })
-                        //     .then(customers => {
-                        //         customers[0].fitness_no = parseInt(gym_code, 16)
-                        //     })
-                        // } 
+
+                        if (user.customer_id) {
+                            Customer.findAll({
+                                where: {
+                                    member_no: user.customer_id
+                                }
+                            })
+                            .then(customers => {
+                                customers[0].fitness_no = parseInt(gym_code, 16)
+                                customers[0].save();
+                            })
+                        }
+                        else {
+                            Customer.findAll({
+                                where: {
+                                    phone: user.tel
+                                }
+                            })
+                            .then(customers => {
+                                if (customers.length > 0) {
+                                    console.log(user);
+                                    user.customer_id = customers[0].member_no;
+                                    customers[0].fitness_no = parseInt(gym_code, 16)
+                                    console.log(user);
+                                    user.save();
+                                    customers[0].save();
+                                    console.log(user);
+                                }
+                                else {
+                                    Customer.create({
+                                        fitness_no: parseInt(gym_code, 16),
+                                        name: user.name,
+                                        sex: 0, 
+                                        start_date: new Date(),
+                                        period: 0,
+                                        phone: user.tel,
+                                        solar_or_lunar: 1,
+                                        address: "",
+                                        join_route: "앱",
+                                        in_charge: "",
+                                        note: "앱 등록",
+                                        resi_no: "000000"
+                                    }).then(() => {
+                                        Customer.findAll({
+                                            where: {
+                                                phone: user.tel
+                                            }
+                                        })
+                                        .then(customers => {
+                                            if (customers.length > 0) {
+                                                user.customer_id = customers[0].member_no;
+                                                user.save();
+                                            }
+                                        })
+                                    })
+                                }
+                            })
+                        }
                     }
 
                     res.json({
@@ -431,6 +479,7 @@ router.route("/mobile/user")
                         "name": user.name,
                         "tel": user.tel,
                         "gym_code": (user.gym_code ? user.gym_code.toString(16) : null),
+                        "customer_id": user.customer_id,
                     })
 
                     user.save();
