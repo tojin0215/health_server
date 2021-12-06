@@ -81,6 +81,7 @@ router.route('/assignexercise')
             })
             .catch((err) => {
                 console.error(err);
+                req.send({"message": `${err}`});
             });
     })
     .put(function (req, res) {
