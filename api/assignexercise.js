@@ -16,7 +16,7 @@ router.route('/assignexercise')
     .get(function (req, res) {
         // 불러오기
         const type = req.query.type;
-        const fitness_no = req.query.fitness_no;
+        const fitness_no = req.query.fitness_no ? req.query.fitness_no : req.query.fn;
         const member_no = req.query.member_no;
 
         if (!type) { res.status(400).json({ message: 'no type' }); return; }
