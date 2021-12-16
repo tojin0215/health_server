@@ -510,6 +510,21 @@ router.route("/mobile/user")
                             })
                         }
                     }
+                    else if (gym_code === null) {
+                        user.gym_code = null;
+
+                        if (user.customer_id) {
+                            Customer.findAll({
+                                where: {
+                                    member_no: user.customer_id
+                                }
+                            })
+                            .then(customers => {
+                                customers[0].fitness_no = -1
+                                customers[0].save();
+                            })
+                        }
+                    }
 
                     res.json({
                         "id": user.id,
