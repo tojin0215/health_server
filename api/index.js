@@ -9,6 +9,7 @@ const inbody = require('./inbody');
 const customerenter = require('./customerenter');
 const mobile = require('./mobile');
 const alerts = require('./alerts');
+const reservation = require('./reservation');
 
 //api 파일 생성할 때 마다 index에도 함께 추가
 let routers = {
