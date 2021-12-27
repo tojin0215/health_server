@@ -3,9 +3,9 @@ const express = require('express');
 const session = require('express-session');
 const app = express();
 
-app.use(session({ 
+app.use(session({
   secret: 'kwonsoryeong1113',
-  resave: false, 
+  resave: false,
   saveUninitialized: true,
 }));
 
@@ -57,14 +57,15 @@ app.use(routers.manager);
 app.use(routers.inbody);
 app.use(routers.mobile)
 app.use(routers.alerts);
+app.use(routers.reservation);
 
 app.listen(port, () => console.log(`API Server listening on port ${port}`))
 
 
 process.on('uncaughtException', (err) => {
-    console.error("Server uncaughtException : Catch");
-    console.error(err);
-    process.exit(1);
+  console.error("Server uncaughtException : Catch");
+  console.error(err);
+  process.exit(1);
 });
 
 // module.exports = app;
