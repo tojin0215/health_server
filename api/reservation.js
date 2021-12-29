@@ -34,9 +34,7 @@ router.route('/reservation/insert')
             time: req.body.time,
             exercise_name: req.body.exercise_name,
             customer_name: req.body.customer_name,
-            customer_id: req.body.customer_id,
-            isCancel: req.body.isCancel,
-            cancelComment: req.body.cancelComment,
+            customer_id: req.body.customer_id
         }
         )
             .then(() => {
