@@ -29,6 +29,7 @@ router.route('/reservation/insert')
     .post(function (req, res) {
         //예약하기 insert
         Reservation.create({
+            fitness_no: req.body.fitness_no,
             date: req.body.date,
             time: req.body.time,
             exercise_name: req.body.exercise_name,
@@ -36,7 +37,8 @@ router.route('/reservation/insert')
             customer_id: req.body.customer_id,
             isCancel: req.body.isCancel,
             cancelComment: req.body.cancelComment,
-        })
+        }
+        )
             .then(() => {
                 res.send({ 'message': 'ok' });
             })
