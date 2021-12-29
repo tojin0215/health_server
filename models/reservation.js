@@ -4,6 +4,7 @@ module.exports = (sequelize, DataTypes) => {
     date: { type: DataTypes.DATE, allowNull: false },
     time: { type: DataTypes.INTEGER, allowNull: false },
     exercise_name: { type: DataTypes.STRING(128), allowNull: false },
+    fitness_no: { type: DataTypes.INTEGER, allowNull: false },
     customer_name: { type: DataTypes.STRING(64), allowNull: false },
     customer_id: { type: DataTypes.STRING(64), allowNull: true },
     isCancel: { type: DataTypes.STRING(256), allowNull: true },

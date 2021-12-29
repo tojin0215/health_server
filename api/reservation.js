@@ -12,7 +12,11 @@ moment.tz.setDefault("Asia/Seoul");
 router.route('/reservation/select')
     .get(function (req, res) {
         //예약현황 select
-        Reservation.findAll({})
+        Reservation.findAll({
+            where: {
+                fitness_no: req.body.fitness_no
+            }
+        })
             .then((reservation) => {
                 res.json(reservation);
             })
