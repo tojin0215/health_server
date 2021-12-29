@@ -14,7 +14,7 @@ router.route('/reservation/select')
         //예약현황 select
         Reservation.findAll({
             where: {
-                fitness_no: req.body.fitness_no
+                fitness_no: req.query.fitness_no
             }
         })
             .then((reservation) => {
