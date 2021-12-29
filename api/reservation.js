@@ -12,7 +12,11 @@ moment.tz.setDefault("Asia/Seoul");
 router.route('/reservation/select')
     .get(function (req, res) {
         //예약현황 select
-        Reservation.findAll({})
+        Reservation.findAll({
+            where: {
+                fitness_no: req.body.fitness_no
+            }
+        })
             .then((reservation) => {
                 res.json(reservation);
             })
@@ -25,6 +29,7 @@ router.route('/reservation/insert')
     .post(function (req, res) {
         //예약하기 insert
         Reservation.create({
+            fitness_no: req.body.fitness_no,
             date: req.body.date,
             time: req.body.time,
             exercise_name: req.body.exercise_name,
@@ -32,7 +37,8 @@ router.route('/reservation/insert')
             customer_id: req.body.customer_id,
             isCancel: req.body.isCancel,
             cancelComment: req.body.cancelComment,
-        })
+        }
+        )
             .then(() => {
                 res.send({ 'message': 'ok' });
             })
