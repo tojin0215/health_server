@@ -53,7 +53,12 @@ router.route('/alerts')
     });
 })
 .put(function(req, res) {
-    Alert.update({confirm: 1}, {where:{fitness_no: req.body.fitness_no,member_no: req.body.member_no,}})
+    const criteria = {where:{fitness_no: req.body.fitness_no,member_no: req.body.member_no}}
+    if (req.body && req.body.alert_id) {
+        criteria.where["alert_id"] = req.body.alert_id
+    }
+
+    Alert.update({confirm: 1}, criteria)
     .then(result=> {
         console.debug(result);
         res.send("ok");
