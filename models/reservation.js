@@ -1,7 +1,7 @@
 module.exports = (sequelize, DataTypes) => {
   return sequelize.define('reservation', {
     res_no: { type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true },
-    date: { type: DataTypes.DATE, allowNull: false },
+    date: { type: DataTypes.STRING(128), allowNull: false },
     time: { type: DataTypes.INTEGER, allowNull: false },
     exercise_name: { type: DataTypes.STRING(128), allowNull: false },
     fitness_no: { type: DataTypes.INTEGER, allowNull: false },
