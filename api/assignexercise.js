@@ -29,6 +29,9 @@ router.route('/assignexercise')
             }
         }
 
+        console.log(moment(req.query.startDate).subtract(9, 'hours').toDate())
+        console.log(moment(req.query.endDate).subtract(9, 'hours').toDate())
+
         if (type === "all") { }
         else if (type === "member") {
             clue.where = {
@@ -49,7 +52,7 @@ router.route('/assignexercise')
 
         AssignExercise.findAll(clue)
             .then((exercise) => {
-                console.log(exercise);
+                // console.log(exercise);
                 res.json(exercise);
             })
             .catch((err) => {
@@ -75,6 +78,7 @@ router.route('/assignexercise')
             data: b.data,
             rest_second: b.rest_second,
             set_count: b.set_count,
+            completed: 0,
         })
             .then(() => {
                 res.send({ 'message': 'ok' });
