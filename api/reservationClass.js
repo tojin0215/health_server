@@ -28,7 +28,7 @@ router.route('/reservationClass/select')
 router.route('/reservationClass/insert')
     .post(function (req, res) {
         // insert
-        Reservation.create({
+        ReservationClass.create({
             fitness_no: req.body.fitness_no,
             class: req.body.class
         }
@@ -45,7 +45,7 @@ router.route('/reservationClass/insert')
 router.route('/reservationClass/delete')
     .delete(function (req, res) {
         //
-        Reservation.destroy({ where: { no: req.body.no } })
+        ReservationClass.destroy({ where: { no: req.body.no } })
             .then((result) => {
                 res.send('Delete');
             })
