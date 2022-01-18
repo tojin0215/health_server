@@ -26,7 +26,7 @@ let routers = {
     mobile: mobile,
     alerts: alerts,
     reservation: reservation,
-    reservationClass: reservationClass,
+    reservationClass: reservationClass
 }
 
 module.exports = routers;

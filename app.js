@@ -58,6 +58,7 @@ app.use(routers.inbody);
 app.use(routers.mobile)
 app.use(routers.alerts);
 app.use(routers.reservation);
+app.use(routers.reservationClass);
 
 app.listen(port, () => console.log(`API Server listening on port ${port}`))
 
