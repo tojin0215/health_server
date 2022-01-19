@@ -22,5 +22,6 @@ db.Inbody = require('./inbody')(sequelize, Sequelize); //인바디정보
 db.User = require('./user')(sequelize, Sequelize); // 모바일 접속 사용자
 db.Alert = require('./alert')(sequelize, Sequelize); // 안내창
 db.Reservation = require('./reservation')(sequelize, Sequelize); // 예약
+db.ReservationClass = require('./reservationClass')(sequelize, Sequelize); // 예약 운동
 
 module.exports = db;
