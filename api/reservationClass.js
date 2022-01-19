@@ -30,7 +30,7 @@ router.route('/reservationClass/insert')
         // insert
         ReservationClass.create({
             fitness_no: req.body.fitness_no,
-            class: req.body.class
+            exercise_class: req.body.exercise_class
         }
         )
             .then(() => {
