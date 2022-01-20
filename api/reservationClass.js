@@ -46,7 +46,7 @@ router.route('/reservationClass/insert')
 router.route('/reservationClass/delete')
     .delete(function (req, res) {
         //삭제
-        ReservationClass.destroy({ where: { no: req.body.no } })
+        ReservationClass.destroy({ where: { no: req.query.no } })
             .then((result) => {
                 res.send('Delete');
             })

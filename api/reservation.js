@@ -71,7 +71,7 @@ router.route('/reservation/update')
 router.route('/reservation/delete')
     .delete(function (req, res) {
         //예약삭제
-        Reservation.destroy({ where: { res_no: req.body.res_no } })
+        Reservation.destroy({ where: { res_no: req.query.res_no } })
             .then((result) => {
                 res.send('Delete');
             })
