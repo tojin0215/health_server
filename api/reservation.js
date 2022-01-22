@@ -91,9 +91,9 @@ router.route('/reservation/update')
                     console.error(err);
                 });
         }
-
-
     })
+
+
 router.route('/reservation/delete')
     .delete(function (req, res) {
         //예약삭제
