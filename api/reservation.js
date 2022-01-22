@@ -49,24 +49,50 @@ router.route('/reservation/insert')
 router.route('/reservation/update')
     .put(function (req, res) {
         //예약변경 update 
-        Reservation.update({
-            date: req.body.date,
-            time: req.body.time,
-            exercise_name: req.body.exercise_name,
-            isCancel: req.body.isCancel,
-            cancelComment: req.body.cancelComment,
-        }, {
-            where: {
-                res_no: req.body.res_no
+
+        if (type === "app") {
+            Reservation.update({
+                date: req.body.date,
+                time: req.body.time,
+                exercise_name: req.body.exercise_name,
+                isCancel: req.body.isCancel,
+                cancelComment: req.body.cancelComment,
+                number_of_peopleFountain: req.body.number_of_peopleFountain
+            }, {
+                where: {
+                    res_no: req.query.res_no
+                }
             }
+            )
+                .then(() => {
+                    res.send('appupdate');
+                })
+                .catch((err) => {
+                    console.error(err);
+                });
+        } else {
+            Reservation.update({
+                date: req.body.date,
+                time: req.body.time,
+                exercise_name: req.body.exercise_name,
+                isCancel: req.body.isCancel,
+                cancelComment: req.body.cancelComment,
+                number_of_peopleFountain: req.body.number_of_peopleFountain
+            }, {
+                where: {
+                    res_no: req.query.res_no
+                }
+            }
+            )
+                .then(() => {
+                    res.send('updateokay');
+                })
+                .catch((err) => {
+                    console.error(err);
+                });
         }
-        )
-            .then(() => {
-                res.send('updateokay');
-            })
-            .catch((err) => {
-                console.error(err);
-            });
+
+
     })
 router.route('/reservation/delete')
     .delete(function (req, res) {
