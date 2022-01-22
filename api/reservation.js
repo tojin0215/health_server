@@ -34,7 +34,7 @@ router.route('/reservation/insert')
             time: req.body.time,
             exercise_name: req.body.exercise_name,
             customer_name: req.body.customer_name,
-            number_of_peopleFountain: req.body.number_of_peopleFountain
+            number_of_people: req.body.number_of_people
             // customer_id: req.body.customer_id
         }
         )
@@ -57,7 +57,7 @@ router.route('/reservation/update')
                 exercise_name: req.body.exercise_name,
                 isCancel: req.body.isCancel,
                 cancelComment: req.body.cancelComment,
-                number_of_peopleFountain: req.body.number_of_peopleFountain
+                number_of_people: req.body.number_of_people
             }, {
                 where: {
                     res_no: req.query.res_no
@@ -77,7 +77,7 @@ router.route('/reservation/update')
                 exercise_name: req.body.exercise_name,
                 isCancel: req.body.isCancel,
                 cancelComment: req.body.cancelComment,
-                number_of_peopleFountain: req.body.number_of_peopleFountain
+                number_of_people: req.body.number_of_people
             }, {
                 where: {
                     res_no: req.query.res_no

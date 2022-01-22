@@ -8,7 +8,7 @@ module.exports = (sequelize, DataTypes) => {
     customer_id: { type: DataTypes.STRING(64), allowNull: true },
     isCancel: { type: DataTypes.STRING(256), allowNull: true },
     cancelComment: { type: DataTypes.STRING(256) },
-    number_of_peopleFountain: { type: DataTypes.STRING(45), allowNull: true },
+    number_of_people: { type: DataTypes.STRING(45), allowNull: true },
     time: { type: DataTypes.INTEGER, allowNull: false }
   }, {
     timestamps: false
