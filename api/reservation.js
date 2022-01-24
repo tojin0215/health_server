@@ -72,12 +72,13 @@ router.route('/reservation/update')
                 });
         } else {
             Reservation.update({
-                date: req.body.date,
                 time: req.body.time,
                 exercise_name: req.body.exercise_name,
+                number_of_people: req.body.number_of_people,
+
+                date: req.body.date,
                 isCancel: req.body.isCancel,
-                cancelComment: req.body.cancelComment,
-                number_of_people: req.body.number_of_people
+                cancelComment: req.body.cancelComment
             }, {
                 where: {
                     res_no: req.query.res_no

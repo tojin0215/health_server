@@ -45,12 +45,16 @@ router.route('/reservationClass/insert')
 
 router.route('/reservationClass/update')
     .post(function (req, res) {
-        // insert
+        // update
         ReservationClass.update({
             fitness_no: req.body.fitness_no,
             exercise_class: req.body.exercise_class,
             number_of_people: req.body.number_of_people,
             time: req.body.time
+        }, {
+            where: {
+                no: req.query.no
+            }
         }
         )
             .then(() => {
