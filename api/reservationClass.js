@@ -43,6 +43,24 @@ router.route('/reservationClass/insert')
             });
     })
 
+router.route('/reservationClass/update')
+    .post(function (req, res) {
+        // insert
+        ReservationClass.update({
+            fitness_no: req.body.fitness_no,
+            exercise_class: req.body.exercise_class,
+            number_of_people: req.body.number_of_people,
+            time: req.body.time
+        }
+        )
+            .then(() => {
+                res.send({ 'message': 'ok' });
+            })
+            .catch((err) => {
+                console.error(err);
+            });
+    })
+
 
 router.route('/reservationClass/delete')
     .delete(function (req, res) {
