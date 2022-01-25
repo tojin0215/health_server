@@ -27,24 +27,42 @@ router.route('/reservation/select')
 
 router.route('/reservation/insert')
     .post(function (req, res) {
-        //예약하기 insert
-        Reservation.create({
-            fitness_no: req.body.fitness_no,
-            date: req.body.date,
-            time: req.body.time,
-            exercise_name: req.body.exercise_name,
-            customer_name: req.body.customer_name,
-            number_of_people: req.body.number_of_people
-            // customer_id: req.body.customer_id
-        }
-        )
-            .then(() => {
-                res.send({ 'message': 'ok' });
+        //>= x, < o
+        Reservation.findAll({
+            where: {
+                fitness_no: req.body.fitness_no
+            }
+        })
+            .then((reservation) => {
+                let exercise_length = reservation.filter(filterData => filterData.exercise_name === req.body.exercise_name).length;
+                if (exercise_length >= req.body.number_of_people) {
+                    res.send({ 'message': 'false' });
+                } else {
+                    //예약하기 insert
+                    Reservation.create({
+                        fitness_no: req.body.fitness_no,
+                        date: req.body.date,
+                        time: req.body.time,
+                        exercise_name: req.body.exercise_name,
+                        customer_name: req.body.customer_name,
+                        number_of_people: req.body.number_of_people
+                        // customer_id: req.body.customer_id
+                    }
+                    )
+                        .then(() => {
+                            res.send({ 'message': 'ok' });
+                        })
+                        .catch((err) => {
+                            console.error(err);
+                        });
+                }
             })
             .catch((err) => {
                 console.error(err);
+                next(err);
             });
     })
+
 
 router.route('/reservation/update')
     .put(function (req, res) {
