@@ -32,7 +32,8 @@ router.route('/reservationClass/insert')
             fitness_no: req.body.fitness_no,
             exercise_class: req.body.exercise_class,
             number_of_people: req.body.number_of_people,
-            time: req.body.time,
+            hour: req.body.hour,
+            minute: req.body.minute
         }
         )
             .then(() => {
@@ -50,7 +51,8 @@ router.route('/reservationClass/update')
             fitness_no: req.body.fitness_no,
             exercise_class: req.body.exercise_class,
             number_of_people: req.body.number_of_people,
-            time: req.body.time
+            hour: req.body.hour,
+            minute: req.body.minute
         }, {
             where: {
                 no: req.query.no
