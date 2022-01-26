@@ -69,7 +69,7 @@ router.route('/reservation/update')
     .put(function (req, res) {
         //예약변경 update 
 
-        if (type === "app") {
+        if (req.body.type === "app") {
             Reservation.update({
                 date: req.body.date,
                 time: req.body.time,
