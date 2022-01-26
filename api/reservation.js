@@ -34,8 +34,9 @@ router.route('/reservation/insert')
             }
         })
             .then((reservation) => {
-                let exercise_length = reservation.filter(filterData => filterData.exercise_name === req.body.exercise_name &&
-                    filterData.date === req.body.date).length;
+                let exercise_length = reservation.filter(filterData =>
+                    filterData.exercise_name === req.body.exercise_name && filterData.time === req.body.time &&
+                    filterData.date.split('T')[0] === req.body.date.split('T')[0]).length;
                 if (exercise_length >= req.body.number_of_people) {
                     res.send({ 'message': 'false' });
                 } else {
