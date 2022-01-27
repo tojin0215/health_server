@@ -44,7 +44,9 @@ router.route('/reservation/insert')
                 }
 
                 const is_already_registed = reservation.filter(item => 
-                    item.customer_name === customer_name
+                    item.customer_name === customer_name &&
+                    item.exercise_name === ex_name && item.time === ex_time &&
+                    item.date.split('T')[0] === ex_date.split('T')[0]
                 ).length > 0
                 
                 if (is_already_registed) {
