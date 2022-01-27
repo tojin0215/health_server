@@ -5,7 +5,8 @@ module.exports = (sequelize, DataTypes) => {
     fitness_no: { type: DataTypes.INTEGER, allowNull: false },
     number_of_people: { type: DataTypes.STRING(45) },
     hour: { type: DataTypes.INTEGER, allowNull: false },
-    minute: { type: DataTypes.INTEGER, allowNull: false }
+    minute: { type: DataTypes.INTEGER, allowNull: false },
+    trainer: { type: DataTypes.STRING(128), allowNull: false }
   }, {
     timestamps: false
   });

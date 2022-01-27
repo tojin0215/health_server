@@ -32,20 +32,21 @@ router.route('/reservationClass/insert')
         const number_of_people = req.body.number_of_people;
         const hour = req.body.hour;
         const minute = req.body.minute;
+        const trainer = req.body.trainer;
 
-        ReservationClass.findAll({where: {fitness_no, exercise_class, hour, minute}})
-        .then(result => {
-            if (result.length > 0) {
-                res.send({ 'message': '이미 설정한 운동입니다.' });
-            }
-            else {
-                ReservationClass
-                .create({fitness_no, exercise_class, number_of_people, hour, minute})
-                .then(() => res.send({ 'message': 'ok' }))
-                .catch((err) => res.send({ 'message': '등록이 불가합니다.' }));
-            }
-        })
-        .catch((err) => res.send({ 'message': '등록이 불가합니다.' }));
+        ReservationClass.findAll({ where: { fitness_no, exercise_class, hour, minute } })
+            .then(result => {
+                if (result.length > 0) {
+                    res.send({ 'message': '이미 설정한 운동입니다.' });
+                }
+                else {
+                    ReservationClass
+                        .create({ fitness_no, exercise_class, number_of_people, hour, minute, trainer })
+                        .then(() => res.send({ 'message': 'ok' }))
+                        .catch((err) => res.send({ 'message': '등록이 불가합니다.' }));
+                }
+            })
+            .catch((err) => res.send({ 'message': '등록이 불가합니다.' }));
     })
 
 router.route('/reservationClass/update')
@@ -56,7 +57,8 @@ router.route('/reservationClass/update')
             exercise_class: req.body.exercise_class,
             number_of_people: req.body.number_of_people,
             hour: req.body.hour,
-            minute: req.body.minute
+            minute: req.body.minute,
+            trainer: req.body.trainer
         }, {
             where: {
                 no: req.query.no
