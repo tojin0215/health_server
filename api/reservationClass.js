@@ -27,21 +27,25 @@ router.route('/reservationClass/select')
 
 router.route('/reservationClass/insert')
     .post(function (req, res) {
-        // insert
-        ReservationClass.create({
-            fitness_no: req.body.fitness_no,
-            exercise_class: req.body.exercise_class,
-            number_of_people: req.body.number_of_people,
-            hour: req.body.hour,
-            minute: req.body.minute
-        }
-        )
-            .then(() => {
-                res.send({ 'message': 'ok' });
-            })
-            .catch((err) => {
-                console.error(err);
-            });
+        const fitness_no = req.body.fitness_no;
+        const exercise_class = req.body.exercise_class;
+        const number_of_people = req.body.number_of_people;
+        const hour = req.body.hour;
+        const minute = req.body.minute;
+
+        ReservationClass.findAll({where: {fitness_no, exercise_class, hour, minute}})
+        .then(result => {
+            if (result.length > 0) {
+                res.send({ 'message': '이미 설정한 운동입니다.' });
+            }
+            else {
+                ReservationClass
+                .create({fitness_no, exercise_class, number_of_people, hour, minute})
+                .then(() => res.send({ 'message': 'ok' }))
+                .catch((err) => res.send({ 'message': '등록이 불가합니다.' }));
+            }
+        })
+        .catch((err) => res.send({ 'message': '등록이 불가합니다.' }));
     })
 
 router.route('/reservationClass/update')

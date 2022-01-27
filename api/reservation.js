@@ -27,26 +27,38 @@ router.route('/reservation/select')
 
 router.route('/reservation/insert')
     .post(function (req, res) {
+        const fitness_no = req.body.fitness_no;
         //>= x, < o
-        Reservation.findAll({
-            where: {
-                fitness_no: req.body.fitness_no
-            }
-        })
+        Reservation.findAll({where: {fitness_no}})
             .then((reservation) => {
-                let exercise_length = reservation.filter(filterData =>
-                    filterData.exercise_name === req.body.exercise_name && filterData.time === req.body.time &&
-                    filterData.date.split('T')[0] === req.body.date.split('T')[0]).length;
+                const ex_name = req.body.exercise_name;
+                const ex_time = req.body.time;
+                const ex_date = req.body.date;
+                const customer_name = req.body.customer_name;
+
+                let exercise_length = reservation.filter(item =>
+                    item.exercise_name === ex_name && item.time === ex_time &&
+                    item.date.split('T')[0] === ex_date.split('T')[0]).length;
                 if (exercise_length >= req.body.number_of_people) {
-                    res.send({ 'message': 'false' });
-                } else {
+                    res.send({ 'message': '예약이 다 찼습니다' });
+                }
+
+                const is_already_registed = reservation.filter(item => 
+                    item.customer_name === customer_name
+                ).length > 0
+                
+                if (is_already_registed) {
+                    res.send({ 'message': '이미 신청한 운동입니다' });
+                }
+                else {
+                    
                     //예약하기 insert
                     Reservation.create({
-                        fitness_no: req.body.fitness_no,
-                        date: req.body.date,
-                        time: req.body.time,
-                        exercise_name: req.body.exercise_name,
-                        customer_name: req.body.customer_name,
+                        fitness_no: fitness_no,
+                        date: ex_date,
+                        time: ex_time,
+                        exercise_name: ex_name,
+                        customer_name: customer_name,
                         number_of_people: req.body.number_of_people
                         // customer_id: req.body.customer_id
                     }
