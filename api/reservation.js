@@ -29,12 +29,14 @@ router.route('/reservation/insert')
     .post(function (req, res) {
         const fitness_no = req.body.fitness_no;
         //>= x, < o
-        Reservation.findAll({where: {fitness_no}})
+        Reservation.findAll({ where: { fitness_no } })
             .then((reservation) => {
                 const ex_name = req.body.exercise_name;
                 const ex_time = req.body.time;
                 const ex_date = req.body.date;
                 const customer_name = req.body.customer_name;
+                number_of_people = req.body.number_of_people
+                const trainer = req.body.trainer;
 
                 let exercise_length = reservation.filter(item =>
                     item.exercise_name === ex_name && item.time === ex_time &&
@@ -43,17 +45,17 @@ router.route('/reservation/insert')
                     res.send({ 'message': '예약이 다 찼습니다' });
                 }
 
-                const is_already_registed = reservation.filter(item => 
+                const is_already_registed = reservation.filter(item =>
                     item.customer_name === customer_name &&
                     item.exercise_name === ex_name && item.time === ex_time &&
                     item.date.split('T')[0] === ex_date.split('T')[0]
                 ).length > 0
-                
+
                 if (is_already_registed) {
                     res.send({ 'message': '이미 신청한 운동입니다' });
                 }
                 else {
-                    
+
                     //예약하기 insert
                     Reservation.create({
                         fitness_no: fitness_no,
@@ -61,7 +63,8 @@ router.route('/reservation/insert')
                         time: ex_time,
                         exercise_name: ex_name,
                         customer_name: customer_name,
-                        number_of_people: req.body.number_of_people
+                        number_of_people: number_of_people,
+                        trainer: trainer
                         // customer_id: req.body.customer_id
                     }
                     )
@@ -109,6 +112,7 @@ router.route('/reservation/update')
                 time: req.body.time,
                 exercise_name: req.body.exercise_name,
                 number_of_people: req.body.number_of_people,
+                trainer: req.body.trainer,
 
                 date: req.body.date,
                 isCancel: req.body.isCancel,

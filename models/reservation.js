@@ -9,7 +9,8 @@ module.exports = (sequelize, DataTypes) => {
     isCancel: { type: DataTypes.STRING(256), allowNull: true },
     cancelComment: { type: DataTypes.STRING(256) },
     number_of_people: { type: DataTypes.STRING(45), allowNull: true },
-    time: { type: DataTypes.STRING(45), allowNull: false }
+    time: { type: DataTypes.STRING(45), allowNull: false },
+    trainer: { type: DataTypes.STRING(128), allowNull: false }
   }, {
     timestamps: false
   });
