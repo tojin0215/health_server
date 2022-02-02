@@ -67,9 +67,8 @@ router.route('/reservation/insert')
                         customer_name: customer_name,
                         number_of_people: number_of_people,
                         trainer: trainer,
-                        customer_id: req.body.customer_id
-                    }
-                    )
+                        customer_id: `${req.body.customer_id}`
+                    })
                         .then(() => {
                             res.send({ 'message': 'ok' });
                         })
