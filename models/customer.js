@@ -14,6 +14,7 @@ module.exports = (sequelize, DataTypes) => {
         in_charge :{type:DataTypes.STRING(10)},
         note :{type:DataTypes.STRING(100)},
         resi_no :{type:DataTypes.STRING(30)},
+        remained_membership :{type:DataTypes.INTEGER, allowNull: false, default: 0},
     },{
       timestamps:false
     });

@@ -56,7 +56,12 @@ router.route('/customerenter')
                         where: {fitness_no: decoded._fit_no, member_no: decoded._id}})
                     .then(result => {
                         if (result.length === 0) {res.status(403).json({code: 403, message: '인증 실패'})}
-                        else {res.json({code: 200, message: '인증되었습니다.', user: result[0]})}
+                        else {
+                            res.json({code: 200, message: '인증되었습니다.', user: result[0]});
+                            
+                            Customer.update({remained_membership: (result[0].remained_membership - 1)}, {where: {member_no: result[0].member_no}})
+                            then(console.log).catch(console.error)
+                        }
                         return;
                     })
                 }
@@ -81,6 +86,8 @@ router.route('/customerenter')
         const b = req.body
         const type = req.query.type;
         const type2 = req.query.type2;
+        const fitness_no = req.body.fitness_no;
+        const member_no = req.body.customer_no;
 
         if (!b) {res.status(400).json({message: 'no body'}); return;}
         if (!type) {res.status(400).json({message: 'no type'}); return;}
@@ -90,8 +97,7 @@ router.route('/customerenter')
             if (type2 === "customer") {
                 console.log(b);
                 Customer
-                .findAll({
-                    where: {fitness_no: b.fitness_no, member_no: b.customer_no}})
+                .findAll({where: {fitness_no, member_no}})
                 .then(function (result) {
                     if (result.length === 0) {
                         res.status(404).json({code: 404, message: '회원을 찾을 수 없습니다.'});
