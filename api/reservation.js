@@ -41,9 +41,7 @@ router.route('/reservation/insert')
                 let exercise_length = reservation.filter(item =>
                     item.exercise_name === ex_name && item.time === ex_time &&
                     item.date.split('T')[0] === ex_date.split('T')[0]).length;
-                if (exercise_length >= req.body.number_of_people) {
-                    res.send({ 'message': '예약이 다 찼습니다' });
-                }
+
 
                 const is_already_registed = reservation.filter(item =>
                     item.customer_name === customer_name &&
@@ -51,7 +49,11 @@ router.route('/reservation/insert')
                     item.date.split('T')[0] === ex_date.split('T')[0]
                 ).length > 0
 
-                if (is_already_registed) {
+
+                if (exercise_length >= req.body.number_of_people) {
+                    res.send({ 'message': '예약이 다 찼습니다' });
+                }
+                else if (is_already_registed) {
                     res.send({ 'message': '이미 신청한 운동입니다' });
                 }
                 else {
