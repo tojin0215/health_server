@@ -37,6 +37,7 @@ router.route('/reservation/insert')
                 const customer_name = req.body.customer_name;
                 number_of_people = req.body.number_of_people
                 const trainer = req.body.trainer;
+                const customer_id = `${req.body.customer_id}`
 
                 let exercise_length = reservation.filter(item =>
                     item.exercise_name === ex_name && item.time === ex_time &&
@@ -44,7 +45,7 @@ router.route('/reservation/insert')
 
 
                 const is_already_registed = reservation.filter(item =>
-                    item.customer_name === customer_name &&
+                    item.customer_id === customer_id &&
                     item.exercise_name === ex_name && item.time === ex_time &&
                     item.date.split('T')[0] === ex_date.split('T')[0]
                 ).length > 0
