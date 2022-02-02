@@ -66,8 +66,8 @@ router.route('/reservation/insert')
                         exercise_name: ex_name,
                         customer_name: customer_name,
                         number_of_people: number_of_people,
-                        trainer: trainer
-                        // customer_id: req.body.customer_id
+                        trainer: trainer,
+                        customer_id: req.body.customer_id
                     }
                     )
                         .then(() => {
