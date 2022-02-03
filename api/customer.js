@@ -135,6 +135,7 @@ router.route('/customer')
             })
             .catch((err) => {
                 console.error(err);
+                res.status(400).send(err);
                 next(err);
             });
             res.send(customers);
