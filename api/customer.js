@@ -141,6 +141,7 @@ router.route('/customer')
         })
         .catch((err) => {
             console.error(err);
+            res.sendStatus(400).send(err);
         });
     })
     .put(function(req, res) {
