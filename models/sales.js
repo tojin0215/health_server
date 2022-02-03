@@ -11,7 +11,7 @@ module.exports = (sequelize, DataTypes) => {
         sportswearPrice : {type:DataTypes.INTEGER },
         paymentTools :{type:DataTypes.STRING(32), allowNull:false},
         paymentDate :{type:DataTypes.DATE, allowNull:false},
-        paidMembership: {type: DataTypes.INTEGER, allowNull: false, default: 0}
+        paidMembership: {type: DataTypes.INTEGER, allowNull: false, defaultValue: 0}
     },{
         timestamps:false
     });
