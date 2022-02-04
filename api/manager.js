@@ -117,6 +117,22 @@ router.route('/manager')
                 next(err);
             });
         }
+        else if(type === "idCheck"){ //아이디
+            Manager.findAll({
+                where: {
+                    id: {
+                        [Op.like]: "%" + req.query.id + "%" 
+                    }
+                } 
+            })
+            .then((managers) => {
+                res.json(managers);
+            })
+            .catch((err) => {
+                console.error(err);
+                next(err);
+            });
+        }
 
     })
     .post(function(req, res) {
