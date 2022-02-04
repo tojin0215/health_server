@@ -11,9 +11,9 @@ module.exports = (sequelize, DataTypes) => {
         sportswearPrice: { type: DataTypes.INTEGER },
         paymentTools: { type: DataTypes.STRING(32), allowNull: false },
         paymentDate: { type: DataTypes.DATE, allowNull: false },
-        paidMembership: { type: DataTypes.INTEGER, allowNull: false, defaultValue: NULL },
-        salesStart_date: { type: DataTypes.STRING(128), allowNull: false, defaultValue: NULL },
-        salesDays: { type: DataTypes.STRING(128), allowNull: false, defaultValue: NULL }
+        paidMembership: { type: DataTypes.INTEGER, allowNull: false, defaultValue: DataTypes.NULL },
+        salesStart_date: { type: DataTypes.STRING(128), allowNull: false, defaultValue: DataTypes.NULL },
+        salesDays: { type: DataTypes.STRING(128), allowNull: false, defaultValue: DataTypes.NULL }
     }, {
         timestamps: false
     });
