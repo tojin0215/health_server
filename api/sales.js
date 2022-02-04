@@ -115,7 +115,9 @@ router.route('/sales')
             sportswearPrice: req.body.sportswearPrice,
             paymentTools: req.body.paymentTools,
             paymentDate: req.body.paymentDate,
-            paidMembership: req.body.paidMembership
+            paidMembership: req.body.paidMembership,
+            salesStart_date: req.body.salesStart_date,
+            salesDays: req.body.salesDays
         }).then(() => {
             res.send({ 'success': 'sales update!' });
         })

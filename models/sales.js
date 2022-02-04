@@ -8,11 +8,13 @@ module.exports = (sequelize, DataTypes) => {
         //locker : {type:DataTypes.INTEGER},
         lockerPrice: { type: DataTypes.INTEGER },
         //sportswear : {type:DataTypes.INTEGER},
-        sportswearPrice : {type:DataTypes.INTEGER },
-        paymentTools :{type:DataTypes.STRING(32), allowNull:false},
-        paymentDate :{type:DataTypes.DATE, allowNull:false},
-        paidMembership: {type: DataTypes.INTEGER, allowNull: false, defaultValue: 0}
-    },{
-        timestamps:false
+        sportswearPrice: { type: DataTypes.INTEGER },
+        paymentTools: { type: DataTypes.STRING(32), allowNull: false },
+        paymentDate: { type: DataTypes.DATE, allowNull: false },
+        paidMembership: { type: DataTypes.INTEGER, allowNull: false, defaultValue: NULL },
+        salesStart_date: { type: DataTypes.STRING(128), allowNull: false, defaultValue: NULL },
+        salesDays: { type: DataTypes.STRING(128), allowNull: false, defaultValue: NULL }
+    }, {
+        timestamps: false
     });
 }
