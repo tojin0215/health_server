@@ -7,18 +7,42 @@ var Manager = require('../models').Manager;
 const sequelize = require("sequelize");
 const Op = sequelize.Op;
 const crypto = require('crypto');
+const { addAbortSignal } = require('stream');
 
 const salt = "Bdp6N2q)y6ncNgUft!s!jAxmGHy2bG%S";
+const regex_tel = /^(010)?[\s\-\.]?(\d{4})[\s\-\.]?(\d{4})$/
+
+const sendError = (req, res, message = "") => {
+    return e => {
+        console.error(e);
+        res.status(400).json({"message": message, "error": `${e}`});
+    }
+}
+const parseTel = tel => "010" + String(tel).match(regex_tel)[2] + String(tel).match(regex_tel)[3]
+const createCustomerDataByApp = user => {return {
+    fitness_no: user.gym_code,
+    name: user.name,
+    sex: 0, 
+    start_date: new Date(),
+    period: 0,
+    phone: user.tel,
+    solar_or_lunar: 1,
+    address: "",
+    join_route: "앱",
+    in_charge: "",
+    note: "앱 등록",
+    resi_no: "000000"
+}}
 
 router.route('/mobile/signup')
     .post(function (req, res) {
-        const id = req.body.id;
-        const pw = req.body.pw;
-        const name = req.body.name;
-        const tel = req.body.tel;
-        const gym_code = req.body.gym_code;
+        const {id, pw, name, tel, gym_code} = req.body;
+        // const id = req.body.id;
+        // const pw = req.body.pw;
+        // const name = req.body.name;
+        // const tel = req.body.tel;
+        // const gym_code = req.body.gym_code;
 
-        const regex_tel = /^(010)?[\s\-\.]?(\d{4})[\s\-\.]?(\d{4})$/
 
         if (!tel || !String(tel).match(regex_tel)) {
             res.status(400).json({
@@ -28,8 +52,15 @@ router.route('/mobile/signup')
             return
         }
 
-        const parsed_tel = "010" + String(tel).match(regex_tel)[2] + String(tel).match(regex_tel)[3]
+        const parsed_tel = parseTel(tel);
         const hashedPw = crypto.createHash("sha512").update(pw + salt).digest("hex");
+        const user_data = {
+            id: id,
+            pw: hashedPw,
+            name: name,
+            tel: parsed_tel,
+            gym_code: (gym_code ? parseInt(gym_code, 16) : null),
+        }
 
         User.findAll({
             where: {
@@ -48,58 +79,37 @@ router.route('/mobile/signup')
                     })
                         .then(customers => {
                             if (customers.length === 0) {
-                                User.create({
-                                    id: id,
-                                    pw: hashedPw,
-                                    name: name,
-                                    tel: parsed_tel,
-                                    gym_code: (gym_code ? parseInt(gym_code, 16) : null),
-                                })
-                                    .then(() => res.json({ "message": "ok" }))
-                                    .catch(e => {
-                                        console.error(e);
-                                        res.status(400).json({
-                                            "message": "유저등록1 오류발생",
-                                            "error": `${e}`,
-                                        })
+                                User.create(user_data)
+                                    .then(user => {
+                                        if (user_data.gym_code !== null) {
+                                            Customer.create(createCustomerDataByApp(user_data))
+                                            .then(customer => {
+                                                console.log(customer)
+                                                user.customer_id = customer.member_no;
+                                                user.save();
+                                                res.json({ "message": "ok" })
+                                            })
+                                        }
+                                        else {
+                                            res.json({ "message": "ok" })
+                                        }
                                     })
+                                    .catch(sendError(req, res, "유저등록-1 오류 발생"))
                             } else {
                                 const customer = customers[0]
 
                                 User.create({
-                                    id: id,
-                                    pw: hashedPw,
-                                    name: name,
-                                    tel: parsed_tel,
-                                    gym_code: (gym_code ? parseInt(gym_code, 16) : null),
+                                    ...user_data,
                                     customer_id: customer.member_no,
                                 })
                                     .then(() => res.json({ "message": "ok" }))
-                                    .catch(e => {
-                                        console.error(e);
-                                        res.status(400).json({
-                                            "message": "유저등록2 오류발생",
-                                            "error": `${e}`,
-                                        })
-                                    })
+                                    .catch(sendError(req, res, "유저등록-2 오류 발생"))
                             }
                         })
-                        .catch(e => {
-                            console.error(e);
-                            res.status(400).json({
-                                "message": "유저찾기 오류발생",
-                                "error": `${e}`,
-                            })
-                        })
+                        .catch(sendError(req, res, "유저찾기 오류 발생"))
                 }
             })
-            .catch(e => {
-                console.error(e);
-                res.status(400).json({
-                    "message": "오류발생",
-                    "error": `${e}`,
-                })
-            })
+            .catch(sendError(req, res, "오류 발생"))
     })
 
 router.route("/mobile/login")
