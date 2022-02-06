@@ -35,7 +35,7 @@ router.route('/reservation/insert')
                 const ex_time = req.body.time;
                 const ex_date = req.body.date;
                 const customer_name = req.body.customer_name;
-                number_of_people = req.body.number_of_people
+                const number_of_people = req.body.number_of_people
                 const trainer = req.body.trainer;
                 const customer_id = `${req.body.customer_id}`
 
