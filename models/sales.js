@@ -12,7 +12,7 @@ module.exports = (sequelize, DataTypes) => {
         paymentTools: { type: DataTypes.STRING(32), allowNull: false },
         paymentDate: { type: DataTypes.DATE, allowNull: false },
         paidMembership: { type: DataTypes.INTEGER, allowNull: false, defaultValue: DataTypes.NULL },
-        salesStart_date: { type: DataTypes.STRING(128), allowNull: false, defaultValue: DataTypes.NULL },
+        salesStart_date: { type: DataTypes.DATE, allowNull: false, defaultValue: DataTypes.NULL },
         salesDays: { type: DataTypes.STRING(128), allowNull: false, defaultValue: DataTypes.NULL }
     }, {
         timestamps: false
