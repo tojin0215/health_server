@@ -9,20 +9,55 @@ require('moment-timezone');
 var moment = require('moment');
 moment.tz.setDefault("Asia/Seoul");
 
+/**
+ * 예약보여주기
+ * type=exercise_ASC-->운동정렬
+ * type=trainer_ASC-->강사정렬
+ */
+
 router.route('/reservation/select')
     .get(function (req, res) {
-        //예약현황 select
-        Reservation.findAll({
-            where: {
-                fitness_no: req.query.fitness_no
-            }
-        })
-            .then((reservation) => {
-                res.json(reservation);
+        if (req.body.type==="exercise_ASC") {
+            Reservation.findAll({
+                where: {
+                    fitness_no: req.query.fitness_no
+                },
+                order:[['exercise_name', 'ASC']]
             })
-            .catch((err) => {
-                console.error(err);
+                .then((reservation) => {
+                    res.json(reservation);
+                }) 
+                .catch((err) => {
+                    console.error(err);
+                })       
+        } else if(req.body.type==="trainer_ASC"){
+            Reservation.findAll({
+                where: {
+                    fitness_no: req.query.fitness_no
+                },
+                order:[['trainer', 'ASC']]
             })
+                .then((reservation) => {
+                    res.json(reservation);
+                }) 
+                .catch((err) => {
+                    console.error(err);
+                })  
+        }else{
+            Reservation.findAll({
+                where: {
+                    fitness_no: req.query.fitness_no
+                }
+            })
+                .then((reservation) => {
+                    res.json(reservation);
+                })
+                .catch((err) => {
+                    console.error(err);
+                })
+        }
+        
+        
     })
 
 router.route('/reservation/insert')
