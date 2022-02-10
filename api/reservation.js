@@ -22,7 +22,7 @@ router.route('/reservation/select')
                 where: {
                     fitness_no: req.query.fitness_no
                 },
-                orderBy:[['exercise_name', 'ASC']]
+                order:[['exercise_name', 'ASC']]
             })
                 .then((reservation) => {
                     res.json(reservation);
@@ -35,7 +35,7 @@ router.route('/reservation/select')
                 where: {
                     fitness_no: req.query.fitness_no
                 },
-                orderBy:[['trainer', 'ASC']]
+                order:[['trainer', 'ASC']]
             })
                 .then((reservation) => {
                     res.json(reservation);
