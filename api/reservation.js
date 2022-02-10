@@ -17,7 +17,7 @@ moment.tz.setDefault("Asia/Seoul");
 
 router.route('/reservation/select')
     .get(function (req, res) {
-        if (req.body.type==="exercise_ASC") {
+        if (req.query.type==="exercise_ASC") {
             Reservation.findAll({
                 where: {
                     fitness_no: req.query.fitness_no
@@ -30,7 +30,7 @@ router.route('/reservation/select')
                 .catch((err) => {
                     console.error(err);
                 })       
-        } else if(req.body.type==="trainer_ASC"){
+        } else if(req.query.type==="trainer_ASC"){
             Reservation.findAll({
                 where: {
                     fitness_no: req.query.fitness_no
