@@ -85,7 +85,8 @@ router.route('/reservation/insert')
                 const customer_name = req.body.customer_name;
                 const number_of_people = req.body.number_of_people
                 const trainer = req.body.trainer;
-                const customer_id = `${req.body.customer_id}`
+                const customer_id = `${req.body.customer_id}`;
+                const profile_id = req.body.profile_id;
 
                 let exercise_length = reservation.filter(item =>
                     item.exercise_name === ex_name && item.time === ex_time &&
@@ -116,7 +117,8 @@ router.route('/reservation/insert')
                         customer_name: customer_name,
                         number_of_people: number_of_people,
                         trainer: trainer,
-                        customer_id: `${req.body.customer_id}`
+                        customer_id: customer_id,
+                        profile_id: profile_id,
                     })
                         .then(() => {
                             res.send({ 'message': 'ok' });

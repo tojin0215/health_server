@@ -11,6 +11,7 @@ const mobile = require('./mobile');
 const alerts = require('./alerts');
 const reservation = require('./reservation');
 const reservationClass = require('./reservationClass');
+const profile = require('./profiles');
 
 //api 파일 생성할 때 마다 index에도 함께 추가
 let routers = {
@@ -26,7 +27,8 @@ let routers = {
     mobile: mobile,
     alerts: alerts,
     reservation: reservation,
-    reservationClass: reservationClass
+    reservationClass: reservationClass,
+    profile: profile,
 }
 
 module.exports = routers;
