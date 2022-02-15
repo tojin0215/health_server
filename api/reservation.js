@@ -17,33 +17,46 @@ moment.tz.setDefault("Asia/Seoul");
 
 router.route('/reservation/select')
     .get(function (req, res) {
-        if (req.query.type==="exercise_ASC") {
+        if (req.query.type === "exercise_ASC") {
             Reservation.findAll({
                 where: {
                     fitness_no: req.query.fitness_no
                 },
-                order:[['exercise_name', 'ASC']]
+                order: [['exercise_name', 'ASC']]
             })
                 .then((reservation) => {
                     res.json(reservation);
-                }) 
+                })
                 .catch((err) => {
                     console.error(err);
-                })       
-        } else if(req.query.type==="trainer_ASC"){
+                })
+        } else if (req.query.type === "trainer_ASC") {
             Reservation.findAll({
                 where: {
                     fitness_no: req.query.fitness_no
                 },
-                order:[['trainer', 'ASC']]
+                order: [['trainer', 'ASC']]
             })
                 .then((reservation) => {
                     res.json(reservation);
-                }) 
+                })
                 .catch((err) => {
                     console.error(err);
-                })  
-        }else{
+                })
+        } else if (req.query.type === "trainer") {
+            Reservation.findAll({
+                where: {
+                    fitness_no: req.query.fitness_no,
+                    trainer: req.query.trainer,
+                }
+            })
+                .then((reservation) => {
+                    res.json(reservation);
+                })
+                .catch((err) => {
+                    console.error(err);
+                })
+        } else {
             Reservation.findAll({
                 where: {
                     fitness_no: req.query.fitness_no
@@ -56,8 +69,8 @@ router.route('/reservation/select')
                     console.error(err);
                 })
         }
-        
-        
+
+
     })
 
 router.route('/reservation/insert')
