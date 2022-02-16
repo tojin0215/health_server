@@ -34,18 +34,17 @@ router.route('/alerts')
         Alert.findAll({
             where:{
                 fitness_no: req.body.fitness_no,
-                start_date: req.body.member_no,
+                member_no: req.body.member_no,
                 confirm: 0
             }
         })
-        .then((customers) => {
-            res.json(customers);
+        .then((alerts) => {
+            res.json(alerts);
         })
         .catch((err) => {
             console.error(err);
             next(err);
         });
-        res.send(customers);
     })
     .catch((err) => {
         console.error(err);

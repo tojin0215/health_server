@@ -7,6 +7,7 @@ const Op = sequelize.Op;
 
 require('moment-timezone');
 var moment = require('moment');
+const { Customer } = require('../models');
 moment.tz.setDefault("Asia/Seoul");
 
 /**
