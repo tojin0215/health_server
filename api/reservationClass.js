@@ -33,6 +33,7 @@ router.route('/reservationClass/insert')
         const hour = req.body.hour;
         const minute = req.body.minute;
         const trainer = req.body.trainer;
+        const class_date = req.body.class_date;
 
         ReservationClass.findAll({ where: { fitness_no, exercise_class, hour, minute } })
             .then(result => {
@@ -41,7 +42,7 @@ router.route('/reservationClass/insert')
                 }
                 else {
                     ReservationClass
-                        .create({ fitness_no, exercise_class, number_of_people, hour, minute, trainer })
+                        .create({ fitness_no, exercise_class, number_of_people, hour, minute, trainer, class_date })
                         .then(() => res.send({ 'message': 'ok' }))
                         .catch((err) => res.send({ 'message': '등록이 불가합니다.' }));
                 }
@@ -58,7 +59,8 @@ router.route('/reservationClass/update')
             number_of_people: req.body.number_of_people,
             hour: req.body.hour,
             minute: req.body.minute,
-            trainer: req.body.trainer
+            trainer: req.body.trainer,
+            class_date: req.body.class_date
         }, {
             where: {
                 no: req.query.no
