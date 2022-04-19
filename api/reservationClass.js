@@ -35,15 +35,9 @@ router.route('/reservationClass/insert')
         const trainer = req.body.trainer;
         const class_date = req.body.class_date;
 
-        ReservationClass.findAll({ where: { fitness_no, exercise_class, hour, minute } })
+        ReservationClass.findAll({ where: { fitness_no, exercise_class, hour, minute, class_date } })
             .then(result => {
                 if (result.length > 0) {
-                    ReservationClass.findAll({ where: { class_date } })
-                        .then(result => {
-                            if (result.length > 0) {
-                                res.send({ 'message': '중복날짜' })
-                            }
-                        })
                     res.send({ 'message': '이미 설정한 운동입니다.' });
                 }
                 else {
