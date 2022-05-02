@@ -44,6 +44,19 @@ router.route('/reservation/select')
                 .catch((err) => {
                     console.error(err);
                 })
+        } else if (req.query.type === "date_ASC") {
+            Reservation.findAll({
+                where: {
+                    fitness_no: req.query.fitness_no
+                },
+                order: [['date', 'ASC']]
+            })
+                .then((reservation) => {
+                    res.json(reservation);
+                })
+                .catch((err) => {
+                    console.error(err);
+                })
         } else if (req.query.type === "trainer") {
             Reservation.findAll({
                 where: {
