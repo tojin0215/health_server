@@ -10,6 +10,6 @@ module.exports = (sequelize, DataTypes) => {
     trainer_name: { type: DataTypes.STRING(20), allowNull: false },
     ment: { type: DataTypes.STRING(200), allowNull: false },
     history: { type: DataTypes.STRING(200), allowNull: false },
-    sex: { type: DataTypes.BOOLEAN, allowNull: false },
+    sex: { type: DataTypes.BOOLEAN },
   });
 };
