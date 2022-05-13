@@ -116,7 +116,7 @@ router
     }
   })
   .post(function (req, res) {
-    // 쓰기
+    //  회원가입
     req.session.loginInfo = {};
     let type = req.query.type;
 
@@ -137,8 +137,8 @@ router
       password: hashPassword,
       manager_name: req.body.manager_name,
       phone: req.body.phone,
-      buisness_number: req.body.buisness_number,
-      buisness_phone: req.body.buisness_phone,
+      business_number: req.body.business_number,
+      business_phone: req.body.business_phone,
       salt: salt,
     })
       .then(() => {
