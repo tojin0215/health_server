@@ -12,6 +12,7 @@ const alerts = require("./alerts");
 const reservation = require("./reservation");
 const reservationClass = require("./reservationClass");
 const profile = require("./profiles");
+const trainer = require("./trainer");
 
 //api 파일 생성할 때 마다 index에도 함께 추가
 let routers = {
@@ -29,6 +30,7 @@ let routers = {
   reservation: reservation,
   reservationClass: reservationClass,
   profile: profile,
+  trainer: trainer,
 };
 
 module.exports = routers;
