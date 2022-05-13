@@ -11,9 +11,9 @@ module.exports = (sequelize, DataTypes) => {
       },
       password: { type: DataTypes.STRING(200), allowNull: false },
       manager_name: { type: DataTypes.STRING(20), allowNull: false },
-      business_number: { type: DataTypes.STRING(30), allowNull: false },
-      business_phone: { type: DataTypes.STRING(32), allowNull: false },
-      phone: { type: DataTypes.STRING(32), allowNull: false },
+      business_number: { type: DataTypes.STRING(30), allowNull: true },
+      business_phone: { type: DataTypes.STRING(32), allowNull: true },
+      phone: { type: DataTypes.STRING(32), allowNull: true },
       salt: { type: DataTypes.STRING(40), allowNull: false },
     },
     {
