@@ -14,7 +14,6 @@ module.exports = (sequelize, DataTypes) => {
       business_number: { type: DataTypes.STRING(30), allowNull: false },
       business_phone: { type: DataTypes.STRING(32), allowNull: false },
       phone: { type: DataTypes.STRING(32), allowNull: false },
-      permit: { type: DataTypes.INTEGER, allowNull: false },
       salt: { type: DataTypes.STRING(40), allowNull: false },
     },
     {
