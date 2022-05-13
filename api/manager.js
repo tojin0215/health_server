@@ -1,254 +1,262 @@
-let express = require('express');
+let express = require("express");
 let router = express.Router();
-var Manager = require('../models').Manager;
+var Manager = require("../models").Manager;
 const sequelize = require("sequelize");
 const Op = sequelize.Op;
-const crypto = require('crypto');
+const crypto = require("crypto");
 
-router.route('/manager')
-    .get(function(req, res) {
-        // 불러오기
-        
-        let type = req.query.type;
+router
+  .route("/manager")
+  .get(function (req, res) {
+    // 불러오기
 
-        if(type === "session"){
-            console.log("Session: ");
-            
-            if(req.session.loginInfo) {
-                res.json({ info: req.session.loginInfo });
-            }
-            else{
-                return res.status(401).json({
-                    error: "THERE IS NO LOGIN DATA",
-                    code: 1
-                });
-            }
-        } 
-        else if(type === "all"){ // 전체 리스트
-            console.log('들어오니')
-            Manager.findAll({
-                where: { 
-                    fitness_no: {
-                        [Op.gt] : 1
-                    }
-                } 
-            })
-                .then((managers) => {
-                    res.json(managers);
-                })
-                .catch((err) => {
-                    console.error(err);
-                    next(err);
-                });
-        } 
-        else if(type === "search0"){ //헬스장이름검색
-            Manager.findAll({
-                where: { 
-                    fitness_no: {
-                        [Op.gt] : 1
-                    },
-                    fitness_name: {
-                        [Op.like]: "%" + req.query.search + "%" 
-                    }
-                } 
-            })
-            .then((managers) => {
-                res.json(managers);
-            })
-            .catch((err) => {
-                console.error(err);
-                next(err);
-            });
-        }
-        else if(type === "search1"){ //담당자이름
-            Manager.findAll({
-                where: { 
-                    fitness_no: {
-                        [Op.gt] : 1
-                    },
-                    manager_name: {
-                        [Op.like]: "%" + req.query.search + "%" 
-                    }
-                } 
-            })
-            .then((managers) => {
-                res.json(managers);
-            })
-            .catch((err) => {
-                console.error(err);
-                next(err);
-            });
-        }
-        else if(type === "search2"){ //아이디
-            Manager.findAll({
-                where: { 
-                    fitness_no: {
-                        [Op.gt] : 1
-                    },
-                    id: {
-                        [Op.like]: "%" + req.query.search + "%" 
-                    }
-                } 
-            })
-            .then((managers) => {
-                res.json(managers);
-            })
-            .catch((err) => {
-                console.error(err);
-                next(err);
-            });
-        }
-        else if(type === "search3"){ //전화번호
-            Manager.findAll({
-                where: { 
-                    fitness_no: {
-                        [Op.gt] : 1
-                    },
-                    phone: {
-                        [Op.like]: "%" + req.query.search + "%" 
-                    }
-                } 
-            })
-            .then((managers) => {
-                res.json(managers);
-            })
-            .catch((err) => {
-                console.error(err);
-                next(err);
-            });
-        }
-        else if(type === "idCheck"){ //아이디
-            Manager.findAll({
-                where: {
-                    id: {
-                        [Op.like]: "%" + req.query.id + "%" 
-                    }
-                } 
-            })
-            .then((managers) => {
-                res.json(managers);
-            })
-            .catch((err) => {
-                console.error(err);
-                next(err);
-            });
-        }
+    let type = req.query.type;
 
-    })
-    .post(function(req, res) {
-        // 쓰기
-        req.session.loginInfo = {}
-        let type = req.query.type;
+    if (type === "session") {
+      console.log("Session: ");
 
-        // let first = crypto.createHash('sha1').update('test').digest('binary');
-        // let second = crypto.createHash('sha1').update(first).digest('hex');
-        // let result = "*"+second.toUpperCase();
-        // console.log('!!!!!!!!',result)
-
-        let pwd = req.body.password;
-        let salt = Math.round((new Date().valueOf()*Math.random()))+"";
-        let hashPassword = crypto.createHash("sha512").update(pwd + salt).digest("hex");
-
-        Manager.create({
-            id:req.body.id,
-            password:hashPassword,
-            fitness_name:req.body.fitness_name,
-            manager_name:req.body.manager_name,
-            phone:req.body.phone,
-            salt:salt
-        }).then(() => {
-            res.send({'success':'Manager update!'});
+      if (req.session.loginInfo) {
+        res.json({ info: req.session.loginInfo });
+      } else {
+        return res.status(401).json({
+          error: "THERE IS NO LOGIN DATA",
+          code: 1,
+        });
+      }
+    } else if (type === "all") {
+      // 전체 리스트
+      console.log("들어오니");
+      Manager.findAll({
+        where: {
+          fitness_no: {
+            [Op.gt]: 1,
+          },
+        },
+      })
+        .then((managers) => {
+          res.json(managers);
         })
         .catch((err) => {
-            console.error(err);
+          console.error(err);
+          next(err);
         });
+    } else if (type === "search0") {
+      //헬스장이름검색
+      Manager.findAll({
+        where: {
+          fitness_no: {
+            [Op.gt]: 1,
+          },
+          fitness_name: {
+            [Op.like]: "%" + req.query.search + "%",
+          },
+        },
+      })
+        .then((managers) => {
+          res.json(managers);
+        })
+        .catch((err) => {
+          console.error(err);
+          next(err);
+        });
+    } else if (type === "search1") {
+      //담당자이름
+      Manager.findAll({
+        where: {
+          fitness_no: {
+            [Op.gt]: 1,
+          },
+          manager_name: {
+            [Op.like]: "%" + req.query.search + "%",
+          },
+        },
+      })
+        .then((managers) => {
+          res.json(managers);
+        })
+        .catch((err) => {
+          console.error(err);
+          next(err);
+        });
+    } else if (type === "search2") {
+      //아이디
+      Manager.findAll({
+        where: {
+          fitness_no: {
+            [Op.gt]: 1,
+          },
+          id: {
+            [Op.like]: "%" + req.query.search + "%",
+          },
+        },
+      })
+        .then((managers) => {
+          res.json(managers);
+        })
+        .catch((err) => {
+          console.error(err);
+          next(err);
+        });
+    } else if (type === "search3") {
+      //전화번호
+      Manager.findAll({
+        where: {
+          fitness_no: {
+            [Op.gt]: 1,
+          },
+          phone: {
+            [Op.like]: "%" + req.query.search + "%",
+          },
+        },
+      })
+        .then((managers) => {
+          res.json(managers);
+        })
+        .catch((err) => {
+          console.error(err);
+          next(err);
+        });
+    } else if (type === "idCheck") {
+      //아이디
+      Manager.findAll({
+        where: {
+          id: {
+            [Op.like]: "%" + req.query.id + "%",
+          },
+        },
+      })
+        .then((managers) => {
+          res.json(managers);
+        })
+        .catch((err) => {
+          console.error(err);
+          next(err);
+        });
+    }
+  })
+  .post(function (req, res) {
+    // 쓰기
+    req.session.loginInfo = {};
+    let type = req.query.type;
 
-        Manager.findOne({
-            where: {
-              id: req.body.id,
-              //password: req.body.password
-            }
-          })
-            .then((users) => {
-                //나중에 비밀번호 암호화할 때 참고
-                
-                if(users==null){
-                    console.log('err2');
-                    return res.status(401).json({
-                        error: "로그인 정보가 잘못되었습니다.",
-                        code: 2
-                    });
-                }
-                else{
-                    let hashPassword = crypto.createHash("sha512").update(req.body.password + users.salt).digest("hex");
-                    if(hashPassword === users.password){
-                        //console.log('성공')
-                        console.log("users :");
-                        console.log(users.dataValues.id);
-                        console.log(req.body.id);
+    // let first = crypto.createHash('sha1').update('test').digest('binary');
+    // let second = crypto.createHash('sha1').update(first).digest('hex');
+    // let result = "*"+second.toUpperCase();
+    // console.log('!!!!!!!!',result)
 
-                        req.session.loginInfo = {
-                            id: req.body.id,
-                            fitness_no:users.dataValues.fitness_no,
-                            fitness_name:users.dataValues.fitness_name,
-                            manager_name:users.dataValues.manager_name
-                        };
-                        console.log(req.session)
-                        // RETURN SUCCESS
-                        return res.json({
-                            success: true,
-                            id: req.body.id,
-                            fitness_no:users.dataValues.fitness_no,
-                            fitness_name:users.dataValues.fitness_name,
-                            manager_name:users.dataValues.manager_name
-                        });
-                        //res.json(users);
-                    }else{
-                        //console.log('실패')
-                        return res.status(401).json({
-                            error: "비밀번호가 잘못되었습니다.",
-                            code: 4
-                        });
-                    }
-                }
-            })
-            .catch((err) => {
-                return res.status(401).json({
-                    error: "로그인 정보가 잘못되었습니다.",
-                    code: 3
-                });
-            });
+    let pwd = req.body.password;
+    let salt = Math.round(new Date().valueOf() * Math.random()) + "";
+    let hashPassword = crypto
+      .createHash("sha512")
+      .update(pwd + salt)
+      .digest("hex");
+
+    Manager.create({
+      id: req.body.id,
+      password: hashPassword,
+      manager_name: req.body.manager_name,
+      phone: req.body.phone,
+      buisness_number: req.body.buisness_number,
+      buisness_phone: req.body.buisness_phone,
+      salt: salt,
+      agree: req.body.agree,
     })
-    .put(function(req, res) {
-        // 수정
-        /*User.update({ title: "바꿀거 ", contents: "바꿀 내용1", mood : "바꿀 내용2", verse: "바꿀 내용3", }, { where: { writer: '권소령', year:2021, month:1, date:28 } })
+      .then(() => {
+        res.send({ success: "Manager update!" });
+      })
+      .catch((err) => {
+        console.error(err);
+      });
+
+    Manager.findOne({
+      where: {
+        id: req.body.id,
+        //password: req.body.password
+      },
+    })
+      .then((users) => {
+        //나중에 비밀번호 암호화할 때 참고
+
+        if (users == null) {
+          console.log("err2");
+          return res.status(401).json({
+            error: "로그인 정보가 잘못되었습니다.",
+            code: 2,
+          });
+        } else {
+          let hashPassword = crypto
+            .createHash("sha512")
+            .update(req.body.password + users.salt)
+            .digest("hex");
+          if (hashPassword === users.password) {
+            //console.log('성공')
+            console.log("users :");
+            console.log(users.dataValues.id);
+            console.log(req.body.id);
+
+            req.session.loginInfo = {
+              id: req.body.id,
+              fitness_no: users.dataValues.fitness_no,
+              fitness_name: users.dataValues.fitness_name,
+              manager_name: users.dataValues.manager_name,
+            };
+            console.log(req.session);
+            // RETURN SUCCESS
+            return res.json({
+              success: true,
+              id: req.body.id,
+              fitness_no: users.dataValues.fitness_no,
+              fitness_name: users.dataValues.fitness_name,
+              manager_name: users.dataValues.manager_name,
+            });
+            //res.json(users);
+          } else {
+            //console.log('실패')
+            return res.status(401).json({
+              error: "비밀번호가 잘못되었습니다.",
+              code: 4,
+            });
+          }
+        }
+      })
+      .catch((err) => {
+        return res.status(401).json({
+          error: "로그인 정보가 잘못되었습니다.",
+          code: 3,
+        });
+      });
+  })
+  .put(function (req, res) {
+    // 수정
+    /*User.update({ title: "바꿀거 ", contents: "바꿀 내용1", mood : "바꿀 내용2", verse: "바꿀 내용3", }, { where: { writer: '권소령', year:2021, month:1, date:28 } })
         .then((result) => {
         res.send('Update the diary');
         })
         .catch((err) => {
         console.error(err);
         next(err);
-        });*/ 
-    })
-    .delete(function (req, res) {
-        let type = req.query.type;
+        });*/
+  })
+  .delete(function (req, res) {
+    let type = req.query.type;
 
-        if(type === "session"){
-            req.session.destroy(err => { if(err) throw err; });
-            return res.json({ sucess: true });
-        }
-        else if(type ==="delete"){
-            Manager.destroy({ 
-                where: { fitness_no:req.query.fn} 
-            })
-            .then((result) => {
-                res.send('Delete the fitnessCenter');
-            })
-            .catch((err) => {
-                console.error(err);
-                next(err);
-            });
-        }
-    });
+    if (type === "session") {
+      req.session.destroy((err) => {
+        if (err) throw err;
+      });
+      return res.json({ sucess: true });
+    } else if (type === "delete") {
+      Manager.destroy({
+        where: { fitness_no: req.query.fn },
+      })
+        .then((result) => {
+          res.send("Delete the fitnessCenter");
+        })
+        .catch((err) => {
+          console.error(err);
+          next(err);
+        });
+    }
+  });
 
 module.exports = router;
