@@ -159,7 +159,6 @@ router
       buisness_number: req.body.buisness_number,
       buisness_phone: req.body.buisness_phone,
       salt: salt,
-      agree: req.body.agree,
     })
       .then(() => {
         res.send({ success: "Manager update!" });
@@ -197,7 +196,6 @@ router
             req.session.loginInfo = {
               id: req.body.id,
               fitness_no: users.dataValues.fitness_no,
-              fitness_name: users.dataValues.fitness_name,
               manager_name: users.dataValues.manager_name,
             };
             console.log(req.session);
@@ -206,7 +204,6 @@ router
               success: true,
               id: req.body.id,
               fitness_no: users.dataValues.fitness_no,
-              fitness_name: users.dataValues.fitness_name,
               manager_name: users.dataValues.manager_name,
             });
             //res.json(users);
