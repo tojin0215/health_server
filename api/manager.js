@@ -40,25 +40,6 @@ router
           console.error(err);
           next(err);
         });
-    } else if (type === "search0") {
-      //헬스장이름검색
-      Manager.findAll({
-        where: {
-          fitness_no: {
-            [Op.gt]: 1,
-          },
-          fitness_name: {
-            [Op.like]: "%" + req.query.search + "%",
-          },
-        },
-      })
-        .then((managers) => {
-          res.json(managers);
-        })
-        .catch((err) => {
-          console.error(err);
-          next(err);
-        });
     } else if (type === "search1") {
       //담당자이름
       Manager.findAll({
