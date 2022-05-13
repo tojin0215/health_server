@@ -10,7 +10,7 @@ router
   .get(function (req, res) {
     Trainer.findAll({
       where: {
-        fitness_no: req.body,
+        fitness_no: req.body.fitness_no,
       },
     });
   })
