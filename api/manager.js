@@ -4,6 +4,7 @@ var Manager = require("../models").Manager;
 const sequelize = require("sequelize");
 const Op = sequelize.Op;
 const crypto = require("crypto");
+const trainer = require("../models/trainer");
 
 router
   .route("/manager")
@@ -131,78 +132,94 @@ router
       .createHash("sha512")
       .update(pwd + salt)
       .digest("hex");
-
-    Manager.create({
-      id: req.body.id,
-      password: hashPassword,
-      manager_name: req.body.manager_name,
-      phone: req.body.phone,
-      business_number: req.body.business_number,
-      business_phone: req.body.business_phone,
-      salt: salt,
-    })
-      .then(() => {
-        res.send({ success: "Manager update!" });
-      })
-      .catch((err) => {
-        console.error(err);
-      });
-
-    Manager.findOne({
-      where: {
+    if (req.query.type === "trainer") {
+      Manager.create({
         id: req.body.id,
-        //password: req.body.password
-      },
-    })
-      .then((users) => {
-        //나중에 비밀번호 암호화할 때 참고
+        password: hashPassword,
+        manager_name: req.body.manager_name,
+        fitness_no: -12,
+        salt: salt,
+      })
+        .then(() => {
+          res.send({ success: "Trainer" });
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    } else if (req.query.type === "customer") {
+    } else {
+      Manager.create({
+        id: req.body.id,
+        password: hashPassword,
+        manager_name: req.body.manager_name,
+        phone: req.body.phone,
+        business_number: req.body.business_number,
+        business_phone: req.body.business_phone,
+        salt: salt,
+      })
+        .then(() => {
+          res.send({ success: "Manager update!" });
+        })
+        .catch((err) => {
+          console.error(err);
+        });
 
-        if (users == null) {
-          console.log("err2");
+      Manager.findOne({
+        where: {
+          id: req.body.id,
+          //password: req.body.password
+        },
+      })
+        .then((users) => {
+          //나중에 비밀번호 암호화할 때 참고
+
+          if (users == null) {
+            console.log("err2");
+            return res.status(401).json({
+              error: "로그인 정보가 잘못되었습니다.",
+              code: 2,
+            });
+          } else {
+            let hashPassword = crypto
+              .createHash("sha512")
+              .update(req.body.password + users.salt)
+              .digest("hex");
+            if (hashPassword === users.password) {
+              //console.log('성공')
+              console.log("users :");
+              console.log(users.dataValues.id);
+              console.log(req.body.id);
+
+              req.session.loginInfo = {
+                id: req.body.id,
+                fitness_no: users.dataValues.fitness_no,
+                manager_name: users.dataValues.manager_name,
+              };
+              console.log(req.session);
+              // RETURN SUCCESS
+              return res.json({
+                success: true,
+                id: req.body.id,
+                fitness_no: users.dataValues.fitness_no,
+                manager_name: users.dataValues.manager_name,
+              });
+              //res.json(users);
+            } else {
+              //console.log('실패')
+              return res.status(401).json({
+                error: "비밀번호가 잘못되었습니다.",
+                code: 4,
+              });
+            }
+          }
+        })
+        .catch((err) => {
           return res.status(401).json({
             error: "로그인 정보가 잘못되었습니다.",
-            code: 2,
+            code: 3,
           });
-        } else {
-          let hashPassword = crypto
-            .createHash("sha512")
-            .update(req.body.password + users.salt)
-            .digest("hex");
-          if (hashPassword === users.password) {
-            //console.log('성공')
-            console.log("users :");
-            console.log(users.dataValues.id);
-            console.log(req.body.id);
-
-            req.session.loginInfo = {
-              id: req.body.id,
-              fitness_no: users.dataValues.fitness_no,
-              manager_name: users.dataValues.manager_name,
-            };
-            console.log(req.session);
-            // RETURN SUCCESS
-            return res.json({
-              success: true,
-              id: req.body.id,
-              fitness_no: users.dataValues.fitness_no,
-              manager_name: users.dataValues.manager_name,
-            });
-            //res.json(users);
-          } else {
-            //console.log('실패')
-            return res.status(401).json({
-              error: "비밀번호가 잘못되었습니다.",
-              code: 4,
-            });
-          }
-        }
-      })
-      .catch((err) => {
-        return res.status(401).json({
-          error: "로그인 정보가 잘못되었습니다.",
-          code: 3,
         });
-      });
+    }
   })
   .put(function (req, res) {
     // 수정

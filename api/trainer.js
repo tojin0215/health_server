@@ -24,12 +24,14 @@ router
     Trainer.create({
       phone: req.body.phone,
       birth: req.body.birth,
+      trainer_name: req.body.trainer_name,
+      fitness_no: req.body.fitness_no,
       ment: req.body.ment,
       history: req.body.history,
       sex: req.body.sex,
     })
       .then(() => {
-        res.send({ success: "select success!" });
+        res.send({ success: "insert success!" });
       })
       .catch((err) => {
         console.error(err);
