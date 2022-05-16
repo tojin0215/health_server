@@ -137,7 +137,7 @@ router
         id: req.body.id,
         password: hashPassword,
         manager_name: req.body.manager_name,
-        fitness_no: -12,
+        fitness_no: req.body.fitness_no * -1 - 1,
         salt: salt,
       })
         .then(() => {
