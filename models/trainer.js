@@ -14,7 +14,6 @@ module.exports = (sequelize, DataTypes) => {
       fitness_no: {
         type: DataTypes.INTEGER,
         allowNull: false,
-        autoIncrement: true,
       },
       ment: { type: DataTypes.STRING(400), allowNull: true },
       history: { type: DataTypes.STRING(400), allowNull: true },
