@@ -4,7 +4,6 @@ var Manager = require("../models").Manager;
 const sequelize = require("sequelize");
 const Op = sequelize.Op;
 const crypto = require("crypto");
-const trainer = require("../models/trainer");
 
 router
   .route("/manager")
