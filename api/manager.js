@@ -131,13 +131,14 @@ router
       .createHash("sha512")
       .update(pwd + salt)
       .digest("hex");
+    //0:헬스장, 1:강사, 2:회원
     if (req.query.type === "trainer") {
       Manager.create({
         id: req.body.id,
         password: hashPassword,
         manager_name: req.body.manager_name,
-        fitness_no: req.body.fitness_no * -1 - 1,
         salt: salt,
+        loginWhether: 1,
       })
         .then(() => {
           res.send({ success: "Trainer" });
@@ -155,6 +156,7 @@ router
         business_number: req.body.business_number,
         business_phone: req.body.business_phone,
         salt: salt,
+        loginWhether: 0,
       })
         .then(() => {
           res.send({ success: "Manager update!" });
