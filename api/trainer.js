@@ -54,7 +54,7 @@ router
         },
       }
     )
-      .then(() => {
+      .then((result) => {
         res.json(result);
         res.send({ success: "update success!" });
       })
