@@ -54,8 +54,7 @@ router
         },
       }
     )
-      .then((result) => {
-        res.json(result);
+      .then(() => {
         res.send({ success: "update success!" });
       })
       .catch((err) => {
