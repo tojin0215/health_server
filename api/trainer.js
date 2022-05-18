@@ -13,7 +13,8 @@ router
         fitness_no: req.query.fitness_no,
       },
     })
-      .then(() => {
+      .then((result) => {
+        res.json(result);
         res.send({ success: "select success!" });
       })
       .catch((err) => {
