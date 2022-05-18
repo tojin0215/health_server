@@ -4,6 +4,7 @@ var Trainer = require("../models").Trainer;
 const sequelize = require("sequelize");
 const Op = sequelize.Op;
 const crypto = require("crypto");
+const { where } = require("sequelize");
 
 router
   .route("/trainer")
@@ -39,13 +40,20 @@ router
       });
   })
   .put(function (req, res) {
-    Trainer.update({
-      phone: req.body.phone,
-      trainer_name: req.body.trainer_name,
-      ment: req.body.ment,
-      history: req.body.history,
-      sex: req.bory.sex,
-    })
+    Trainer.update(
+      {
+        trainer_name: req.body.trainer_name,
+        ment: req.body.ment,
+        history: req.body.history,
+        sex: req.bory.sex,
+      },
+      {
+        where: {
+          phone: req.query.phone,
+          fitness_no: req.query.fitness_no,
+        },
+      }
+    )
       .then(() => {
         res.send({ success: "update success!" });
       })
