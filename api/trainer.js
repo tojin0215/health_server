@@ -43,7 +43,7 @@ router
       phone: req.body.phone,
       trainer_name: req.body.trainer_name,
       ment: req.body.ment,
-      hitory: req.body.history,
+      history: req.body.history,
       sex: req.bory.sex,
     })
       .then(() => {
