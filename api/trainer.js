@@ -37,5 +37,20 @@ router
       .catch((err) => {
         console.error(err);
       });
+  })
+  .put(function (req, res) {
+    Trainer.update({
+      phone: req.body.phone,
+      trainer_name: req.body.trainer_name,
+      ment: req.body.ment,
+      hitory: req.body.history,
+      sex: req.bory.sex,
+    })
+      .then(() => {
+        res.send({ success: "update success!" });
+      })
+      .catch((err) => {
+        console.error(err);
+      });
   });
 module.exports = router;
