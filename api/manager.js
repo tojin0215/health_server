@@ -141,7 +141,7 @@ router
         loginWhether: 1,
       })
         .then(() => {
-          res.send({ success: "Trainer" });
+          // res.send({ success: "Trainer" });
         })
         .catch((err) => {
           console.log(err);
