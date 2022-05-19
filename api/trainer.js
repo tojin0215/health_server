@@ -58,5 +58,19 @@ router
       .catch((err) => {
         console.error(err);
       });
+  })
+  .delete(function (req, res) {
+    Trainer.destroy({
+      where: {
+        phone: req.query.phone,
+        fitness_no: req.query.fitness_no,
+      },
+    })
+      .then(() => {
+        res.send({ success: "update success!" });
+      })
+      .catch((err) => {
+        console.error(err);
+      });
   });
 module.exports = router;
