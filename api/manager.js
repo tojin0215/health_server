@@ -1,31 +1,31 @@
-let express = require("express");
+let express = require('express');
 let router = express.Router();
-var Manager = require("../models").Manager;
-const sequelize = require("sequelize");
+var Manager = require('../models').Manager;
+const sequelize = require('sequelize');
 const Op = sequelize.Op;
-const crypto = require("crypto");
+const crypto = require('crypto');
 
 router
-  .route("/manager")
+  .route('/manager')
   .get(function (req, res) {
     // 불러오기
 
     let type = req.query.type;
 
-    if (type === "session") {
-      console.log("Session: ");
+    if (type === 'session') {
+      console.log('Session: ');
 
       if (req.session.loginInfo) {
         res.json({ info: req.session.loginInfo });
       } else {
         return res.status(401).json({
-          error: "THERE IS NO LOGIN DATA",
+          error: 'THERE IS NO LOGIN DATA',
           code: 1,
         });
       }
-    } else if (type === "all") {
+    } else if (type === 'all') {
       // 전체 리스트
-      console.log("들어오니");
+      console.log('들어오니');
       Manager.findAll({
         where: {
           fitness_no: {
@@ -40,7 +40,7 @@ router
           console.error(err);
           next(err);
         });
-    } else if (type === "search1") {
+    } else if (type === 'search1') {
       //담당자이름
       Manager.findAll({
         where: {
@@ -48,7 +48,7 @@ router
             [Op.gt]: 1,
           },
           manager_name: {
-            [Op.like]: "%" + req.query.search + "%",
+            [Op.like]: '%' + req.query.search + '%',
           },
         },
       })
@@ -59,7 +59,7 @@ router
           console.error(err);
           next(err);
         });
-    } else if (type === "search2") {
+    } else if (type === 'search2') {
       //아이디
       Manager.findAll({
         where: {
@@ -67,7 +67,7 @@ router
             [Op.gt]: 1,
           },
           id: {
-            [Op.like]: "%" + req.query.search + "%",
+            [Op.like]: '%' + req.query.search + '%',
           },
         },
       })
@@ -78,7 +78,7 @@ router
           console.error(err);
           next(err);
         });
-    } else if (type === "search3") {
+    } else if (type === 'search3') {
       //전화번호
       Manager.findAll({
         where: {
@@ -86,7 +86,7 @@ router
             [Op.gt]: 1,
           },
           phone: {
-            [Op.like]: "%" + req.query.search + "%",
+            [Op.like]: '%' + req.query.search + '%',
           },
         },
       })
@@ -97,12 +97,12 @@ router
           console.error(err);
           next(err);
         });
-    } else if (type === "idCheck") {
+    } else if (type === 'idCheck') {
       //아이디
       Manager.findAll({
         where: {
           id: {
-            [Op.like]: "%" + req.query.id + "%",
+            [Op.like]: '%' + req.query.id + '%',
           },
         },
       })
@@ -126,13 +126,13 @@ router
     // console.log('!!!!!!!!',result)
 
     let pwd = req.body.password;
-    let salt = Math.round(new Date().valueOf() * Math.random()) + "";
+    let salt = Math.round(new Date().valueOf() * Math.random()) + '';
     let hashPassword = crypto
-      .createHash("sha512")
+      .createHash('sha512')
       .update(pwd + salt)
-      .digest("hex");
+      .digest('hex');
     //0:헬스장, 1:강사, 2:회원
-    if (req.query.type === "trainer") {
+    if (req.query.type === 'trainer') {
       Manager.create({
         id: req.body.id,
         password: hashPassword,
@@ -146,7 +146,7 @@ router
         .catch((err) => {
           console.log(err);
         });
-    } else if (req.query.type === "customer") {
+    } else if (req.query.type === 'customer') {
     } else {
       Manager.create({
         id: req.body.id,
@@ -159,7 +159,7 @@ router
         loginWhether: 0,
       })
         .then(() => {
-          res.send({ success: "Manager update!" });
+          res.send({ success: 'Manager update!' });
         })
         .catch((err) => {
           console.error(err);
@@ -175,19 +175,19 @@ router
           //나중에 비밀번호 암호화할 때 참고
 
           if (users == null) {
-            console.log("err2");
+            console.log('err2');
             return res.status(401).json({
-              error: "로그인 정보가 잘못되었습니다.",
+              error: '로그인 정보가 잘못되었습니다.',
               code: 2,
             });
           } else {
             let hashPassword = crypto
-              .createHash("sha512")
+              .createHash('sha512')
               .update(req.body.password + users.salt)
-              .digest("hex");
+              .digest('hex');
             if (hashPassword === users.password) {
               //console.log('성공')
-              console.log("users :");
+              console.log('users :');
               console.log(users.dataValues.id);
               console.log(req.body.id);
 
@@ -195,6 +195,7 @@ router
                 id: req.body.id,
                 fitness_no: users.dataValues.fitness_no,
                 manager_name: users.dataValues.manager_name,
+                loginWhether: users.dataValues.loginWhether,
               };
               console.log(req.session);
               // RETURN SUCCESS
@@ -202,13 +203,13 @@ router
                 success: true,
                 id: req.body.id,
                 fitness_no: users.dataValues.fitness_no,
-                manager_name: users.dataValues.manager_name,
+                loginWhether: users.dataValues.loginWhether,
               });
               //res.json(users);
             } else {
               //console.log('실패')
               return res.status(401).json({
-                error: "비밀번호가 잘못되었습니다.",
+                error: '비밀번호가 잘못되었습니다.',
                 code: 4,
               });
             }
@@ -216,7 +217,7 @@ router
         })
         .catch((err) => {
           return res.status(401).json({
-            error: "로그인 정보가 잘못되었습니다.",
+            error: '로그인 정보가 잘못되었습니다.',
             code: 3,
           });
         });
@@ -236,17 +237,17 @@ router
   .delete(function (req, res) {
     let type = req.query.type;
 
-    if (type === "session") {
+    if (type === 'session') {
       req.session.destroy((err) => {
         if (err) throw err;
       });
       return res.json({ sucess: true });
-    } else if (type === "delete") {
+    } else if (type === 'delete') {
       Manager.destroy({
         where: { fitness_no: req.query.fn },
       })
         .then((result) => {
-          res.send("Delete the fitnessCenter");
+          res.send('Delete the fitnessCenter');
         })
         .catch((err) => {
           console.error(err);
