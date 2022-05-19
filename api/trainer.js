@@ -44,7 +44,6 @@ router
         trainer_name: req.body.trainer_name,
         ment: req.body.ment,
         history: req.body.history,
-        sex: req.body.sex,
       },
       {
         where: {
