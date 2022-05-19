@@ -67,7 +67,7 @@ router
       },
     })
       .then(() => {
-        res.send({ success: "update success!" });
+        res.send({ success: "delete success!" });
       })
       .catch((err) => {
         console.error(err);
