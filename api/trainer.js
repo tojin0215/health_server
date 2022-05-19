@@ -16,7 +16,6 @@ router
     })
       .then((result) => {
         res.json(result);
-        res.send({ success: "select success!" });
       })
       .catch((err) => {
         console.error(err);
