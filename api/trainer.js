@@ -1,25 +1,39 @@
-let express = require("express");
+let express = require('express');
 let router = express.Router();
-var Trainer = require("../models").Trainer;
-const sequelize = require("sequelize");
+var Trainer = require('../models').Trainer;
+const sequelize = require('sequelize');
 const Op = sequelize.Op;
-const crypto = require("crypto");
-const { where } = require("sequelize");
+const crypto = require('crypto');
+const { where } = require('sequelize');
 
 router
-  .route("/trainer")
+  .route('/trainer')
   .get(function (req, res) {
-    Trainer.findAll({
-      where: {
-        fitness_no: req.query.fitness_no,
-      },
-    })
-      .then((result) => {
-        res.json(result);
+    if (req.query.type === 'reservation') {
+      Trainer.findAll({
+        where: {
+          trainer_name: req.query.trainer_name,
+        },
       })
-      .catch((err) => {
-        console.error(err);
-      });
+        .then((result) => {
+          res.json(result);
+        })
+        .catch((err) => {
+          console.error(err);
+        });
+    } else {
+      Trainer.findAll({
+        where: {
+          fitness_no: req.query.fitness_no,
+        },
+      })
+        .then((result) => {
+          res.json(result);
+        })
+        .catch((err) => {
+          console.error(err);
+        });
+    }
   })
   .post(function (req, res) {
     Trainer.create({
@@ -32,7 +46,7 @@ router
       sex: req.body.sex,
     })
       .then(() => {
-        res.send({ success: "insert success!" });
+        res.send({ success: 'insert success!' });
       })
       .catch((err) => {
         console.error(err);
@@ -53,7 +67,7 @@ router
       }
     )
       .then(() => {
-        res.send({ success: "update success!" });
+        res.send({ success: 'update success!' });
       })
       .catch((err) => {
         console.error(err);
@@ -67,7 +81,7 @@ router
       },
     })
       .then(() => {
-        res.send({ success: "delete success!" });
+        res.send({ success: 'delete success!' });
       })
       .catch((err) => {
         console.error(err);
