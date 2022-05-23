@@ -1,10 +1,10 @@
-const express = require("express");
-const session = require("express-session");
+const express = require('express');
+const session = require('express-session');
 const app = express();
 
 app.use(
   session({
-    secret: "kwonsoryeong1113",
+    secret: 'kwonsoryeong1113',
     resave: false,
     saveUninitialized: true,
   })
@@ -12,12 +12,12 @@ app.use(
 
 const port = 3002;
 
-const routers = require("./api");
-const sequelize = require("./models").sequelize; // sequelize require
+const routers = require('./api');
+const sequelize = require('./models').sequelize; // sequelize require
 sequelize.sync();
 
-var cors = require("cors");
-var bodyParser = require("body-parser");
+var cors = require('cors');
+var bodyParser = require('body-parser');
 
 app.use(
   cors({
@@ -26,9 +26,9 @@ app.use(
   })
 );
 
-var path = require("path");
-var cookieParser = require("cookie-parser");
-var logger = require("morgan");
+var path = require('path');
+var cookieParser = require('cookie-parser');
+var logger = require('morgan');
 
 //POST body 등을 편리하게 추출하기 위함
 app.use(bodyParser.urlencoded({ extended: false }));
@@ -40,7 +40,7 @@ app.use(bodyParser.json());
 // app.use(cookieParser());
 // app.use(express.static(path.join(__dirname, 'public')));
 
-app.get("/", (req, res) => res.send("Hello World!"));
+app.get('/', (req, res) => res.send('Hello World!'));
 
 //api routes
 app.use(routers.customer);
@@ -58,11 +58,12 @@ app.use(routers.reservation);
 app.use(routers.reservationClass);
 app.use(routers.profile);
 app.use(routers.trainer);
+app.use(routers.client);
 
 app.listen(port, () => console.log(`API Server listening on port ${port}`));
 
-process.on("uncaughtException", (err) => {
-  console.error("Server uncaughtException : Catch");
+process.on('uncaughtException', (err) => {
+  console.error('Server uncaughtException : Catch');
   console.error(err);
   process.exit(1);
 });
