@@ -32,6 +32,6 @@ db.Reservation = require('./reservation')(sequelize, Sequelize); // 예약
 db.ReservationClass = require('./reservationClass')(sequelize, Sequelize); // 예약 운동
 db.Profile = require('./profiles')(sequelize, Sequelize); // 프로필
 db.Trainer = require('./trainer')(sequelize, Sequelize); // 강사
-db.Clinet = require('./client')(sequelize, Sequelize); // 고객(new)
+db.Client = require('./client')(sequelize, Sequelize); // 고객(new)
 
 module.exports = db;
