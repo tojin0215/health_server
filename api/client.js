@@ -11,7 +11,13 @@ router.route('/client').get(function (req, res) {
     where: {
       fitness_no: req.query.fitness_no,
     },
-  });
+  })
+    .then((result) => {
+      res.json(result);
+    })
+    .catch((err) => {
+      console.error(err);
+    });
 });
 
 module.exports = router;
