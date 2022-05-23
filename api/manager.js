@@ -146,7 +146,20 @@ router
         .catch((err) => {
           console.log(err);
         });
-    } else if (req.query.type === 'customer') {
+    } else if (req.query.type === 'client') {
+      Manager.create({
+        id: req.body.id,
+        password: hashPassword,
+        manager_name: req.body.manager_name,
+        salt: salt,
+        loginWhether: 2,
+      })
+        .then(() => {
+          // res.send({ success: "client" });
+        })
+        .catch((err) => {
+          console.log(err);
+        });
     } else {
       Manager.create({
         id: req.body.id,
