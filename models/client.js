@@ -9,7 +9,6 @@ module.exports = (sequelize, DataTypes) => {
         autoIncrement: true,
       },
       fitness_no: { type: DataTypes.INTEGER, allowNull: false },
-      fitness_name: { type: DataTypes.STRING(20), allowNull: false },
       client_name: { type: DataTypes.STRING(20), allowNull: false },
       phone: { type: DataTypes.STRING(40), allowNull: false },
       birth: { type: DataTypes.STRING(40), allowNull: false },
