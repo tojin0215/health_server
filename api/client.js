@@ -29,7 +29,7 @@ router
       birth: req.body.birth,
       sex: req.body.sex,
       join_route: req.body.join_route,
-      adress: req.body.adress,
+      address: req.body.address,
     })
       .then(() => {
         res.send({ success: 'insert success!' });
