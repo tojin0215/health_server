@@ -1,6 +1,6 @@
 module.exports = (sequelize, DataTypes) => {
   return sequelize.define(
-    "trainer",
+    'trainer',
     {
       idx: {
         type: DataTypes.INTEGER,
@@ -17,7 +17,7 @@ module.exports = (sequelize, DataTypes) => {
       },
       ment: { type: DataTypes.STRING(400), allowNull: true },
       history: { type: DataTypes.STRING(400), allowNull: true },
-      sex: { type: DataTypes.INTEGER, allowNull: true },
+      sex: { type: DataTypes.INTEGER, allowNull: false },
     },
     {
       timestamps: false,
