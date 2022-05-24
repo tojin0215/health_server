@@ -1,3 +1,4 @@
+const { query } = require('express');
 let express = require('express');
 
 let router = express.Router();
@@ -36,6 +37,40 @@ router
       })
       .catch((err) => {
         console.error(err);
+      });
+  })
+  .put(function (req, res) {
+    Client.update(
+      {
+        client_name: req.body.client_name,
+        address: req.body.address,
+      },
+      {
+        where: {
+          phone: req.query.phone,
+          fitness_no: req.query.fitness_no,
+        },
+      }
+    )
+      .then(() => {
+        res.send({ success: 'update success!' });
+      })
+      .catch((err) => {
+        console.error(err);
+      })
+      .delete(function (req, res) {
+        Client.destroy({
+          where: {
+            phone: req.query.phone,
+            fitness_no: req.query.fitness_no,
+          },
+        })
+          .then(() => {
+            res.send({ success: 'delete success!' });
+          })
+          .catch((err) => {
+            console.error(err);
+          });
       });
   });
 
