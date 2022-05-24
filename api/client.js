@@ -10,17 +10,31 @@ const Op = sequelize.Op;
 router
   .route('/client')
   .get(function (req, res) {
-    Client.findAll({
-      where: {
-        fitness_no: req.query.fitness_no,
-      },
-    })
-      .then((result) => {
-        res.json(result);
+    if (req.query.type === 'reservation') {
+      Client.findAll({
+        where: {
+          client_name: req.query.client_name,
+        },
       })
-      .catch((err) => {
-        console.error(err);
-      });
+        .then((result) => {
+          res.json(result);
+        })
+        .catch((err) => {
+          console.error(err);
+        });
+    } else {
+      Client.findAll({
+        where: {
+          fitness_no: req.query.fitness_no,
+        },
+      })
+        .then((result) => {
+          res.json(result);
+        })
+        .catch((err) => {
+          console.error(err);
+        });
+    }
   })
   .post(function (req, res) {
     Client.create({
