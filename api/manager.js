@@ -139,7 +139,7 @@ router
         manager_name: req.body.manager_name,
         salt: salt,
         loginWhether: 1,
-        // joinNo: req.body.joinNo,
+        joinNo: req.body.joinNo,
       })
         .then(() => {
           // res.send({ success: "Trainer" });
@@ -154,7 +154,7 @@ router
         manager_name: req.body.manager_name,
         salt: salt,
         loginWhether: 2,
-        // joinNo: req.body.joinNo,
+        joinNo: req.body.joinNo,
       })
         .then(() => {
           // res.send({ success: "client" });
@@ -172,6 +172,7 @@ router
         business_phone: req.body.business_phone,
         salt: salt,
         loginWhether: 0,
+        joinNo: req.body.joinNo,
       })
         .then(() => {
           res.send({ success: 'Manager update!' });
@@ -211,6 +212,7 @@ router
                 fitness_no: users.dataValues.fitness_no,
                 manager_name: users.dataValues.manager_name,
                 loginWhether: users.dataValues.loginWhether,
+                joinNo: users.dataValues.joinNo,
               };
               console.log(req.session);
               // RETURN SUCCESS
@@ -219,6 +221,7 @@ router
                 id: req.body.id,
                 fitness_no: users.dataValues.fitness_no,
                 loginWhether: users.dataValues.loginWhether,
+                joinNo: users.dataValues.joinNo,
               });
               //res.json(users);
             } else {
