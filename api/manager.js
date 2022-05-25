@@ -139,6 +139,7 @@ router
         manager_name: req.body.manager_name,
         salt: salt,
         loginWhether: 1,
+        joinNo: req.body.joinNo,
       })
         .then(() => {
           // res.send({ success: "Trainer" });
@@ -153,6 +154,7 @@ router
         manager_name: req.body.manager_name,
         salt: salt,
         loginWhether: 2,
+        joinNo: req.body.joinNo,
       })
         .then(() => {
           // res.send({ success: "client" });

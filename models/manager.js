@@ -1,6 +1,6 @@
 module.exports = (sequelize, DataTypes) => {
   return sequelize.define(
-    "manager",
+    'manager',
     {
       id: { type: DataTypes.STRING(20), unique: true, allowNull: false },
       fitness_no: {
@@ -16,6 +16,7 @@ module.exports = (sequelize, DataTypes) => {
       phone: { type: DataTypes.STRING(32), allowNull: true },
       salt: { type: DataTypes.STRING(40), allowNull: false },
       loginWhether: { type: DataTypes.INTEGER, allowNull: false },
+      joinNo: { type: DataTypes.INTEGER, allowNull: true },
     },
     {
       timestamps: false,

@@ -44,6 +44,7 @@ router
       ment: req.body.ment,
       history: req.body.history,
       sex: req.body.sex,
+      joinNo: req.body.joinNo,
     })
       .then(() => {
         res.send({ success: 'insert success!' });
