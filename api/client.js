@@ -45,7 +45,6 @@ router
       sex: req.body.sex,
       join_route: req.body.join_route,
       address: req.body.address,
-      joinNo: req.body.joinNo,
     })
       .then(() => {
         res.send({ success: 'insert success!' });
