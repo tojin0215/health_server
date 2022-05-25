@@ -20,7 +20,6 @@ module.exports = (sequelize, DataTypes) => {
         allowNull: false,
         defaultValue: sequelize.fn('NOW'),
       },
-      joinNo: { type: DataTypes.INTEGER, allowNull: true },
     },
     {
       timestamps: false,

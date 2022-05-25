@@ -13,7 +13,7 @@ router
     if (req.query.type === 'reservation') {
       Client.findAll({
         where: {
-          client_name: req.query.client_name,
+          idc: req.query.idc,
         },
       })
         .then((result) => {

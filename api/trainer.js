@@ -12,7 +12,7 @@ router
     if (req.query.type === 'reservation') {
       Trainer.findAll({
         where: {
-          trainer_name: req.query.trainer_name,
+          idx: req.query.idx,
         },
       })
         .then((result) => {
@@ -47,7 +47,8 @@ router
       joinNo: req.body.joinNo,
     })
       .then(() => {
-        res.send({ success: 'insert success!' });
+        res.json(result);
+        // res.send({ success: 'insert success!' });
       })
       .catch((err) => {
         console.error(err);
