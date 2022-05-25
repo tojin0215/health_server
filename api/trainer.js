@@ -47,8 +47,8 @@ router
       joinNo: req.body.joinNo,
     })
       .then(() => {
-        res.json(result);
-        // res.send({ success: 'insert success!' });
+        // res.json(result);
+        res.send({ success: 'insert success!' });
       })
       .catch((err) => {
         console.error(err);
