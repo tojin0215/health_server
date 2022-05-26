@@ -1,6 +1,4 @@
-const { query } = require('express');
 let express = require('express');
-
 let router = express.Router();
 var Client = require('../models').Client;
 
@@ -26,7 +24,9 @@ router
       Client.findAll({
         where: {
           fitness_no: req.query.fitness_no,
-          phone: { [Op.like]: '%' + req.query.search + '%' },
+          phone: {
+            [Op.like]: '%' + req.query.search + '%',
+          },
         },
       })
         .then((result) => {
@@ -39,7 +39,9 @@ router
       Client.findAll({
         where: {
           fitness_no: req.query.fitness_no,
-          client_name: { [Op.like]: '%' + req.query.search + '%' },
+          client_name: {
+            [Op.like]: '%' + req.query.search + '%',
+          },
         },
       })
         .then((result) => {
