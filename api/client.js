@@ -46,6 +46,7 @@ router
       })
         .then((result) => {
           res.json(result);
+          console.log('result', result);
         })
         .catch((err) => {
           console.error(err);
