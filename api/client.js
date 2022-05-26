@@ -22,6 +22,32 @@ router
         .catch((err) => {
           console.error(err);
         });
+    } else if (req.query.type === 'searchPhone') {
+      Client.findAll({
+        where: {
+          fitness_no: req.query.fitness_no,
+          phone: { [Op.like]: '%' + req.query.search + '%' },
+        },
+      })
+        .then((result) => {
+          res.json(result);
+        })
+        .catch((err) => {
+          console.error(err);
+        });
+    } else if (req.query.type === 'searchName') {
+      Client.findAll({
+        where: {
+          fitness_no: req.query.fitness_no,
+          client_name: { [Op.like]: '%' + req.query.search + '%' },
+        },
+      })
+        .then((result) => {
+          res.json(result);
+        })
+        .catch((err) => {
+          console.error(err);
+        });
     } else {
       Client.findAll({
         where: {
