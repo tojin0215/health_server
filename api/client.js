@@ -25,7 +25,7 @@ router
         where: {
           fitness_no: req.query.fitness_no,
           phone: {
-            [Op.like]: '%' + req.query.search + '%',
+            [Op.like]: '%' + req.query.phone + '%',
           },
         },
       })
@@ -40,7 +40,7 @@ router
         where: {
           fitness_no: req.query.fitness_no,
           client_name: {
-            [Op.like]: '%' + req.query.search + '%',
+            [Op.like]: '%' + req.query.client_name + '%',
           },
         },
       })
