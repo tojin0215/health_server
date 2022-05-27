@@ -21,6 +21,36 @@ router
         .catch((err) => {
           console.error(err);
         });
+    } else if (req.query.type === 'searchPhone') {
+      Trainer.findAll({
+        where: {
+          fitness_no: req.query.fitness_no,
+          phone: {
+            [Op.like]: '%' + req.query.phone + '%',
+          },
+        },
+      })
+        .then((result) => {
+          res.json(result);
+        })
+        .catch((err) => {
+          console.error(err);
+        });
+    } else if (req.query.type === 'searchName') {
+      Trainer.findAll({
+        where: {
+          fitness_no: req.query.fitness_no,
+          trainer_name: {
+            [Op.like]: '%' + req.query.trainer_name + '%',
+          },
+        },
+      })
+        .then((result) => {
+          res.json(result);
+        })
+        .catch((err) => {
+          console.error(err);
+        });
     } else {
       Trainer.findAll({
         where: {
