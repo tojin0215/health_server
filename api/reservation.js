@@ -87,6 +87,7 @@ router.route('/reservation/select').get(function (req, res) {
       where: {
         fitness_no: req.query.fitness_no,
       },
+      order: [['time', 'ASC']],
     })
       .then((reservation) => {
         res.json(reservation);
