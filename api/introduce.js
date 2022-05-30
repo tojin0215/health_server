@@ -26,7 +26,7 @@ router
     Introduce.create({
       fitness_no: req.body.fitness_no,
       manager_name: req.body.manager_name,
-      picture: req.file.picture,
+      picture: req.body.picture,
       story: req.body.story,
     })
       .then(() => {
