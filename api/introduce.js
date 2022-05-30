@@ -10,13 +10,13 @@ router
   .get(function (req, res) {
     Introduce.findAll({
       where: { fitness_no: req.query.fitness_no },
-    })
-      .then((result) => {
-        res.json(result);
-      })
-      .catch((err) => {
-        console.error(err);
-      });
+    });
+  })
+  .then((result) => {
+    res.json(result);
+  })
+  .catch((err) => {
+    console.error(err);
   })
   .post(function (req, res) {
     Introduce.create({
@@ -24,13 +24,13 @@ router
       manager_name: req.body.manager_name,
       picture: req.body.picture,
       story: req.body.story,
-    })
-      .then(() => {
-        res.send({ success: 'insert success!' });
-      })
-      .catch((err) => {
-        console.error(err);
-      });
+    });
+  })
+  .then(() => {
+    res.send({ success: 'insert success!' });
+  })
+  .catch((err) => {
+    console.error(err);
   })
   //   .put(function (req, res) {})
   .delete(function (req, res) {
@@ -38,12 +38,12 @@ router
       where: {
         idi: req.query.idi,
       },
-    })
-      .then(() => {
-        res.send({ success: 'delete success!' });
-      })
-      .catch((err) => {
-        console.error(err);
-      });
+    });
+  })
+  .then(() => {
+    res.send({ success: 'delete success!' });
+  })
+  .catch((err) => {
+    console.error(err);
   });
 module.exports = router;
