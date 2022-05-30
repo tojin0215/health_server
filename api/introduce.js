@@ -7,19 +7,17 @@ const Op = sequelize.Op;
 
 router
   .route('/introduce')
-  .get(
-    function (req, res) {
-      Introduce.findAll({
-        where: { fitness_no: req.query.fitness_no },
-      });
+  .get(function (req, res) {
+    Introduce.findAll({
+      where: { fitness_no: req.query.fitness_no },
+    })
       .then((result) => {
         res.json(result);
       })
       .catch((err) => {
         console.error(err);
-      })
-    }     
-  )
+      });
+  })
 
   .post(function (req, res) {
     Introduce.create({
@@ -28,14 +26,14 @@ router
       picture: req.body.picture,
       story: req.body.story,
     })
-    .then(() => {
+      .then(() => {
         res.send({ success: 'insert success!' });
       })
       .catch((err) => {
         console.error(err);
-      })
+      });
   })
-  
+
   //   .put(function (req, res) {})
   .delete(function (req, res) {
     Introduce.destroy({
@@ -43,12 +41,12 @@ router
         idi: req.query.idi,
       },
     })
-    .then(() => {
+      .then(() => {
         res.send({ success: 'delete success!' });
       })
       .catch((err) => {
         console.error(err);
       });
-  })
-  
+  });
+
 module.exports = router;
