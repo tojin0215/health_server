@@ -35,7 +35,7 @@ router
       });
   })
 
-  //   .put(function (req, res) {})
+  .put(function (req, res) {})
   .delete(function (req, res) {
     Introduce.destroy({
       where: {
