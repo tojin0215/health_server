@@ -33,6 +33,7 @@ var logger = require('morgan');
 //POST body 등을 편리하게 추출하기 위함
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
+app.use(express.static('upload'));
 
 // app.use(logger('dev'));
 // app.use(express.json());
