@@ -16,7 +16,6 @@ router
     })
       .then((result) => {
         res.json(result);
-        console.log(result);
       })
       .catch((err) => {
         console.error(err);
@@ -27,7 +26,7 @@ router
     Introduce.create({
       fitness_no: req.body.fitness_no,
       manager_name: req.body.manager_name,
-      picture: req.file.filename,
+      picture: req.file.picture,
       story: req.body.story,
     })
       .then(() => {
