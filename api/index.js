@@ -14,6 +14,7 @@ const reservationClass = require('./reservationClass');
 const profile = require('./profiles');
 const trainer = require('./trainer');
 const client = require('./client');
+const introduce = require('./introduce');
 
 //api 파일 생성할 때 마다 index에도 함께 추가
 let routers = {
@@ -33,6 +34,7 @@ let routers = {
   profile: profile,
   trainer: trainer,
   client: client,
+  introduce: introduce,
 };
 
 module.exports = routers;
