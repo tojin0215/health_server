@@ -20,11 +20,11 @@ router
       });
   })
 
-  .post(function (req, res) {
+  .post(upload.single('picture'), function (req, res) {
     Introduce.create({
       fitness_no: req.body.fitness_no,
       manager_name: req.body.manager_name,
-      picture: req.body.picture,
+      picture: req.body.filename,
       story: req.body.story,
     })
       .then(() => {
