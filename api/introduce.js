@@ -4,7 +4,9 @@ var Introduce = require('../models').Introduce;
 
 const sequelize = require('sequelize');
 const Op = sequelize.Op;
-
+const upload = multer({
+  dest: 'upload/',
+});
 router
   .route('/introduce')
   .get(function (req, res) {
