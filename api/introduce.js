@@ -9,7 +9,7 @@ router
   .route('/introduce')
   .get(function (req, res) {
     Introduce.findAll({
-      where: { idi: req.query.idi },
+      where: { fitness_no: req.query.fitness_no },
     })
       .then((result) => {
         res.json(result);
