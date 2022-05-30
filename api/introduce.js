@@ -4,6 +4,7 @@ var Introduce = require('../models').Introduce;
 
 const sequelize = require('sequelize');
 const Op = sequelize.Op;
+const multer = require('multer');
 const upload = multer({
   dest: 'upload/',
 });
