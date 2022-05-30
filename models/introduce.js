@@ -5,7 +5,7 @@ module.exports = (sequelize, DataTypes) => {
       idi: {
         type: DataTypes.INTEGER,
         allowNull: false,
-        primartKey: true,
+        primaryKey: true,
         autoIncrement: true,
       },
       fitness_no: { type: DataTypes.INTEGER, allowNull: false },
