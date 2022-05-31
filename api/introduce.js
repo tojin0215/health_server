@@ -37,7 +37,25 @@ router
       });
   })
 
-  .put(function (req, res) {})
+  .put(upload.single('picture'), function (req, res) {
+    Introduce.update(
+      {
+        picture: req.file.filename,
+        story: req.body.story,
+      },
+      {
+        where: {
+          fitness_no: req.query.fitness_no,
+        },
+      }
+    )
+      .then(() => {
+        res.send({ success: 'update success!' });
+      })
+      .catch((err) => {
+        console.error(err);
+      });
+  })
   .delete(function (req, res) {
     Introduce.destroy({
       where: {
