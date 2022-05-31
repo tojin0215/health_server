@@ -59,7 +59,7 @@ router
   .delete(function (req, res) {
     Introduce.destroy({
       where: {
-        idi: req.query.idi,
+        fitness_no: req.query.fitness_no,
       },
     })
       .then(() => {
