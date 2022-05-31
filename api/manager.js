@@ -4,6 +4,7 @@ var Manager = require('../models').Manager;
 const sequelize = require('sequelize');
 const Op = sequelize.Op;
 const crypto = require('crypto');
+const { where } = require('sequelize');
 
 router
   .route('/manager')
@@ -242,6 +243,25 @@ router
     }
   })
   .put(function (req, res) {
+    //trainer or client 수정하면 manager_name 수정
+    Manager.update(
+      {
+        manager_name: req.body.manager_name,
+        id: req.body.id,
+      },
+      {
+        where: {
+          joinNo: req.query.joinNo,
+        },
+      }
+    )
+      .then(() => {
+        res.send({ success: 'update success!' });
+      })
+      .catch((err) => {
+        console.error(err);
+      });
+
     // 수정
     /*User.update({ title: "바꿀거 ", contents: "바꿀 내용1", mood : "바꿀 내용2", verse: "바꿀 내용3", }, { where: { writer: '권소령', year:2021, month:1, date:28 } })
         .then((result) => {

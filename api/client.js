@@ -85,13 +85,11 @@ router
     Client.update(
       {
         client_name: req.body.client_name,
+        phone: req.body.phone,
         address: req.body.address,
       },
       {
-        where: {
-          phone: req.query.phone,
-          fitness_no: req.query.fitness_no,
-        },
+        where: { idc: req.query.idc },
       }
     )
       .then(() => {

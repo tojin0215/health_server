@@ -92,10 +92,7 @@ router
         history: req.body.history,
       },
       {
-        where: {
-          phone: req.query.phone,
-          fitness_no: req.query.fitness_no,
-        },
+        where: { idx: req.query.idx },
       }
     )
       .then(() => {
