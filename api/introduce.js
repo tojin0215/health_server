@@ -46,6 +46,7 @@ router
       {
         where: {
           fitness_no: req.query.fitness_no,
+          idi: req.query.idi,
         },
       }
     )
@@ -60,6 +61,7 @@ router
     Introduce.destroy({
       where: {
         fitness_no: req.query.fitness_no,
+        idi: req.query.idi,
       },
     })
       .then(() => {
