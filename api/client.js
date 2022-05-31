@@ -102,8 +102,7 @@ router
   .delete(function (req, res) {
     Client.destroy({
       where: {
-        phone: req.query.phone,
-        fitness_no: req.query.fitness_no,
+        where: { idc: req.query.idc },
       },
     })
       .then(() => {

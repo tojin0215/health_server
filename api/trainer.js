@@ -88,6 +88,7 @@ router
     Trainer.update(
       {
         trainer_name: req.body.trainer_name,
+        phone: req.body.phone,
         ment: req.body.ment,
         history: req.body.history,
       },
@@ -105,8 +106,7 @@ router
   .delete(function (req, res) {
     Trainer.destroy({
       where: {
-        phone: req.query.phone,
-        fitness_no: req.query.fitness_no,
+        where: { idx: req.query.idx },
       },
     })
       .then(() => {
