@@ -45,7 +45,6 @@ router
       },
       {
         where: {
-          fitness_no: req.query.fitness_no,
           idi: req.query.idi,
         },
       }
@@ -60,7 +59,6 @@ router
   .delete(function (req, res) {
     Introduce.destroy({
       where: {
-        fitness_no: req.query.fitness_no,
         idi: req.query.idi,
       },
     })
