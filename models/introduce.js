@@ -11,7 +11,7 @@ module.exports = (sequelize, DataTypes) => {
       fitness_no: { type: DataTypes.INTEGER, allowNull: false },
       manager_name: { type: DataTypes.STRING(20), allowNull: false },
       picture: { type: DataTypes.STRING(100), allowNull: false },
-      story: { type: DataTypes.STRING(200), allowNull: false },
+      story: { type: DataTypes.STRING(10000), allowNull: false },
     },
     {
       timestamps: false,
