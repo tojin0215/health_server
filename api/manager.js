@@ -250,7 +250,7 @@ router
         },
         {
           where: {
-            phone: req.query.id,
+            id: req.query.id,
           },
         }
       )
