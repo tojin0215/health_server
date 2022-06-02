@@ -51,6 +51,18 @@ router
         .catch((err) => {
           console.error(err);
         });
+    } else if (req.query.type === 'choiceLogin') {
+      Trainer.findAll({
+        where: {
+          phone: req.query.phone,
+        },
+      })
+        .then((result) => {
+          res.json(result);
+        })
+        .catch((err) => {
+          console.error(err);
+        });
     } else {
       Trainer.findAll({
         where: {
