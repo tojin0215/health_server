@@ -114,6 +114,19 @@ router
           console.error(err);
           next(err);
         });
+    } else if (type === 'choiceFitness') {
+      Manager.findAll({
+        where: {
+          fitness_no: req.query.fitness_no,
+        },
+      })
+        .then((managers) => {
+          res.json(managers);
+        })
+        .catch((err) => {
+          console.error(err);
+          next(err);
+        });
     }
   })
   .post(function (req, res) {
