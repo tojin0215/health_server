@@ -50,6 +50,18 @@ router
         .catch((err) => {
           console.error(err);
         });
+    } else if (req.query.type === 'choiceLogin') {
+      Client.findAll({
+        where: {
+          phone: req.query.phone,
+        },
+      })
+        .then((result) => {
+          res.json(result);
+        })
+        .catch((err) => {
+          console.error(err);
+        });
     } else {
       Client.findAll({
         where: {
