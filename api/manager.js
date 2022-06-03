@@ -234,6 +234,7 @@ router
                 success: true,
                 id: req.body.id,
                 fitness_no: users.dataValues.fitness_no,
+                manager_name: users.dataValues.manager_name,
                 loginWhether: users.dataValues.loginWhether,
                 joinNo: users.dataValues.joinNo,
               });
