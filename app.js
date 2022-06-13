@@ -61,6 +61,8 @@ app.use(routers.profile);
 app.use(routers.trainer);
 app.use(routers.client);
 app.use(routers.introduce);
+app.use(routers.workout);
+app.use(routers.workoutAlloted);
 
 app.listen(port, () => console.log(`API Server listening on port ${port}`));
 
