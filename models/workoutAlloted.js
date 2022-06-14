@@ -7,7 +7,7 @@ module.exports = (sequelize, DataTypes) => {
       client_no: { type: DataTypes.INTEGER, allowNull: false },
       //idc
       workout: { type: DataTypes.STRING(128), allowNull: false },
-      part: { type: DataTypes.INTEGER, allowNull: false },
+      region: { type: DataTypes.STRING(128), allowNull: false },
       machine: { type: DataTypes.STRING(256), allowNull: false },
       default_set: { type: DataTypes.INTEGER, allowNull: false },
       default_count: { type: DataTypes.INTEGER, allowNull: false },
