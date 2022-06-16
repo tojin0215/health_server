@@ -2,6 +2,7 @@ let express = require('express');
 let router = express.Router();
 var WorkoutAlloted = require('../models').WorkoutAlloted;
 const sequelize = require('sequelize');
+const workoutAlloted = require('../models/workoutAlloted');
 const Op = sequelize.Op;
 
 router
@@ -44,5 +45,21 @@ router
       .catch((err) => {
         console.error(err);
       });
+  })
+  //delete
+  .delete(function (req, res) {
+    workoutAlloted
+      .destroy({
+        where: {
+          idwa: req.query.idwa,
+        },
+      })
+      .then(() => {
+        res.send({ delete: 'delelte' });
+      })
+      .catch((err) => {
+        console.error(err);
+      });
   });
+
 module.exports = router;
