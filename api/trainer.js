@@ -118,7 +118,7 @@ router
   .delete(function (req, res) {
     Trainer.destroy({
       where: {
-        where: { idx: req.query.idx },
+        idx: req.query.idx,
       },
     })
       .then(() => {

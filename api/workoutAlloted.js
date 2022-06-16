@@ -48,12 +48,11 @@ router
   })
   //delete
   .delete(function (req, res) {
-    workoutAlloted
-      .destroy({
-        where: {
-          idwa: req.query.idwa,
-        },
-      })
+    WorkoutAlloted.destroy({
+      where: {
+        idwa: req.query.idwa,
+      },
+    })
       .then(() => {
         res.send({ delete: 'delelte' });
       })
