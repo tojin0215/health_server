@@ -212,14 +212,33 @@ router.route('/reservation/update').put(function (req, res) {
 });
 
 router.route('/reservation/delete').delete(function (req, res) {
-  //예약삭제
-  Reservation.destroy({ where: { res_no: req.query.res_no } })
-    .then((result) => {
-      res.send('Delete');
+  if (req.query.type === 'class') {
+    Reservation.destroy({
+      where: {
+        exercise_name: req.query.exercise_name,
+        date: req.query.date,
+        fitness_no: req.query.fitness_no,
+        time: req.query.time,
+        trainer: req.query.trainer,
+      },
     })
-    .catch((err) => {
-      console.error(err);
-    });
+      .then((result) => {
+        res.send('Delete22');
+      })
+      .catch((err) => {
+        console.error(err);
+      });
+    //수업삭제하면 하위데이터 같이 삭제
+  } else {
+    //예약삭제
+    Reservation.destroy({ where: { res_no: req.query.res_no } })
+      .then((result) => {
+        res.send('Delete');
+      })
+      .catch((err) => {
+        console.error(err);
+      });
+  }
 });
 
 module.exports = router;
