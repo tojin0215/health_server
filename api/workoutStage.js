@@ -13,6 +13,7 @@ router
         workout: req.query.workout,
       },
     })
+
       .then((workoutStage) => {
         res.json(workoutStage);
       })
@@ -20,7 +21,59 @@ router
         console.error(err);
         next(err);
       });
+  })
+  //insert
+  .post(function (req, res) {
+    WorkoutStage.create({
+      stage: req.body.stage,
+      fitness_no: req.body.fitness_no,
+      workout: req.body.workout,
+      part: req.body.part,
+      machine: req.body.machine,
+      default_set: req.body.default_set,
+      default_count: req.body.default_count,
+      default_rest: req.body.default_rest,
+      url: req.body.url,
+    })
+      .then(() => {
+        res.send('insert');
+      })
+      .catch((err) => {
+        console.error(err);
+      });
+  })
+  //update
+  .put(function (req, res) {
+    WorkoutStage.update(
+      {
+        stage: req.body.stage,
+        workout: req.body.workout,
+        part: req.body.part,
+        machine: req.body.machine,
+        default_set: req.body.default_set,
+        default_count: req.body.default_count,
+        default_rest: req.body.default_rest,
+        url: req.body.url,
+      },
+      { where: { fitness_no: req.query.fitness_no, ids: req.query.ids } }
+    )
+      .then(() => {
+        res.send('update');
+      })
+      .catch((err) => {
+        console.error(err);
+      });
+  })
+  //delete
+  .delete(function (req, res) {
+    WorkoutStage.destroy({
+      where: { ids: req.query.ids },
+    })
+      .then((result) => {
+        res.send('Delete');
+      })
+      .catch((err) => {
+        console.error(err);
+      });
   });
-//insert
-
 module.exports = router;
