@@ -36,5 +36,6 @@ db.Client = require('./client')(sequelize, Sequelize); // 고객(new)
 db.Introduce = require('./introduce')(sequelize, Sequelize); // 사업자소개(new)
 db.Workout = require('./workout')(sequelize, Sequelize); // 새운동(new)
 db.WorkoutAlloted = require('./workoutAlloted')(sequelize, Sequelize); // 새배정된운동(new)
+db.WorkoutStage = require('./workoutStage')(sequelize, Sequelize); // 묶음배정된운동(new)
 
 module.exports = db;
