@@ -1,6 +1,6 @@
 let express = require('express');
 let router = express.Router();
-var WorkoutStage = require('..models').WorkoutStage;
+var WorkoutStage = require('../models').WorkoutStage;
 const sequelize = require('sequelize');
 
 router
