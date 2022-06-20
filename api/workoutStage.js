@@ -10,7 +10,7 @@ router
     WorkoutStage.findAll({
       where: {
         fitness_no: req.query.fitness_no,
-        workout: req.query.workout,
+        stage: req.query.stage,
       },
     })
 
