@@ -20,7 +20,7 @@ router
       //console.log(moment().add(1,'day').format("YYYY-MM-DD"))
       Sales.findAll({
         where: {
-          fitness_no: req.query.fn,
+          fitness_no: req.query.fitness_no,
           //paymentDate : moment().format("YYYY-MM-DD")
           paymentDate: {
             [Op.between]: [
@@ -42,8 +42,10 @@ router
       //console.log(moment(req.query.startDate).subtract(7, 'hours').format("YYYY-MM-DD"))
       Sales.findAll({
         where: {
-          fitness_no: req.query.fn,
+          fitness_no: req.query.fitness_no,
           //paymentDate : moment().format("YYYY-MM-DD")
+          paymentTools: { [Op.like]: '%' + req.query.paymentTools + '%' },
+          exerciseName: { [Op.like]: '%' + req.query.exerciseName + '%' },
           paymentDate: {
             [Op.between]: [
               moment(req.query.startDate).subtract(9, 'hours'),
@@ -63,12 +65,12 @@ router
       //결제도구
       Sales.findAll({
         where: {
-          fitness_no: req.query.fn,
+          fitness_no: req.query.fitness_no,
           paymentTools: req.query.paymentTools,
           paymentDate: {
             [Op.between]: [
-              moment(req.query.startDate).subtract(9, 'hours'),
-              moment(req.query.endDate).subtract(9, 'hours'),
+              moment().format('YYYY-MM-DD'),
+              moment().add(1, 'day').format('YYYY-MM-DD'),
             ],
           },
         },
@@ -84,14 +86,12 @@ router
       //운동
       Sales.findAll({
         where: {
-          fitness_no: req.query.fn,
-          exerciseName: {
-            [Op.like]: req.query.exerciseName + '%',
-          },
+          fitness_no: req.query.fitness_no,
+          exerciseName: req.query.exerciseName,
           paymentDate: {
             [Op.between]: [
-              moment(req.query.startDate).subtract(9, 'hours'),
-              moment(req.query.endDate).subtract(9, 'hours'),
+              moment().format('YYYY-MM-DD'),
+              moment().add(1, 'day').format('YYYY-MM-DD'),
             ],
           },
         },
