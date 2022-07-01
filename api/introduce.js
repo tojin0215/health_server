@@ -9,7 +9,7 @@ const upload = multer({
   dest: 'upload/',
 });
 
-router.route('introduce/story').put(function (req, res) {
+router.route('/introduce/story').put(function (req, res) {
   Introduce.update(
     {
       story: req.body.story,
