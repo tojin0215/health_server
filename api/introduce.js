@@ -8,6 +8,26 @@ const multer = require('multer');
 const upload = multer({
   dest: 'upload/',
 });
+
+router.route('introduce/story').put(function (req, res) {
+  Introduce.update(
+    {
+      story: req.query.story,
+    },
+    {
+      where: {
+        idi: req.query.idi,
+      },
+    }
+  )
+    .then(() => {
+      res.send({ success: 'update success!' });
+    })
+    .catch((err) => {
+      console.error(err);
+    });
+});
+
 router
   .route('/introduce')
   .get(function (req, res) {
