@@ -12,7 +12,7 @@ const upload = multer({
 router.route('introduce/story').put(function (req, res) {
   Introduce.update(
     {
-      story: req.query.story,
+      story: req.body.story,
     },
     {
       where: {
