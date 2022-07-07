@@ -149,7 +149,7 @@ router
     if (req.query.type === 'trainer') {
       Manager.create({
         id: req.body.id,
-        fitness_name: req.body.id,
+        fitness_name: req.body.fitness_name,
         password: hashPassword,
         manager_name: req.body.manager_name,
         salt: salt,
@@ -165,7 +165,7 @@ router
     } else if (req.query.type === 'client') {
       Manager.create({
         id: req.body.id,
-        fitness_name: req.body.id,
+        fitness_name: req.body.fitness_name,
         password: hashPassword,
         manager_name: req.body.manager_name,
         salt: salt,
@@ -178,7 +178,7 @@ router
         .catch((err) => {
           console.log(err);
         });
-    } else {
+    } else if (req.query.type === 'manager') {
       Manager.create({
         id: req.body.id,
         fitness_name: req.body.fitness_name,
@@ -197,7 +197,7 @@ router
         .catch((err) => {
           console.error(err);
         });
-
+    } else {
       Manager.findOne({
         where: {
           id: req.body.id,
@@ -206,11 +206,10 @@ router
       })
         .then((users) => {
           //나중에 비밀번호 암호화할 때 참고
-
           if (users == null) {
             console.log('err2');
             return res.status(401).json({
-              error: '로그인 정보가 잘못되었습니다.',
+              error: '로그인 정보가 잘못되었습니다.2',
               code: 2,
             });
           } else {
@@ -227,6 +226,7 @@ router
               req.session.loginInfo = {
                 id: req.body.id,
                 fitness_no: users.dataValues.fitness_no,
+                fitness_name: users.dataValues.fitness_name,
                 manager_name: users.dataValues.manager_name,
                 loginWhether: users.dataValues.loginWhether,
                 joinNo: users.dataValues.joinNo,
@@ -237,6 +237,7 @@ router
                 success: true,
                 id: req.body.id,
                 fitness_no: users.dataValues.fitness_no,
+                fitness_name: users.dataValues.fitness_name,
                 manager_name: users.dataValues.manager_name,
                 loginWhether: users.dataValues.loginWhether,
                 joinNo: users.dataValues.joinNo,
@@ -245,7 +246,7 @@ router
             } else {
               //console.log('실패')
               return res.status(401).json({
-                error: '비밀번호가 잘못되었습니다.',
+                error: '비밀번호가 잘못되었습니다.4',
                 code: 4,
               });
             }
@@ -253,7 +254,7 @@ router
         })
         .catch((err) => {
           return res.status(401).json({
-            error: '로그인 정보가 잘못되었습니다.',
+            error: '로그인 정보가 잘못되었습니다.3',
             code: 3,
           });
         });
@@ -264,6 +265,7 @@ router
       Manager.update(
         {
           joinNo: req.body.joinNo,
+          fitness_name: req.body.fitness_name,
         },
         {
           where: {
