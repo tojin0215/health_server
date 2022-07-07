@@ -149,6 +149,7 @@ router
     if (req.query.type === 'trainer') {
       Manager.create({
         id: req.body.id,
+        fitness_name: req.body.id,
         password: hashPassword,
         manager_name: req.body.manager_name,
         salt: salt,
@@ -164,6 +165,7 @@ router
     } else if (req.query.type === 'client') {
       Manager.create({
         id: req.body.id,
+        fitness_name: req.body.id,
         password: hashPassword,
         manager_name: req.body.manager_name,
         salt: salt,
@@ -179,6 +181,7 @@ router
     } else {
       Manager.create({
         id: req.body.id,
+        fitness_name: req.body.fitness_name,
         password: hashPassword,
         manager_name: req.body.manager_name,
         phone: req.body.phone,
