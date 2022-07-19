@@ -10,7 +10,7 @@ app.use(
   })
 );
 
-const port = 3002 || 443;
+const port = 3002;
 
 const routers = require('./api');
 const sequelize = require('./models').sequelize; // sequelize require
