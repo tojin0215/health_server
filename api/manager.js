@@ -266,6 +266,7 @@ router
         {
           joinNo: req.body.joinNo,
           fitness_name: req.body.fitness_name,
+          loginWhether: req.body.loginWhether,
         },
         {
           where: {
@@ -285,7 +286,6 @@ router
         {
           manager_name: req.body.manager_name,
           id: req.body.id,
-          loginWhether: req.body.loginWhether,
         },
         {
           where: {
