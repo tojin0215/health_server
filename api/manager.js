@@ -285,6 +285,7 @@ router
         {
           manager_name: req.body.manager_name,
           id: req.body.id,
+          loginWhether: req.body.loginWhether,
         },
         {
           where: {
