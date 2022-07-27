@@ -77,7 +77,7 @@ router
           console.error(err);
         });
     } else if (req.query.type === 'phoneCheck') {
-      Trainer.findAll({
+      Client.findAll({
         where: {
           fitness_no: req.query.fitness_no,
           phone: req.query.phone,
