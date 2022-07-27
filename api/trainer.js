@@ -63,6 +63,19 @@ router
         .catch((err) => {
           console.error(err);
         });
+    } else if (req.query.type === 'phoneCheck') {
+      Trainer.findAll({
+        where: {
+          fitness_no: req.query.fitness_no,
+          phone: req.query.phone,
+        },
+      })
+        .then((result) => {
+          res.json(result);
+        })
+        .catch((err) => {
+          console.error(err);
+        });
     } else {
       Trainer.findAll({
         where: {
