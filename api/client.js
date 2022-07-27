@@ -3,6 +3,7 @@ let router = express.Router();
 var Client = require('../models').Client;
 
 const sequelize = require('sequelize');
+const { Trainer } = require('../models');
 const Op = sequelize.Op;
 
 router
@@ -67,6 +68,19 @@ router
         where: {
           fitness_no: req.query.fitness_no,
           idc: req.query.idc,
+        },
+      })
+        .then((result) => {
+          res.json(result);
+        })
+        .catch((err) => {
+          console.error(err);
+        });
+    } else if (req.query.type === 'phoneCheck') {
+      Trainer.findAll({
+        where: {
+          fitness_no: req.query.fitness_no,
+          phone: req.query.phone,
         },
       })
         .then((result) => {
