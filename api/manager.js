@@ -266,13 +266,25 @@ router
         {
           joinNo: req.body.joinNo,
           fitness_name: req.body.fitness_name,
-          loginWhether: req.body.loginWhether,
         },
         {
           where: {
             id: req.query.id,
           },
         }
+      )
+        .then(() => {
+          res.send({ success: 'update success!' });
+        })
+        .catch((err) => {
+          console.error(err);
+        });
+    }
+    // LW=loginWhether
+    else if (req.query.type === 'changeLW') {
+      Manager.update(
+        { loginWhether: req.body.loginWhether },
+        { where: { id: req.query.id } }
       )
         .then(() => {
           res.send({ success: 'update success!' });
