@@ -18,6 +18,7 @@ const introduce = require('./introduce');
 const workout = require('./workout');
 const workoutAlloted = require('./workoutAlloted');
 const workoutStage = require('./workoutStage');
+const genetic = require('./genetic');
 
 //api 파일 생성할 때 마다 index에도 함께 추가
 let routers = {
@@ -41,6 +42,7 @@ let routers = {
   workout: workout,
   workoutAlloted: workoutAlloted,
   workoutStage: workoutStage,
+  genetic: genetic,
 };
 
 module.exports = routers;

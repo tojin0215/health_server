@@ -64,6 +64,7 @@ app.use(routers.introduce);
 app.use(routers.workout);
 app.use(routers.workoutAlloted);
 app.use(routers.workoutStage);
+app.use(routers.genetic);
 
 app.listen(port, () => console.log(`API Server listening on port ${port}`));
 
