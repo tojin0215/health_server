@@ -12,7 +12,13 @@ router
         fitness_no: req.query.fitness_no,
         member_no: req.query.member_no,
       },
-    });
+    })
+      .then((genetic) => {
+        res.json(genetic);
+      })
+      .catch((err) => {
+        console.error(err);
+      });
   })
   .post(function (req, res) {})
   .put(function (req, res) {})
