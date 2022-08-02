@@ -1,6 +1,6 @@
 let express = require('express');
 let router = express.Router();
-var Genetic = require('../models').User;
+var Genetic = require('../models').Genetic;
 
 const sequelize = require('sequelize');
 const Op = sequelize.Op;
