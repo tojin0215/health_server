@@ -13,8 +13,8 @@ router
         member_no: req.query.member_no,
       },
     })
-      .then((genetic) => {
-        res.json(genetic);
+      .then((result) => {
+        res.json(result);
       })
       .catch((err) => {
         console.error(err);
