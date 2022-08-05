@@ -20,6 +20,8 @@ module.exports = (sequelize, DataTypes) => {
         allowNull: false,
         defaultValue: sequelize.fn('NOW'),
       },
+      lockerNumber: { type: DataTypes.STRING(40), allowNull: false },
+      sportswear: { type: DataTypes.STRING(40), allowNull: false },
     },
     {
       timestamps: false,
