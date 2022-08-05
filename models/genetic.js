@@ -5,8 +5,8 @@ module.exports = (sequelize, DataTypes) => {
       idg: {
         type: DataTypes.INTEGER,
         allowNull: false,
-        primatyKey: true,
-        autoIncreament: true,
+        primaryKey: true,
+        autoIncrement: true,
       },
       fitness_no: { type: DataTypes.INTEGER, allowNull: false },
       member_no: { type: DataTypes.INTEGER, allowNull: false }, // client idc
