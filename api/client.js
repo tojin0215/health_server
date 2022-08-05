@@ -112,6 +112,8 @@ router
       sex: req.body.sex,
       join_route: req.body.join_route,
       address: req.body.address,
+      lockerNumber: req.body.lockerNumber,
+      sportswear: req.body.sportswear,
     })
       .then(() => {
         res.send({ success: 'insert success!' });
@@ -126,6 +128,8 @@ router
         client_name: req.body.client_name,
         phone: req.body.phone,
         address: req.body.address,
+        lockerNumber: req.body.lockerNumber,
+        sportswear: req.body.sportswear,
       },
       {
         where: { idc: req.query.idc },
