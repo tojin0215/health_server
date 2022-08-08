@@ -8,7 +8,7 @@ const Op = sequelize.Op;
 require('moment-timezone');
 var moment = require('moment');
 moment.tz.setDefault('Asia/Seoul');
-
+//asd
 router
   .route('/inbody')
   .get(function (req, res) {
