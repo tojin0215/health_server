@@ -54,6 +54,7 @@ router
           },
         },
       })
+        //select test
         .then((sales) => {
           res.json(sales);
         })
