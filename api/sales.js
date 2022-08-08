@@ -38,7 +38,7 @@ router
           next(err);
         });
     } else if (type === 'select') {
-      // 원하는 날짜22
+      // 원하는 날짜
       //console.log(moment(req.query.startDate).subtract(7, 'hours').format("YYYY-MM-DD"))
       Sales.findAll({
         where: {
