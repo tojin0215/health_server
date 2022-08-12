@@ -103,6 +103,21 @@ router
           console.error(err);
           next(err);
         });
+    } else if (type === 'client') {
+      //회원 조회
+      Sales.findAll({
+        where: {
+          client_name: req.query.client_name,
+          fitness_no: req.query.fitness_no,
+        },
+      })
+        .then((sales) => {
+          res.json(sales);
+        })
+        .catch((err) => {
+          console.error(err);
+          next(err);
+        });
     }
   })
   .post(function (req, res) {
