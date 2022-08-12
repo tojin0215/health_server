@@ -18,6 +18,11 @@ module.exports = (sequelize, DataTypes) => {
       ment: { type: DataTypes.STRING(400), allowNull: true },
       history: { type: DataTypes.STRING(400), allowNull: true },
       sex: { type: DataTypes.INTEGER, allowNull: false },
+      start_date: {
+        type: DataTypes.DATE,
+        allowNull: false,
+        defaultValue: sequelize.fn('NOW'),
+      },
     },
     {
       timestamps: false,
