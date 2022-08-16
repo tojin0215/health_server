@@ -38,5 +38,6 @@ db.Workout = require('./workout')(sequelize, Sequelize); // 새운동(new)
 db.WorkoutAlloted = require('./workoutAlloted')(sequelize, Sequelize); // 새배정된운동(new)
 db.WorkoutStage = require('./workoutStage')(sequelize, Sequelize); // 묶음배정된운동(new)
 db.Genetic = require('./genetic')(sequelize, Sequelize); // 유전자검사운동(dtc)
+db.Voucher = require('./voucher')(sequelize, Sequelize); // 차감테이블(기간권일수)
 
 module.exports = db;
