@@ -8,16 +8,31 @@ module.exports = (sequelize, DataTypes) => {
       kind: { type: DataTypes.STRING(32), allowNull: false },
       //kind=Sales.exerciseName
       paymentDate: { type: DataTypes.DATE, allowNull: false },
+      //횟수제(전체횟수)
       paidMembership: {
         type: DataTypes.INTEGER,
         allowNull: false,
         defaultValue: DataTypes.NULL,
       },
+      //횟수제(남은횟수)
+      paidMembership2: {
+        type: DataTypes.INTEGER,
+        allowNull: false,
+        defaultValue: DataTypes.NULL,
+      },
+      //기간제(기간시작일)
       salesStart_date: {
         type: DataTypes.DATE,
         allowNull: false,
         defaultValue: DataTypes.NULL,
       },
+      //기간제(기간마감일)
+      salesEnd_date: {
+        type: DataTypes.DATE,
+        allowNull: false,
+        defaultValue: DataTypes.NULL,
+      },
+      //기간제(기간일수)
       salesDays: {
         type: DataTypes.STRING(128),
         allowNull: false,

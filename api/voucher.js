@@ -38,6 +38,24 @@ router
         console.error(err);
       });
   })
-  .put(function (req, res) {})
+  .put(function (req, res) {
+    Voucher.update(
+      {
+        paidMembership: req.body.paidMembership,
+        paymentDate: req.body.paymentDate,
+        salesDays: req.body.salesDays,
+        salesStart_date: req.body.salesStart_date,
+      },
+      {
+        where: { num: req.query.num },
+      }
+    )
+      .then(() => {
+        res.send({ success: 'update success!' });
+      })
+      .catch((err) => {
+        console.error(err);
+      });
+  })
   .delete(function (req, res) {});
 module.exports = router;
