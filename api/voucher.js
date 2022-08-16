@@ -21,7 +21,23 @@ router
         next(err);
       });
   })
-  .post(function (req, res) {})
+  .post(function (req, res) {
+    Voucher.create({
+      client_name: req.body.client_name,
+      fitness_no: req.body.fitness_no,
+      kind: req.body.kind,
+      paidMembership: req.body.paidMembership,
+      paymentDate: req.body.paymentDate,
+      salesDays: req.body.salesDays,
+      salesStart_date: req.body.salesStart_date,
+    })
+      .then(() => {
+        res.send({ success: 'voucher insert!' });
+      })
+      .catch((err) => {
+        console.error(err);
+      });
+  })
   .put(function (req, res) {})
   .delete(function (req, res) {});
 module.exports = router;

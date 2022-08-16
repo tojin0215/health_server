@@ -138,7 +138,7 @@ router
       salesDays: req.body.salesDays,
     })
       .then(() => {
-        res.send({ success: 'sales update!' });
+        res.send({ success: 'sales insert!' });
       })
       .catch((err) => {
         console.error(err);
