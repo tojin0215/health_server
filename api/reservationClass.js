@@ -52,6 +52,7 @@ router.route('/reservationClass/insert').post(function (req, res) {
           minute,
           trainer,
           class_date,
+          kind,
         })
           .then(() => res.send({ message: 'ok' }))
           .catch((err) => res.send({ message: '등록이 불가합니다.' }));
@@ -71,6 +72,7 @@ router.route('/reservationClass/update').post(function (req, res) {
       minute: req.body.minute,
       trainer: req.body.trainer,
       class_date: req.body.class_date,
+      kind: req.body.kind,
     },
     {
       where: {
