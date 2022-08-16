@@ -27,9 +27,11 @@ router
       fitness_no: req.body.fitness_no,
       kind: req.body.kind,
       paidMembership: req.body.paidMembership,
+      paidMembership2: req.body.paidMembership2,
       paymentDate: req.body.paymentDate,
       salesDays: req.body.salesDays,
       salesStart_date: req.body.salesStart_date,
+      salesEnd_date: req.body.salesEnd_date,
     })
       .then(() => {
         res.send({ success: 'voucher insert!' });
