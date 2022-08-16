@@ -36,6 +36,7 @@ router.route('/reservationClass/insert').post(function (req, res) {
   const minute = req.body.minute;
   const trainer = req.body.trainer;
   const class_date = req.body.class_date;
+  const kind = req.body.kind;
 
   ReservationClass.findAll({
     where: { fitness_no, exercise_class, hour, minute, class_date },
