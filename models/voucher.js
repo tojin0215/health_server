@@ -14,7 +14,7 @@ module.exports = (sequelize, DataTypes) => {
         allowNull: false,
         defaultValue: DataTypes.NULL,
       },
-      //횟수제(남은횟수)
+      //횟수제(남은횟수;차감됨)
       paidMembership2: {
         type: DataTypes.INTEGER,
         allowNull: false,
@@ -26,14 +26,14 @@ module.exports = (sequelize, DataTypes) => {
         allowNull: false,
         defaultValue: DataTypes.NULL,
       },
-      //기간제(기간마감일)
-      salesEnd_date: {
-        type: DataTypes.DATE,
+      //기간제(기간일수)
+      salesDays: {
+        type: DataTypes.STRING(128),
         allowNull: false,
         defaultValue: DataTypes.NULL,
       },
-      //기간제(기간일수)
-      salesDays: {
+      //기간제(기간일수2;차감됨)
+      salesDays2: {
         type: DataTypes.STRING(128),
         allowNull: false,
         defaultValue: DataTypes.NULL,

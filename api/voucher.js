@@ -30,8 +30,8 @@ router
       paidMembership2: req.body.paidMembership2,
       paymentDate: req.body.paymentDate,
       salesDays: req.body.salesDays,
+      salesDays2: req.body.salesDays,
       salesStart_date: req.body.salesStart_date,
-      salesEnd_date: req.body.salesEnd_date,
     })
       .then(() => {
         res.send({ success: 'voucher insert!' });
