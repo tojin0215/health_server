@@ -43,10 +43,8 @@ router
   .put(function (req, res) {
     Voucher.update(
       {
-        paidMembership: req.body.paidMembership,
-        paymentDate: req.body.paymentDate,
-        salesDays: req.body.salesDays,
-        salesStart_date: req.body.salesStart_date,
+        paidMembership2: req.body.paidMembership2,
+        salesDays2: req.body.salesDays,
       },
       {
         where: { num: req.query.num },
