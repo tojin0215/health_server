@@ -3,7 +3,7 @@ let router = express.Router();
 var Voucher = require('../models').Voucher;
 
 const sequelize = require('sequelize');
-
+const Op = sequelize.Op;
 router
   .route('/voucher')
   .get(function (req, res) {
@@ -47,7 +47,10 @@ router
         salesDays2: req.body.salesDays,
       },
       {
-        where: { num: req.query.num },
+        where: {
+          client_name: req.query.client_name,
+          kind: { [Op.like]: '%' + req.query.kind + '%' },
+        },
       }
     )
       .then(() => {
