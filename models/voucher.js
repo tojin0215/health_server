@@ -32,12 +32,6 @@ module.exports = (sequelize, DataTypes) => {
         allowNull: false,
         defaultValue: DataTypes.NULL,
       },
-      //기간제(기간일수2;차감됨)
-      salesDays2: {
-        type: DataTypes.STRING(128),
-        allowNull: false,
-        defaultValue: DataTypes.NULL,
-      },
     },
     {
       timestamps: false,

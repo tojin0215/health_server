@@ -30,7 +30,6 @@ router
       paidMembership2: req.body.paidMembership2,
       paymentDate: req.body.paymentDate,
       salesDays: req.body.salesDays,
-      salesDays2: req.body.salesDays,
       salesStart_date: req.body.salesStart_date,
     })
       .then(() => {
@@ -41,43 +40,23 @@ router
       });
   })
   .put(function (req, res) {
-    if (req.body.type === 'paidMembership') {
-      Voucher.update(
-        {
-          paidMembership2: -1,
+    Voucher.update(
+      {
+        paidMembership2: req.body.paidMembership2,
+      },
+      {
+        where: {
+          client_name: req.query.client_name,
+          kind: req.query.kind,
         },
-        {
-          where: {
-            client_name: req.query.client_name,
-            kind: req.query.kind,
-          },
-        }
-      )
-        .then(() => {
-          res.send({ success: 'paidMembership success!' });
-        })
-        .catch((err) => {
-          console.error(err);
-        });
-    } else if (req.body.type === 'salesDays') {
-      Voucher.update(
-        {
-          salesDays2: req.body.salesDays - 1,
-        },
-        {
-          where: {
-            client_name: req.query.client_name,
-            kind: req.query.kind,
-          },
-        }
-      )
-        .then(() => {
-          res.send({ success: 'salesDays success!' });
-        })
-        .catch((err) => {
-          console.error(err);
-        });
-    }
+      }
+    )
+      .then(() => {
+        res.send({ success: 'paidMembership success!' });
+      })
+      .catch((err) => {
+        console.error(err);
+      });
   })
   .delete(function (req, res) {});
 module.exports = router;
