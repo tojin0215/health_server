@@ -40,10 +40,12 @@ router
       });
   })
   .put(function (req, res) {
+    // increment
     Voucher.update(
       {
-        paidMembership2: req.body.paidMembership2,
+        paidMembership2: req.body.paidMembership2 - 1,
       },
+
       {
         where: {
           client_name: req.query.client_name,
@@ -51,12 +53,13 @@ router
         },
       }
     )
-      .then(() => {
+      .then((voucher) => {
         res.send({ success: 'paidMembership success!' });
       })
       .catch((err) => {
         console.error(err);
       });
   })
+
   .delete(function (req, res) {});
 module.exports = router;
