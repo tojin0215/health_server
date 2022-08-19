@@ -44,7 +44,7 @@ router
     if (req.body.type === 'paidMembership') {
       Voucher.update(
         {
-          paidMembership2: req.body.paidMembership2 - 1,
+          paidMembership2: -1,
         },
         {
           where: {
