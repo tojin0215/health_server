@@ -163,7 +163,7 @@ router.route('/reservation/insert').post(function (req, res) {
 
 router.route('/reservation/update').put(function (req, res) {
   //예약변경 update
-
+  //예약변경 없음, 취소하고 다시 insert
   if (req.body.type === 'app') {
     Reservation.update(
       {
