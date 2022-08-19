@@ -17,7 +17,7 @@ module.exports = (sequelize, DataTypes) => {
       number_of_people: { type: DataTypes.STRING(45), allowNull: true },
       time: { type: DataTypes.STRING(45), allowNull: false },
       trainer: { type: DataTypes.STRING(128), allowNull: false },
-      profile_id: { type: DataTypes.INTEGER, allowNull: true },
+      // profile_id: { type: DataTypes.INTEGER, allowNull: true },
       kind: { type: DataTypes.STRING(32), allowNull: false },
     },
     {

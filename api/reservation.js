@@ -144,7 +144,7 @@ router.route('/reservation/insert').post(function (req, res) {
           number_of_people: number_of_people,
           trainer: trainer,
           customer_id: customer_id,
-          profile_id: profile_id,
+          // profile_id: profile_id,
           kind: kind_id,
         })
           .then(() => {
