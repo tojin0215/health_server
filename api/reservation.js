@@ -111,6 +111,7 @@ router.route('/reservation/insert').post(function (req, res) {
       const trainer = req.body.trainer;
       const customer_id = `${req.body.customer_id}`;
       const profile_id = req.body.profile_id;
+      const kind_id = req.body.kind;
 
       let exercise_length = reservation.filter(
         (item) =>
@@ -144,6 +145,7 @@ router.route('/reservation/insert').post(function (req, res) {
           trainer: trainer,
           customer_id: customer_id,
           profile_id: profile_id,
+          kind: kind_id,
         })
           .then(() => {
             res.send({ message: 'ok' });
@@ -191,7 +193,6 @@ router.route('/reservation/update').put(function (req, res) {
         exercise_name: req.body.exercise_name,
         number_of_people: req.body.number_of_people,
         trainer: req.body.trainer,
-
         date: req.body.date,
         isCancel: req.body.isCancel,
         cancelComment: req.body.cancelComment,
