@@ -7,19 +7,36 @@ const Op = sequelize.Op;
 router
   .route('/voucher')
   .get(function (req, res) {
-    Voucher.findAll({
-      where: {
-        fitness_no: req.query.fitness_no,
-        client_name: req.query.client_name,
-      },
-    })
-      .then((voucher) => {
-        res.json(voucher);
+    if (req.query.type === 'reserv') {
+      Voucher.findAll({
+        where: {
+          client_name: req.query.client_name,
+          fitness_no: req.query.fitness_no,
+          kind: req.query.kind,
+        },
       })
-      .catch((err) => {
-        console.error(err);
-        next(err);
-      });
+        .then((voucher) => {
+          res.json(voucher);
+        })
+        .catch((err) => {
+          console.error(err);
+          next(err);
+        });
+    } else {
+      Voucher.findAll({
+        where: {
+          client_name: req.query.client_name,
+          fitness_no: req.query.fitness_no,
+        },
+      })
+        .then((voucher) => {
+          res.json(voucher);
+        })
+        .catch((err) => {
+          console.error(err);
+          next(err);
+        });
+    }
   })
   .post(function (req, res) {
     Voucher.create({
@@ -43,7 +60,7 @@ router
     // increment
     Voucher.update(
       {
-        paidMembership2: req.body.paidMembership2 - 1,
+        paidMembership2: req.body.paidMembership2,
       },
 
       {
