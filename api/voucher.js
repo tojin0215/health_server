@@ -57,25 +57,45 @@ router
       });
   })
   .put(function (req, res) {
-    // increment
-    Voucher.update(
-      {
-        paidMembership2: req.body.paidMembership2,
-      },
-
-      {
-        where: {
-          client_name: req.query.client_name,
-          kind: req.query.kind,
+    if (req.query.type === 'salesDays') {
+      Voucher.update(
+        {
+          salesDays: req.body.salesDays,
         },
-      }
-    )
-      .then((voucher) => {
-        res.send({ success: 'paidMembership success!' });
-      })
-      .catch((err) => {
-        console.error(err);
-      });
+
+        {
+          where: {
+            client_name: req.query.client_name,
+            kind: req.query.kind,
+          },
+        }
+      )
+        .then((voucher) => {
+          res.send({ success: 'paidMembership success!' });
+        })
+        .catch((err) => {
+          console.error(err);
+        });
+    } else if (req.query.type === 'paidMembership2') {
+      Voucher.update(
+        {
+          paidMembership2: req.body.paidMembership2,
+        },
+
+        {
+          where: {
+            client_name: req.query.client_name,
+            kind: req.query.kind,
+          },
+        }
+      )
+        .then((voucher) => {
+          res.send({ success: 'paidMembership success!' });
+        })
+        .catch((err) => {
+          console.error(err);
+        });
+    }
   })
 
   .delete(function (req, res) {});

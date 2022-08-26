@@ -28,7 +28,7 @@ module.exports = (sequelize, DataTypes) => {
       },
       //기간제(기간일수)
       salesDays: {
-        type: DataTypes.STRING(128),
+        type: DataTypes.INTEGER,
         allowNull: false,
         defaultValue: DataTypes.NULL,
       },
