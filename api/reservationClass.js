@@ -39,7 +39,7 @@ router.route('/reservationClass/insert').post(function (req, res) {
   const kind = req.body.kind;
 
   ReservationClass.findAll({
-    where: { fitness_no, exercise_class, hour, minute, class_date },
+    where: { fitness_no, trainer, hour, minute, class_date, kind },
   })
     .then((result) => {
       if (result.length > 0) {
