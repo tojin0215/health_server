@@ -12,6 +12,7 @@ router
       where: {
         fitness_no: req.query.fitness_no,
         client_no: req.query.client_no,
+        workoutA_date: req.query.workoutA_date,
       },
     })
       .then((WorkoutAlloted) => {
@@ -37,6 +38,7 @@ router
       default_rest: req.body.default_rest,
       //null이면 30초
       url: req.body.url,
+      workoutA_date: req.body.workoutA_date,
       completed: 0,
     })
       .then(() => {

@@ -13,6 +13,7 @@ module.exports = (sequelize, DataTypes) => {
       default_count: { type: DataTypes.INTEGER, allowNull: false },
       default_rest: { type: DataTypes.INTEGER, allowNull: false },
       url: { type: DataTypes.STRING(256) },
+      workoutA_date: { type: DataTypes.STRING(128), allowNull: false },
       completed: { type: DataTypes.INTEGER, allowNull: false, default: 0 },
     },
     {
