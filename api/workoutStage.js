@@ -66,14 +66,26 @@ router
   })
   //delete
   .delete(function (req, res) {
-    WorkoutStage.destroy({
-      where: { ids: req.query.ids },
-    })
-      .then((result) => {
-        res.send('Delete');
+    if (req.query.type === 'stage') {
+      WorkoutStage.destroy({
+        where: { stage: req.query.stage },
       })
-      .catch((err) => {
-        console.error(err);
-      });
+        .then((result) => {
+          res.send('Stage Delete');
+        })
+        .catch((err) => {
+          console.error(err);
+        });
+    } else {
+      WorkoutStage.destroy({
+        where: { ids: req.query.ids },
+      })
+        .then((result) => {
+          res.send('Delete');
+        })
+        .catch((err) => {
+          console.error(err);
+        });
+    }
   });
 module.exports = router;

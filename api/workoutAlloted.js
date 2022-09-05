@@ -42,7 +42,7 @@ router
       completed: 0,
     })
       .then(() => {
-        res.send({ message: 'ok' });
+        res.send('WorkoutAlloted');
       })
       .catch((err) => {
         console.error(err);
