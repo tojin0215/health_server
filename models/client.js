@@ -14,7 +14,7 @@ module.exports = (sequelize, DataTypes) => {
       birth: { type: DataTypes.STRING(40), allowNull: false },
       sex: { type: DataTypes.INTEGER, allowNull: false },
       join_route: { type: DataTypes.STRING(30), allowNull: false },
-      address: { type: DataTypes.STRING(300), allowNull: false },
+      address: { type: DataTypes.STRING(300), allowNull: true },
       start_date: {
         type: DataTypes.DATE,
         allowNull: false,
@@ -22,6 +22,7 @@ module.exports = (sequelize, DataTypes) => {
       },
       lockerNumber: { type: DataTypes.STRING(40), allowNull: false },
       sportswear: { type: DataTypes.STRING(40), allowNull: false },
+      memo: { type: DataTypes.STRING(6000), allowNull: true },
     },
     {
       timestamps: false,
